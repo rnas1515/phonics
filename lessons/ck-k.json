@@ -1,0 +1,96 @@
+{
+  "id": "ck-k",
+  "title": "ck or k?",
+  "saxonLesson": 11,
+  "skill": "ck-k",
+  "priority": 2,
+  "defaultActive": true,
+  "rule": "At the end of a word, look at the ONE letter right before the k sound. A short vowel alone: spell it ck. A consonant or a vowel team: spell it k.",
+  "trickText": "Look at the ONE letter right before the k sound. Not the whole word, just that one letter. Short vowel, all alone? Use c k. Consonant or vowel team? Use just k.",
+  "say": "Today's case: c k or k. Here is the trick. Do not look at the whole word. Look at the ONE letter right before the k sound. If it is a short vowel all alone, use c k. If it is a consonant or a vowel team, use just k.",
+  "example": {
+    "word": "black",
+    "answer": "bla + ck",
+    "say": "Look at black. The one letter right before the k sound is a. It is a short vowel, all alone. So we spell it c k. Black."
+  },
+  "activities": [
+    {
+      "type": "fill",
+      "oneLetter": true,
+      "choices": [
+        "ck",
+        "k"
+      ],
+      "instruction": "Find the ONE letter before the k sound. Then choose c k or k.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "black"
+        },
+        {
+          "word": "track"
+        },
+        {
+          "word": "struck"
+        },
+        {
+          "word": "click"
+        },
+        {
+          "word": "quick"
+        },
+        {
+          "word": "snack"
+        },
+        {
+          "word": "stick"
+        },
+        {
+          "word": "rock"
+        },
+        {
+          "word": "duck"
+        },
+        {
+          "word": "milk"
+        },
+        {
+          "word": "park"
+        },
+        {
+          "word": "cheek"
+        },
+        {
+          "word": "week"
+        },
+        {
+          "word": "book"
+        },
+        {
+          "word": "sunk"
+        },
+        {
+          "word": "took"
+        },
+        {
+          "word": "shook"
+        },
+        {
+          "word": "spark"
+        },
+        {
+          "word": "silk"
+        },
+        {
+          "word": "seek"
+        },
+        {
+          "word": "honk"
+        }
+      ]
+    }
+  ]
+}

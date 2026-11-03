@@ -1,0 +1,154 @@
+{
+  "id": "sneaky-e",
+  "title": "Sneaky E",
+  "saxonLesson": null,
+  "skill": "sneaky-e",
+  "priority": 1,
+  "defaultActive": true,
+  "rule": "A vowel, then one consonant, then an e at the end. The e is silent and sneaky: it makes the vowel say its name.",
+  "trickText": "Look at the end of the word. Vowel, consonant, e? Put a macron over the vowel and cross out the e. No sneaky e? A vowel with a consonant after it is short, so it gets a breve.",
+  "say": "Today's case is the sneaky e. When a word ends with a vowel, a consonant, and an e, the e is silent. It sneaks in and makes the first vowel say its name. Put a macron on the vowel and cross out the e.",
+  "example": {
+    "word": "cake",
+    "answer": "c a- k e/",
+    "say": "Look at cake. The e at the end is sneaky. It makes the a say its name. So I put a macron on the a, and I cross out the e."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Sneaky e words get a macron and a crossed out e. Short vowels get a breve.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "cake"
+        },
+        {
+          "word": "five"
+        },
+        {
+          "word": "name"
+        },
+        {
+          "word": "smile"
+        },
+        {
+          "word": "tape"
+        },
+        {
+          "word": "hope"
+        },
+        {
+          "word": "cute"
+        },
+        {
+          "word": "bike"
+        },
+        {
+          "word": "rope"
+        },
+        {
+          "word": "lake"
+        },
+        {
+          "word": "kite"
+        },
+        {
+          "word": "mule"
+        },
+        {
+          "word": "cap"
+        },
+        {
+          "word": "hop"
+        },
+        {
+          "word": "kit"
+        },
+        {
+          "word": "tub"
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen to the word. Does it have a sneaky e, or a short vowel?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "sneaky",
+          "label": "Sneaky e",
+          "why": "It ends with a vowel, a consonant, and an e. The e is silent and the vowel says its name."
+        },
+        {
+          "id": "short",
+          "label": "Short vowel",
+          "why": "There is no sneaky e at the end, so the vowel is short."
+        }
+      ],
+      "items": [
+        {
+          "word": "cape",
+          "answer": "sneaky"
+        },
+        {
+          "word": "cap",
+          "answer": "short"
+        },
+        {
+          "word": "hope",
+          "answer": "sneaky"
+        },
+        {
+          "word": "hop",
+          "answer": "short"
+        },
+        {
+          "word": "kite",
+          "answer": "sneaky"
+        },
+        {
+          "word": "kit",
+          "answer": "short"
+        },
+        {
+          "word": "tape",
+          "answer": "sneaky"
+        },
+        {
+          "word": "tap",
+          "answer": "short"
+        },
+        {
+          "word": "note",
+          "answer": "sneaky"
+        },
+        {
+          "word": "not",
+          "answer": "short"
+        },
+        {
+          "word": "cube",
+          "answer": "sneaky"
+        },
+        {
+          "word": "cub",
+          "answer": "short"
+        },
+        {
+          "word": "smile",
+          "answer": "sneaky"
+        },
+        {
+          "word": "stick",
+          "answer": "short"
+        }
+      ]
+    }
+  ]
+}

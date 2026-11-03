@@ -1,0 +1,53 @@
+{
+  "id": "sight-a8",
+  "title": "Sight Words",
+  "saxonLesson": 40,
+  "skill": "sight-a8",
+  "priority": 5,
+  "defaultActive": true,
+  "rule": "Some words do not follow the phonics rules. We learn them by sight.",
+  "trickText": "Look at the whole word. Say it out loud. These words are tricky, so we just remember them.",
+  "say": "Today's case: sight words. These words are sneaky. They do not follow the rules, so we learn them by sight. Try to read each one before you tap.",
+  "activities": [
+    {
+      "type": "sightword",
+      "instruction": "Read the word out loud. Tap I read it, or tap Hear it if you need help.",
+      "passRule": {
+        "correct": 8,
+        "of": 10
+      },
+      "items": [
+        {
+          "word": "are"
+        },
+        {
+          "word": "said"
+        },
+        {
+          "word": "eight"
+        },
+        {
+          "word": "were"
+        },
+        {
+          "word": "what"
+        },
+        {
+          "word": "from"
+        },
+        {
+          "word": "where"
+        },
+        {
+          "word": "of"
+        },
+        {
+          "word": "was"
+        },
+        {
+          "word": "two"
+        }
+      ]
+    }
+  ]
+}

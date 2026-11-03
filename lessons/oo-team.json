@@ -1,0 +1,138 @@
+{
+  "id": "oo-team",
+  "title": "The oo Team",
+  "saxonLesson": 37,
+  "skill": "oo-team",
+  "priority": 4,
+  "defaultActive": true,
+  "inReview": true,
+  "rule": "The letters oo work as a team and have two sounds: moon and book. We code both the same way: underline both letters. Your ear decides the sound.",
+  "trickText": "Two o's side by side are a team. Underline both letters. Whether it sounds like moon or like book, we code it the same.",
+  "say": "Today's case: the oo team. It has two sounds, like in moon and in book. But we code both the same way. Underline both letters, and let your ears decide the sound.",
+  "example": {
+    "word": "moon",
+    "answer": "m oo_ n",
+    "say": "Look at moon. The two o's are a team. Underline both letters. Book is coded the very same way."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the oo team. Short vowels get a breve.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "spoon"
+        },
+        {
+          "word": "cool"
+        },
+        {
+          "word": "zoo"
+        },
+        {
+          "word": "moon"
+        },
+        {
+          "word": "food"
+        },
+        {
+          "word": "room"
+        },
+        {
+          "word": "look"
+        },
+        {
+          "word": "wood"
+        },
+        {
+          "word": "foot"
+        },
+        {
+          "word": "book"
+        },
+        {
+          "word": "hook"
+        },
+        {
+          "word": "took"
+        },
+        {
+          "word": "shook"
+        },
+        {
+          "word": "hop"
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "optional": true,
+      "instruction": "Bonus: listen to the oo sound. Is it the moon sound or the book sound?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "moon",
+          "label": "Moon sound",
+          "why": "Your ear hears the long oo, like in moon."
+        },
+        {
+          "id": "book",
+          "label": "Book sound",
+          "why": "Your ear hears the short oo, like in book."
+        }
+      ],
+      "items": [
+        {
+          "word": "spoon",
+          "answer": "moon"
+        },
+        {
+          "word": "cool",
+          "answer": "moon"
+        },
+        {
+          "word": "zoo",
+          "answer": "moon"
+        },
+        {
+          "word": "food",
+          "answer": "moon"
+        },
+        {
+          "word": "room",
+          "answer": "moon"
+        },
+        {
+          "word": "look",
+          "answer": "book"
+        },
+        {
+          "word": "wood",
+          "answer": "book"
+        },
+        {
+          "word": "foot",
+          "answer": "book"
+        },
+        {
+          "word": "hook",
+          "answer": "book"
+        },
+        {
+          "word": "took",
+          "answer": "book"
+        },
+        {
+          "word": "shook",
+          "answer": "book"
+        }
+      ]
+    }
+  ]
+}

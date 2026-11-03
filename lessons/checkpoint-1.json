@@ -1,0 +1,173 @@
+{
+  "id": "checkpoint-1",
+  "kind": "checkpoint",
+  "title": "Checkpoint",
+  "saxonLesson": null,
+  "skill": "checkpoint-1",
+  "priority": 9,
+  "defaultActive": true,
+  "rule": "A mixed test of coding, ck or k, reading, and sight words.",
+  "trickText": "Use everything you know. Look at the ONE letter before the k sound. Look for sneaky e. Underline teams.",
+  "say": "This is a checkpoint. It is a mixed test. Use everything you know. Do your best, detective.",
+  "bands": [
+    {
+      "min": 13,
+      "label": "Great",
+      "say": "Great work, detective!"
+    },
+    {
+      "min": 9,
+      "label": "Solid",
+      "say": "Solid work. A little more practice and you will have it."
+    },
+    {
+      "min": 0,
+      "label": "Revisit",
+      "say": "Let's revisit these skills together."
+    }
+  ],
+  "activities": [
+    {
+      "section": "I. Code the words",
+      "type": "code",
+      "passRule": {
+        "correct": 6,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "bike"
+        },
+        {
+          "word": "green"
+        },
+        {
+          "word": "hop"
+        },
+        {
+          "word": "shook"
+        },
+        {
+          "word": "name"
+        },
+        {
+          "word": "sleep"
+        }
+      ]
+    },
+    {
+      "section": "II. ck or k",
+      "type": "fill",
+      "oneLetter": true,
+      "choices": [
+        "ck",
+        "k"
+      ],
+      "passRule": {
+        "correct": 6,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "quick"
+        },
+        {
+          "word": "milk"
+        },
+        {
+          "word": "cheek"
+        },
+        {
+          "word": "duck"
+        },
+        {
+          "word": "park"
+        },
+        {
+          "word": "stick"
+        }
+      ]
+    },
+    {
+      "section": "III. Read and answer",
+      "type": "comprehension",
+      "passRule": {
+        "correct": 3,
+        "of": 3
+      },
+      "items": [
+        {
+          "passage": "Sam has a red kite. The wind is strong. The kite zips up into the sky.",
+          "question": "What does Sam have?",
+          "choices": [
+            "A red kite",
+            "A big duck",
+            "A blue boat"
+          ],
+          "answer": 0
+        },
+        {
+          "passage": "The sheep sleep in the barn. They eat green grass in the morning.",
+          "question": "Where do the sheep sleep?",
+          "choices": [
+            "In a tree",
+            "In the barn",
+            "In a lake"
+          ],
+          "answer": 1
+        },
+        {
+          "passage": "Mom made a cake. She put a candle on top. It was for Dad.",
+          "question": "Who was the cake for?",
+          "choices": [
+            "Mom",
+            "Dad",
+            "The dog"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "section": "IV. Sight words (tutor marks)",
+      "type": "sightword",
+      "marking": "tutor",
+      "passRule": {
+        "correct": 8,
+        "of": 10
+      },
+      "items": [
+        {
+          "word": "are"
+        },
+        {
+          "word": "said"
+        },
+        {
+          "word": "eight"
+        },
+        {
+          "word": "were"
+        },
+        {
+          "word": "what"
+        },
+        {
+          "word": "from"
+        },
+        {
+          "word": "where"
+        },
+        {
+          "word": "of"
+        },
+        {
+          "word": "was"
+        },
+        {
+          "word": "two"
+        }
+      ]
+    }
+  ]
+}

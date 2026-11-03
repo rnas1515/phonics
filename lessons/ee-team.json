@@ -1,0 +1,138 @@
+{
+  "id": "ee-team",
+  "title": "The ee Team",
+  "saxonLesson": 38,
+  "skill": "ee-team",
+  "priority": 3,
+  "defaultActive": true,
+  "inReview": true,
+  "rule": "The letters ee work as a team. Two letters, one sound: long e. Underline both letters.",
+  "trickText": "Two e's side by side make one sound. Underline both letters. No breve, no macron.",
+  "say": "Today's case: the ee team. Two e's side by side make one sound, long e. We underline both letters.",
+  "example": {
+    "word": "seed",
+    "answer": "s e_ e_ d",
+    "say": "Look at seed. The two e's are a team. They make one sound. So I underline both letters."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the ee team. Short vowels get a breve.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "seed"
+        },
+        {
+          "word": "sleep"
+        },
+        {
+          "word": "queen"
+        },
+        {
+          "word": "three"
+        },
+        {
+          "word": "green"
+        },
+        {
+          "word": "sweet"
+        },
+        {
+          "word": "tree"
+        },
+        {
+          "word": "feet"
+        },
+        {
+          "word": "creep"
+        },
+        {
+          "word": "speed"
+        },
+        {
+          "word": "sheep"
+        },
+        {
+          "word": "jeep"
+        },
+        {
+          "word": "bed"
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen. Is it the ee team, or a short e?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "team",
+          "label": "ee team",
+          "why": "It has two e's together. They are a team that says long e."
+        },
+        {
+          "id": "short",
+          "label": "Short e",
+          "why": "It has just one e with a consonant after it, so it is a short vowel."
+        }
+      ],
+      "items": [
+        {
+          "word": "seed",
+          "answer": "team"
+        },
+        {
+          "word": "red",
+          "answer": "short"
+        },
+        {
+          "word": "feet",
+          "answer": "team"
+        },
+        {
+          "word": "fed",
+          "answer": "short"
+        },
+        {
+          "word": "tree",
+          "answer": "team"
+        },
+        {
+          "word": "ten",
+          "answer": "short"
+        },
+        {
+          "word": "sleep",
+          "answer": "team"
+        },
+        {
+          "word": "step",
+          "answer": "short"
+        },
+        {
+          "word": "green",
+          "answer": "team"
+        },
+        {
+          "word": "hen",
+          "answer": "short"
+        },
+        {
+          "word": "sweet",
+          "answer": "team"
+        },
+        {
+          "word": "bed",
+          "answer": "short"
+        }
+      ]
+    }
+  ]
+}
