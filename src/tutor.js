@@ -40,7 +40,17 @@ const table = (head, rows) =>
   h('div', { class: 'table-wrap' }, h('table', {}, h('thead', {}, h('tr', {}, head.map((c) => h('th', {}, c)))), h('tbody', {}, rows.map((r) => h('tr', {}, r.map((c) => h('td', {}, c)))))));
 
 /* ---------- progress ---------- */
-function progressTab() {
+function placementSelect(l, refresh) {
+  const cur = store.getProgress().placement[l.skill]?.status || '';
+  const sel = h('select', { 'aria-label': `Check-up result for ${l.title}`, onChange: (e) => {
+    const v = e.target.value;
+    if (!v) store.clearPlacement(l.skill); else store.setPlacement(l.skill, v);
+    refresh();
+  } }, [['', 'Not checked'], ['secure', 'Secure'], ['shaky', 'Almost'], ['gap', 'Gap']].map(([v, t]) => h('option', { value: v, selected: v === cur }, t)));
+  return sel;
+}
+
+function progressTab(refresh) {
   const P = store.getProgress();
   const lessons = allLessons();
   const rows = lessons.map((l) => {
@@ -50,12 +60,13 @@ function progressTab() {
       k?.attempts ?? 0, pct(accuracy(l.skill)), dateOf(k?.lastSeen),
       k?.masteredAt ? `✔ ${dateOf(k.masteredAt)}` : k?.attempts ? 'In progress' : 'Not started',
       store.isActive(l) ? 'Active' : 'Off',
+      l.kind === 'lesson' ? placementSelect(l, refresh) : '–',
     ];
   });
   const cps = P.checkpoints.slice(-5).reverse().map((c) => [c.date, c.lessonId, `${c.score}/${c.total}`, c.band, c.sight || '–']);
   return h('div', {},
     h('p', { class: 'hintline' }, `Points ${P.points} · Streak ${P.streak.count} day(s) (best ${P.streak.best}) · Badges ${Object.keys(P.badges).length}`),
-    table(['Skill', 'Saxon', 'Attempts', 'Accuracy', 'Last seen', 'Mastery', 'This week'], rows),
+    table(['Skill', 'Saxon', 'Attempts', 'Accuracy', 'Last seen', 'Mastery', 'This week', 'Check-up'], rows),
     cps.length ? [h('h3', {}, 'Recent checkpoints'), table(['Date', 'Checkpoint', 'Score', 'Band', 'Sight words'], cps)] : null);
 }
 

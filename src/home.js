@@ -28,13 +28,19 @@ export function homeScreen(root) {
   const S = store.getSettings();
   const P = store.getProgress();
   const lessons = allLessons().filter(store.isActive);
-  const { lesson: next, why } = suggestNext(lessons);
+  const { lesson: next, why, started } = suggestNext(lessons);
   const mins = Math.round(store.todaySeconds() / 60);
   const cap = S.sessionMinutes;
 
   const hello = `${greeting()}, Detective ${S.name}!`;
 
-  const mission = next
+  const mission = why === 'checkup'
+    ? h('section', { class: 'card mission' },
+        h('span', { class: 'tag' }, "Today's mission"),
+        h('h2', {}, started ? 'Finish the Detective Check-up' : 'Detective Check-up'),
+        h('p', {}, 'Show me what you already know! Quick clues, no pressure. Then I will pick the best cases for you.'),
+        h('a', { class: 'btn primary xl', href: '#/checkup' }, started ? 'Keep going ▶' : "Let's start ▶"))
+    : next
     ? h('section', { class: 'card mission' },
         h('span', { class: 'tag' }, why === 'checkpoint' ? "Today's mission · Checkpoint" : "Today's mission"),
         h('h2', {}, next.title),

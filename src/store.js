@@ -46,6 +46,7 @@ const DEFAULT_PROGRESS = () => ({
   sessions: [],
   checkpoints: [],
   reviews: 0,
+  placement: {}, // skillId -> {status:'secure'|'shaky'|'gap', score, date}
   points: 0,
   badges: {},
   streak: { last: null, count: 0, best: 0 },
@@ -136,6 +137,22 @@ export function markPassed(lesson, actIndex) {
   const required = lesson.activities.map((a, i) => [a, i]).filter(([a]) => !a.optional);
   if (required.every(([, i]) => k.passed[`${lesson.id}:${i}`])) k.masteredAt ??= new Date().toISOString();
   ensureSession();
+  saveProgress();
+}
+
+/** Record a check-up result. Secure skills count as mastered (source: placement); gaps clear that. */
+export function setPlacement(skill, status, score = null) {
+  progress.placement[skill] = { status, score, date: today() };
+  const k = (progress.skills[skill] ??= { attempts: 0, correct: 0, lastSeen: null, masteredAt: null, passed: {} });
+  if (status === 'secure') { k.masteredAt ??= new Date().toISOString(); k.placed = true; }
+  else if (k.placed) { k.masteredAt = null; k.placed = false; }
+  ensureSession();
+  saveProgress();
+}
+export function clearPlacement(skill) {
+  delete progress.placement[skill];
+  const k = progress.skills[skill];
+  if (k?.placed) { k.masteredAt = null; k.placed = false; }
   saveProgress();
 }
 

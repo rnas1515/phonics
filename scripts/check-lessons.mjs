@@ -31,5 +31,9 @@ for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
   if (errors.length) { failed++; console.error(`FAIL ${f}:\n  - ${errors.join('\n  - ')}`); }
   else console.log(`ok  ${f}  (${lesson.activities.map((a) => `${a.type}×${a.items.length}`).join(', ')})`);
 }
+// curriculum.json must reference real skills
+const cur = JSON.parse(readFileSync(new URL('../curriculum.json', import.meta.url), 'utf8'));
+const skills = new Set(readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(new URL(f, dir), 'utf8')).skill));
+for (const c of cur.skills) if (!skills.has(c.skill)) { failed++; console.error(`FAIL curriculum.json: unknown skill "${c.skill}"`); }
 if (failed) { console.error(`\n${failed} problem(s)`); process.exit(1); }
 console.log('\nAll lesson checks passed');
