@@ -60,6 +60,36 @@
       "skill": "ai-ay",
       "order": 70,
       "saxonLesson": 61
+    },
+    {
+      "skill": "er-ir-ur",
+      "order": 80,
+      "saxonLesson": null
+    },
+    {
+      "skill": "diphthongs",
+      "order": 90,
+      "saxonLesson": null
+    },
+    {
+      "skill": "soft-c-g",
+      "order": 100,
+      "saxonLesson": null
+    },
+    {
+      "skill": "y-vowel",
+      "order": 110,
+      "saxonLesson": null
+    },
+    {
+      "skill": "silent-letters",
+      "order": 120,
+      "saxonLesson": null
+    },
+    {
+      "skill": "stable-syllables",
+      "order": 130,
+      "saxonLesson": null
     }
   ]
 }

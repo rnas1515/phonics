@@ -1,0 +1,88 @@
+{
+  "id": "er-ir-ur",
+  "title": "er, ir and ur",
+  "saxonLesson": null,
+  "skill": "er-ir-ur",
+  "priority": 8,
+  "defaultActive": true,
+  "rule": "The letters er, ir and ur all say the same sound, /er/. You have to remember which spelling each word uses.",
+  "trickText": "Say the word slowly. Hear the /er/ sound. Then picture the word: does it use er, ir, or ur? The more you read these words, the easier it gets.",
+  "say": "Today's case: er, ir and ur. They all make the same sound. The trick is to remember which spelling each word uses. Say the word, then choose.",
+  "activities": [
+    {
+      "type": "fill",
+      "choices": [
+        "er",
+        "ir",
+        "ur"
+      ],
+      "instruction": "Listen to the word. Choose er, ir, or ur.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "fern",
+          "pattern": "f__n",
+          "answer": "er",
+          "why": "The /er/ sound in fern is spelled er: fern."
+        },
+        {
+          "word": "her",
+          "pattern": "h__",
+          "answer": "er",
+          "why": "The /er/ sound in her is spelled er: her."
+        },
+        {
+          "word": "germ",
+          "pattern": "g__m",
+          "answer": "er",
+          "why": "The /er/ sound in germ is spelled er: germ."
+        },
+        {
+          "word": "bird",
+          "pattern": "b__d",
+          "answer": "ir",
+          "why": "The /er/ sound in bird is spelled ir: bird."
+        },
+        {
+          "word": "girl",
+          "pattern": "g__l",
+          "answer": "ir",
+          "why": "The /er/ sound in girl is spelled ir: girl."
+        },
+        {
+          "word": "shirt",
+          "pattern": "sh__t",
+          "answer": "ir",
+          "why": "The /er/ sound in shirt is spelled ir: shirt."
+        },
+        {
+          "word": "surf",
+          "pattern": "s__f",
+          "answer": "ur",
+          "why": "The /er/ sound in surf is spelled ur: surf."
+        },
+        {
+          "word": "turn",
+          "pattern": "t__n",
+          "answer": "ur",
+          "why": "The /er/ sound in turn is spelled ur: turn."
+        },
+        {
+          "word": "burn",
+          "pattern": "b__n",
+          "answer": "ur",
+          "why": "The /er/ sound in burn is spelled ur: burn."
+        },
+        {
+          "word": "nurse",
+          "pattern": "n__se",
+          "answer": "ur",
+          "why": "The /er/ sound in nurse is spelled ur: nurse."
+        }
+      ]
+    }
+  ]
+}

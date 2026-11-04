@@ -1,0 +1,89 @@
+{
+  "id": "stable-syllables",
+  "title": "Endings: ble, gle, tle, dle",
+  "saxonLesson": null,
+  "skill": "stable-syllables",
+  "priority": 13,
+  "defaultActive": false,
+  "rule": "Some words end in a consonant plus le: ble, gle, tle and dle. The le ending says /ul/.",
+  "trickText": "Say the word slowly. Hear the /ul/ at the end. Then picture the ending: ble, gle, tle, or dle? Practice helps you remember.",
+  "say": "Today's case: word endings that sound like ul. They are spelled with a consonant and le, like table, giggle, little, and candle.",
+  "activities": [
+    {
+      "type": "fill",
+      "choices": [
+        "ble",
+        "gle",
+        "tle",
+        "dle"
+      ],
+      "instruction": "Listen to the word. Choose the ending.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "table",
+          "pattern": "ta__",
+          "answer": "ble",
+          "why": "table ends with ble: table."
+        },
+        {
+          "word": "able",
+          "pattern": "a__",
+          "answer": "ble",
+          "why": "able ends with ble: able."
+        },
+        {
+          "word": "bubble",
+          "pattern": "bub__",
+          "answer": "ble",
+          "why": "bubble ends with ble: bubble."
+        },
+        {
+          "word": "giggle",
+          "pattern": "gig__",
+          "answer": "gle",
+          "why": "giggle ends with gle: giggle."
+        },
+        {
+          "word": "jungle",
+          "pattern": "jun__",
+          "answer": "gle",
+          "why": "jungle ends with gle: jungle."
+        },
+        {
+          "word": "little",
+          "pattern": "lit__",
+          "answer": "tle",
+          "why": "little ends with tle: little."
+        },
+        {
+          "word": "turtle",
+          "pattern": "tur__",
+          "answer": "tle",
+          "why": "turtle ends with tle: turtle."
+        },
+        {
+          "word": "candle",
+          "pattern": "can__",
+          "answer": "dle",
+          "why": "candle ends with dle: candle."
+        },
+        {
+          "word": "needle",
+          "pattern": "nee__",
+          "answer": "dle",
+          "why": "needle ends with dle: needle."
+        },
+        {
+          "word": "puddle",
+          "pattern": "pud__",
+          "answer": "dle",
+          "why": "puddle ends with dle: puddle."
+        }
+      ]
+    }
+  ]
+}

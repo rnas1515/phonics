@@ -1,0 +1,202 @@
+{
+  "id": "soft-c-g",
+  "title": "Hard and Soft c and g",
+  "saxonLesson": null,
+  "skill": "soft-c-g",
+  "priority": 10,
+  "defaultActive": true,
+  "rule": "The letter c usually says /s/ before e, i or y, and /k/ before a, o or u. The letter g usually says /j/ before e, i or y, and /g/ before a, o or u.",
+  "trickText": "Look at the letter right after the c or g. e, i or y? It is usually soft: c says /s/, g says /j/. a, o or u? It is hard: c says /k/, g says /g/.",
+  "say": "Today's case: hard and soft c and g. Look at the letter right after the c or the g. If it is e, i or y, the sound is usually soft. If it is a, o or u, the sound is hard.",
+  "discover": {
+    "intro": "Sort these words by the letter after the c: e or i, or a, o or u.",
+    "groups": [
+      {
+        "id": "ei",
+        "label": "c, then e or i",
+        "why": "The c is followed by e or i."
+      },
+      {
+        "id": "aou",
+        "label": "c, then a, o or u",
+        "why": "The c is followed by a, o or u."
+      }
+    ],
+    "items": [
+      {
+        "word": "cent",
+        "answer": "ei"
+      },
+      {
+        "word": "cat",
+        "answer": "aou"
+      },
+      {
+        "word": "city",
+        "answer": "ei"
+      },
+      {
+        "word": "cup",
+        "answer": "aou"
+      },
+      {
+        "word": "cell",
+        "answer": "ei"
+      },
+      {
+        "word": "cot",
+        "answer": "aou"
+      }
+    ],
+    "question": "When c is followed by e or i, what sound does it usually make?",
+    "options": [
+      {
+        "label": "/s/, like in cent",
+        "correct": true
+      },
+      {
+        "label": "/k/, like in cat",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! c is usually soft, /s/, before e or i. Before a, o or u it is hard, /k/. g works the same way: usually /j/ before e or i."
+  },
+  "activities": [
+    {
+      "type": "sort",
+      "instruction": "Listen to the c. Is it hard, /k/, or soft, /s/?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "hard",
+          "label": "Hard c /k/",
+          "why": "c before a, o or u says /k/."
+        },
+        {
+          "id": "soft",
+          "label": "Soft c /s/",
+          "why": "c before e, i or y says /s/."
+        }
+      ],
+      "items": [
+        {
+          "word": "cat",
+          "answer": "hard"
+        },
+        {
+          "word": "cup",
+          "answer": "hard"
+        },
+        {
+          "word": "cot",
+          "answer": "hard"
+        },
+        {
+          "word": "cow",
+          "answer": "hard"
+        },
+        {
+          "word": "candy",
+          "answer": "hard"
+        },
+        {
+          "word": "cent",
+          "answer": "soft"
+        },
+        {
+          "word": "city",
+          "answer": "soft"
+        },
+        {
+          "word": "circus",
+          "answer": "soft"
+        },
+        {
+          "word": "cell",
+          "answer": "soft"
+        },
+        {
+          "word": "face",
+          "answer": "soft"
+        },
+        {
+          "word": "mice",
+          "answer": "soft"
+        },
+        {
+          "word": "fancy",
+          "answer": "soft"
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen to the g. Is it hard, /g/, or soft, /j/?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "hard",
+          "label": "Hard g /g/",
+          "why": "g before a, o or u says /g/."
+        },
+        {
+          "id": "soft",
+          "label": "Soft g /j/",
+          "why": "g before e, i or y says /j/."
+        }
+      ],
+      "items": [
+        {
+          "word": "go",
+          "answer": "hard"
+        },
+        {
+          "word": "gum",
+          "answer": "hard"
+        },
+        {
+          "word": "goat",
+          "answer": "hard"
+        },
+        {
+          "word": "game",
+          "answer": "hard"
+        },
+        {
+          "word": "gas",
+          "answer": "hard"
+        },
+        {
+          "word": "gem",
+          "answer": "soft"
+        },
+        {
+          "word": "giant",
+          "answer": "soft"
+        },
+        {
+          "word": "gentle",
+          "answer": "soft"
+        },
+        {
+          "word": "giraffe",
+          "answer": "soft"
+        },
+        {
+          "word": "page",
+          "answer": "soft"
+        },
+        {
+          "word": "cage",
+          "answer": "soft"
+        }
+      ]
+    }
+  ]
+}

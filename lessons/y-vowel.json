@@ -1,0 +1,83 @@
+{
+  "id": "y-vowel",
+  "title": "y as a Vowel",
+  "saxonLesson": null,
+  "skill": "y-vowel",
+  "priority": 11,
+  "defaultActive": true,
+  "rule": "At the end of a short word, y says long i, like fly. At the end of a longer word, y usually says long e, like baby.",
+  "trickText": "Count the syllables. One syllable, like fly? y says long i. Two syllables, like baby? y usually says long e.",
+  "say": "Today's case: the vowel y. In a short word like fly, y says long i. At the end of a longer word like baby, y says long e. Listen for the sound.",
+  "activities": [
+    {
+      "type": "sort",
+      "instruction": "Listen to the y at the end. Does it say long i, or long e?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "i",
+          "label": "Long i (fly)",
+          "why": "A one-syllable word ending in y: y says long i."
+        },
+        {
+          "id": "e",
+          "label": "Long e (baby)",
+          "why": "At the end of a longer word, y usually says long e."
+        }
+      ],
+      "items": [
+        {
+          "word": "fly",
+          "answer": "i"
+        },
+        {
+          "word": "cry",
+          "answer": "i"
+        },
+        {
+          "word": "my",
+          "answer": "i"
+        },
+        {
+          "word": "try",
+          "answer": "i"
+        },
+        {
+          "word": "sky",
+          "answer": "i"
+        },
+        {
+          "word": "dry",
+          "answer": "i"
+        },
+        {
+          "word": "baby",
+          "answer": "e"
+        },
+        {
+          "word": "happy",
+          "answer": "e"
+        },
+        {
+          "word": "funny",
+          "answer": "e"
+        },
+        {
+          "word": "puppy",
+          "answer": "e"
+        },
+        {
+          "word": "bunny",
+          "answer": "e"
+        },
+        {
+          "word": "sunny",
+          "answer": "e"
+        }
+      ]
+    }
+  ]
+}

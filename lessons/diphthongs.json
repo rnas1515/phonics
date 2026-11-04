@@ -1,0 +1,137 @@
+{
+  "id": "diphthongs",
+  "title": "oi, oy, ou and ow",
+  "saxonLesson": null,
+  "skill": "diphthongs",
+  "priority": 9,
+  "defaultActive": true,
+  "rule": "The letters oi and oy say /oi/ as in coin and toy. The letters ou and ow say /ow/ as in cloud and cow. We usually find oi and ou in the middle of a word, and oy at the end. ow is often at the end.",
+  "trickText": "Listen for the gliding sound. If it sounds like coin or toy: oi is usually in the middle, oy at the end. If it sounds like cloud or cow: ou is usually in the middle, and ow is often at the end.",
+  "say": "Today's case: gliding vowel sounds. oi and oy say oi, like coin and toy. ou and ow say ow, like cloud and cow. Listen to where the sound is in the word.",
+  "activities": [
+    {
+      "type": "fill",
+      "choices": [
+        "oi",
+        "oy"
+      ],
+      "instruction": "Listen. Choose oi or oy.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "coin",
+          "pattern": "c__n",
+          "answer": "oi",
+          "why": "coin: the oi sound is usually in the middle, spelled oi."
+        },
+        {
+          "word": "oil",
+          "pattern": "__l",
+          "answer": "oi",
+          "why": "oil: the oi sound is usually in the middle, spelled oi."
+        },
+        {
+          "word": "soil",
+          "pattern": "s__l",
+          "answer": "oi",
+          "why": "soil: the oi sound is usually in the middle, spelled oi."
+        },
+        {
+          "word": "join",
+          "pattern": "j__n",
+          "answer": "oi",
+          "why": "join: the oi sound is usually in the middle, spelled oi."
+        },
+        {
+          "word": "toy",
+          "pattern": "t__",
+          "answer": "oy",
+          "why": "toy: the oi sound is usually at the end, spelled oy."
+        },
+        {
+          "word": "boy",
+          "pattern": "b__",
+          "answer": "oy",
+          "why": "boy: the oi sound is usually at the end, spelled oy."
+        },
+        {
+          "word": "joy",
+          "pattern": "j__",
+          "answer": "oy",
+          "why": "joy: the oi sound is usually at the end, spelled oy."
+        },
+        {
+          "word": "enjoy",
+          "pattern": "enj__",
+          "answer": "oy",
+          "why": "enjoy: the oi sound is usually at the end, spelled oy."
+        }
+      ]
+    },
+    {
+      "type": "fill",
+      "choices": [
+        "ou",
+        "ow"
+      ],
+      "instruction": "Listen. Choose ou or ow.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "cloud",
+          "pattern": "cl__d",
+          "answer": "ou",
+          "why": "cloud: the ow sound in the middle of a word is usually ou."
+        },
+        {
+          "word": "house",
+          "pattern": "h__se",
+          "answer": "ou",
+          "why": "house: the ow sound in the middle of a word is usually ou."
+        },
+        {
+          "word": "mouth",
+          "pattern": "m__th",
+          "answer": "ou",
+          "why": "mouth: the ow sound in the middle of a word is usually ou."
+        },
+        {
+          "word": "round",
+          "pattern": "r__nd",
+          "answer": "ou",
+          "why": "round: the ow sound in the middle of a word is usually ou."
+        },
+        {
+          "word": "cow",
+          "pattern": "c__",
+          "answer": "ow",
+          "why": "cow: the ow sound at the end of a word is often spelled ow."
+        },
+        {
+          "word": "now",
+          "pattern": "n__",
+          "answer": "ow",
+          "why": "now: the ow sound at the end of a word is often spelled ow."
+        },
+        {
+          "word": "how",
+          "pattern": "h__",
+          "answer": "ow",
+          "why": "how: the ow sound at the end of a word is often spelled ow."
+        },
+        {
+          "word": "wow",
+          "pattern": "w__",
+          "answer": "ow",
+          "why": "wow: the ow sound at the end of a word is often spelled ow."
+        }
+      ]
+    }
+  ]
+}

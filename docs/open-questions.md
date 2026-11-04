@@ -18,3 +18,9 @@ Items we are not guessing at. Nothing below is graded as a hard rule until confi
 10. **ai / ay.** Taught as "ay usually at the end, ai usually in the middle" (a tendency, not a rule). Confirm the teacher's wording.
 11. **ke and c endings.** Spelling rules come from your brief (ke after a long vowel, c in words with 2+ syllables). Confirm the lesson number and wording.
 12. **Possessive apostrophe (L14).** Only singular owner ('s) vs plain plural (s) is taught. Plural possessives (dogs') are left out until confirmed.
+13. **Gemini curriculum notes (not adopted as authority).** Used only for topic ideas: er/ir/ur, oi/oy/ou/ow, hard and soft c/g, y as a vowel,
+    silent letters (kn, wr, gn, mb), and -ble/-gle/-tle/-dle endings. These lessons have no lesson numbers, no coding marks, and an
+    order I chose (`curriculum.json`, orders 80+). Please confirm the order and wording. "Endings: ble, gle, tle, dle" is switched off until confirmed.
+14. **Marks in the Gemini notes that nothing else confirms:** "K-back" on hard c, crossing out one twin consonant, crossing out the second
+    vowel in ai/ee/ea, brackets on stable syllables, a dot for soft g, accent marks. None are taught or graded. Which, if any, does the school use?
+15. **Gemini's lesson numbers (1 to 15)** contradict the confirmed anchors (L9 syllable division, L11 final /k/, L14 possessive, L26 "or"), so they are ignored.

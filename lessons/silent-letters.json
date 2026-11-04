@@ -1,0 +1,93 @@
+{
+  "id": "silent-letters",
+  "title": "Silent Letters",
+  "saxonLesson": null,
+  "skill": "silent-letters",
+  "priority": 12,
+  "defaultActive": true,
+  "rule": "In some words one letter is silent. In kn words the k is silent. In wr words the w is silent. In gn words the g is silent. In words ending mb, the b is silent.",
+  "trickText": "Say the word. Which letter do you NOT hear? kn: no k sound. wr: no w sound. gn: no g sound. mb: no b sound.",
+  "say": "Today's case: silent letters. Some words have a letter you cannot hear. Say the word and listen. Which letter is silent?",
+  "activities": [
+    {
+      "type": "sort",
+      "instruction": "Listen to the word. Which letter is silent?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "k",
+          "label": "k is silent",
+          "why": "In kn words, the k is silent."
+        },
+        {
+          "id": "w",
+          "label": "w is silent",
+          "why": "In wr words, the w is silent."
+        },
+        {
+          "id": "g",
+          "label": "g is silent",
+          "why": "In gn words, the g is silent."
+        },
+        {
+          "id": "b",
+          "label": "b is silent",
+          "why": "In words ending mb, the b is silent."
+        }
+      ],
+      "items": [
+        {
+          "word": "knit",
+          "answer": "k"
+        },
+        {
+          "word": "knee",
+          "answer": "k"
+        },
+        {
+          "word": "know",
+          "answer": "k"
+        },
+        {
+          "word": "write",
+          "answer": "w"
+        },
+        {
+          "word": "wrap",
+          "answer": "w"
+        },
+        {
+          "word": "wrist",
+          "answer": "w"
+        },
+        {
+          "word": "gnat",
+          "answer": "g"
+        },
+        {
+          "word": "gnaw",
+          "answer": "g"
+        },
+        {
+          "word": "gnome",
+          "answer": "g"
+        },
+        {
+          "word": "lamb",
+          "answer": "b"
+        },
+        {
+          "word": "thumb",
+          "answer": "b"
+        },
+        {
+          "word": "climb",
+          "answer": "b"
+        }
+      ]
+    }
+  ]
+}
