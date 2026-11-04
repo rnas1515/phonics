@@ -106,7 +106,7 @@ export function todaySeconds() {
 }
 
 /* ---------- recording ---------- */
-export function recordItem({ skill, word, correct }) {
+export function recordItem({ skill, word, correct, dim = 'concept' }) {
   const s = ensureSession();
   s.items++;
   if (correct) s.correct++;
@@ -115,6 +115,10 @@ export function recordItem({ skill, word, correct }) {
   const k = (progress.skills[skill] ??= { attempts: 0, correct: 0, lastSeen: null, masteredAt: null, passed: {} });
   k.attempts++;
   if (correct) k.correct++;
+  // Separate dimensions: coding, concept, reading (tutor-observed), reading-self (self-reported), comprehension.
+  const dd = ((k.dims ??= {})[dim] ??= { attempts: 0, correct: 0 });
+  dd.attempts++;
+  if (correct) dd.correct++;
   k.lastSeen = new Date().toISOString();
 
   if (word) {
@@ -180,6 +184,15 @@ export function importAll(text) {
   settings = { ...DEFAULT_SETTINGS(), ...d.settings };
   custom = d.customLessons || [];
   write(K.progress, progress); write(K.settings, settings); write(K.custom, custom);
+  notify();
+}
+/** Delete everything this app stored on this device (progress, settings, custom lessons). */
+export function deleteAll() {
+  for (const key of Object.values(K)) { try { localStorage.removeItem(key); } catch { /* ignore */ } }
+  progress = DEFAULT_PROGRESS();
+  settings = DEFAULT_SETTINGS();
+  custom = [];
+  current = null;
   notify();
 }
 export function resetProgress() {

@@ -3,7 +3,7 @@ import { speak, listVoices, configureTts } from './tts.js';
 import { pinPad, btn } from './ui.js';
 import { allLessons, problems, accuracy } from './lessons.js';
 import { normalizeLesson, deriveCk } from './validate.js';
-import { autoCode, parseCoded } from './coding.js';
+import { autoCode, parseCodedFull } from './coding.js';
 import { renderCoded } from './items.js';
 import * as store from './store.js';
 
@@ -34,6 +34,7 @@ export function tutorScreen(root) {
   open('Progress');
 }
 
+const dimPct = (k, d) => (k?.dims?.[d]?.attempts ? Math.round((k.dims[d].correct / k.dims[d].attempts) * 100) + '%' : 'unknown');
 const pct = (x) => (x == null ? '–' : Math.round(x * 100) + '%');
 const dateOf = (iso) => (iso ? new Date(iso).toLocaleDateString() : '–');
 const table = (head, rows) =>
@@ -57,7 +58,8 @@ function progressTab(refresh) {
     const k = P.skills[l.skill];
     return [
       h('strong', {}, l.title), l.kind === 'checkpoint' ? 'Checkpoint' : l.saxonLesson ? `L${l.saxonLesson}` : '–',
-      k?.attempts ?? 0, pct(accuracy(l.skill)), dateOf(k?.lastSeen),
+      k?.attempts ?? 0, pct(accuracy(l.skill)),
+      dimPct(k, 'coding'), dimPct(k, 'concept'), dimPct(k, 'reading'), dimPct(k, 'reading-self'), dateOf(k?.lastSeen),
       k?.masteredAt ? `✔ ${dateOf(k.masteredAt)}` : k?.attempts ? 'In progress' : 'Not started',
       store.isActive(l) ? 'Active' : 'Off',
       l.kind === 'lesson' ? placementSelect(l, refresh) : '–',
@@ -66,7 +68,7 @@ function progressTab(refresh) {
   const cps = P.checkpoints.slice(-5).reverse().map((c) => [c.date, c.lessonId, `${c.score}/${c.total}`, c.band, c.sight || '–']);
   return h('div', {},
     h('p', { class: 'hintline' }, `Points ${P.points} · Streak ${P.streak.count} day(s) (best ${P.streak.best}) · Badges ${Object.keys(P.badges).length}`),
-    table(['Skill', 'Saxon', 'Attempts', 'Accuracy', 'Last seen', 'Mastery', 'This week', 'Check-up'], rows),
+    table(['Skill', 'Saxon', 'Attempts', 'Accuracy', 'Coding', 'Concept', 'Reading (tutor)', 'Reading (self)', 'Last seen', 'Mastery', 'This week', 'Check-up'], rows),
     cps.length ? [h('h3', {}, 'Recent checkpoints'), table(['Date', 'Checkpoint', 'Score', 'Band', 'Sight words'], cps)] : null);
 }
 
@@ -169,7 +171,7 @@ function addForm(refresh) {
     preview.replaceChildren();
     if (typeSel.value === 'code')
       for (const w of words(wordsArea.value).slice(0, 12)) {
-        try { preview.append(h('div', { class: 'pv' }, renderCoded(parseCoded(autoCode(w))).el)); } catch { /* ignore */ }
+        try { preview.append(h('div', { class: 'pv' }, renderCoded(parseCodedFull(autoCode(w))).el)); } catch { /* ignore */ }
       }
   }
 
@@ -229,6 +231,7 @@ function settingsTab(refresh) {
     h('div', { class: 'btn-row' }, btn('Export backup', { cls: 'ghost', onClick: () => download(`word-detective-backup-${new Date().toISOString().slice(0, 10)}.json`, store.exportAll()) }),
       h('label', { class: 'file' }, 'Restore backup ', imp)),
     h('h3', {}, 'Danger zone'),
+    btn('Delete everything on this device', { cls: 'ghost danger', onClick: () => { if (confirm('Delete ALL data stored by this app on this device: progress, settings and added lessons?')) { store.deleteAll(); msg.textContent = 'Everything deleted.'; refresh(); } } }),
     btn('Reset all progress', { cls: 'ghost danger', onClick: () => { if (confirm('Erase all progress, points and badges on this device?')) { store.resetProgress(); msg.textContent = 'Progress reset.'; refresh(); } } }),
     msg);
 }

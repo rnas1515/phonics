@@ -1,0 +1,63 @@
+{
+  "id": "syllables-vccv",
+  "title": "Syllable Split",
+  "saxonLesson": 9,
+  "skill": "syllables-vccv",
+  "priority": 2,
+  "defaultActive": true,
+  "rule": "When two consonants sit between two vowels (VCCV), divide the word between the consonants.",
+  "trickText": "Find the two vowels. Look at the consonants between them. Draw the dividing line between those two consonants. Then read each part.",
+  "say": "Today's case: syllable split. When a word has two consonants between two vowels, we divide between the consonants. Tap the space where the line goes.",
+  "example": {
+    "word": "napkin",
+    "answer": "n a p | k i n",
+    "say": "Look at napkin. There are two vowels, a and i. Two consonants, p and k, sit between them. I divide between the p and the k. Nap, kin."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "divide"
+      ],
+      "instruction": "Tap the space between the two consonants to divide the word.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "napkin",
+          "answer": "n a p | k i n"
+        },
+        {
+          "word": "insect",
+          "answer": "i n | s e c t"
+        },
+        {
+          "word": "sunset",
+          "answer": "s u n | s e t"
+        },
+        {
+          "word": "basket",
+          "answer": "b a s | k e t"
+        },
+        {
+          "word": "magnet",
+          "answer": "m a g | n e t"
+        },
+        {
+          "word": "kitten",
+          "answer": "k i t | t e n"
+        },
+        {
+          "word": "rabbit",
+          "answer": "r a b | b i t"
+        },
+        {
+          "word": "picnic",
+          "answer": "p i c | n i c"
+        }
+      ]
+    }
+  ]
+}

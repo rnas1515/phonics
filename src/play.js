@@ -5,6 +5,10 @@ import { show, line, dots } from './ui.js';
 import { runItem } from './items.js';
 import * as store from './store.js';
 
+const dimOf = (act) =>
+  ({ code: 'coding', sort: 'concept', fill: 'concept', comprehension: 'comprehension' }[act.type] ||
+    (act.marking === 'tutor' ? 'reading' : 'reading-self'));
+
 /**
  * Choose n items. For sort/fill sets, balance across answers (so a ck/k set is never all one kind),
  * then shuffle.
@@ -47,7 +51,7 @@ export async function playItems(root, entries, opts = {}) {
     d.mark(i, res.correct);
     results.push({ word: item.word, correct: res.correct });
     if (!opts.guided) {
-      store.recordItem({ skill: lesson.skill, word: item.word, correct: res.correct });
+      store.recordItem({ skill: lesson.skill, word: item.word, correct: res.correct, dim: dimOf(act) });
       if (res.correct) correct++;
     }
   }

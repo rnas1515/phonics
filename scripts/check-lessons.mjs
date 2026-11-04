@@ -1,7 +1,7 @@
 // `npm test`: validates every lesson file and sanity-checks the coding helpers.
 import { readdirSync, readFileSync } from 'node:fs';
 import { normalizeLesson, deriveCk } from '../src/validate.js';
-import { autoCode } from '../src/coding.js';
+import { autoCode, parseCodedFull, gradeCoding } from '../src/coding.js';
 
 let failed = 0;
 const eq = (name, got, want) => {
@@ -24,6 +24,35 @@ const kinds = { book: 'team', click: 'short', shook: 'team', cheek: 'team', stru
 for (const [w, k] of Object.entries(kinds)) eq(`ck-kind ${w}`, deriveCk(w).beforeKind, k);
 eq('ck answer click', deriveCk('click').answer, 'ck');
 eq('ck answer book', deriveCk('book').answer, 'k');
+
+// Acceptance tests from the reference spec: spans, wrong marks, boundaries, target-only grading.
+const grade = (coded, picks, bounds = [], tools) => {
+  const e = parseCodedFull(coded);
+  const state = e.letters.map(() => new Set());
+  for (const [i, m] of picks) state[i].add(m);
+  return gradeCoding(state, new Set(bounds), e.letters, e.boundaries, tools).ok;
+};
+eq('sleep ee underline both accepted', grade('s l e_ e_ p', [[2, 'underline'], [3, 'underline']], [], ['underline']), true);
+eq('sleep underline one letter rejected', grade('s l e_ e_ p', [[2, 'underline']], [], ['underline']), false);
+eq('sleep full notation (alt) accepted', grade('s l e-_ e/_ p', [[2, 'macron'], [2, 'underline'], [3, 'strike'], [3, 'underline']], [], ['breve', 'macron', 'strike', 'underline']), true);
+eq('weekly suffix box [4,6) accepted', grade('w e e k l# y#', [[4, 'box'], [5, 'box']], [], ['box']), true);
+eq('weekly box [3,6) rejected (k is base)', grade('w e e k l# y#', [[3, 'box'], [4, 'box'], [5, 'box']], [], ['box']), false);
+eq('trusted underline instead of box rejected', grade('t r u s t e# d#', [[5, 'underline'], [6, 'underline']], [], ['box']), false);
+eq('focused suffix task ignores missing vowel marks', grade('t r uv s t e# d#', [[5, 'box'], [6, 'box']], [], ['box']), true);
+eq('under divider at 2 accepted', grade('u n | d e r', [], [2], ['divide']), true);
+eq('under divider at 3 rejected', grade('u n | d e r', [], [3], ['divide']), false);
+eq('missing divider rejected', grade('u n | d e r', [], [], ['divide']), false);
+for (const [w, e] of [['seek', 'k'], ['sick', 'ck'], ['bank', 'k'], ['back', 'ck'], ['peck', 'ck'], ['peek', 'k'], ['duck', 'ck'], ['dusk', 'k']])
+  eq(`ending of ${w}`, deriveCk(w).answer, e);
+// every lesson: coded answers keep the word's spelling and fall inside the word
+for (const f of readdirSync(new URL('../lessons/', import.meta.url)).filter((f) => f.endsWith('.json'))) {
+  const { lesson } = normalizeLesson(JSON.parse(readFileSync(new URL('../lessons/' + f, import.meta.url), 'utf8')));
+  for (const a of lesson?.activities || []) if (a.type === 'code') for (const it of a.items) {
+    const { letters, boundaries } = parseCodedFull(it.answer);
+    eq(`${f} ${it.word} spelling kept`, letters.map((l) => l.ch).join(''), it.word.toLowerCase());
+    for (const p of boundaries) eq(`${f} ${it.word} boundary ${p} in range`, p > 0 && p < letters.length, true);
+  }
+}
 
 const dir = new URL('../lessons/', import.meta.url);
 for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {

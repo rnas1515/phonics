@@ -1,11 +1,45 @@
 {
   "_note": "Teaching order. Only lessons with a confirmed saxonLesson are anchored; others are placed by the tutor. Edit 'order' freely.",
   "skills": [
-    { "skill": "sneaky-e", "order": 10, "saxonLesson": null },
-    { "skill": "ck-k", "order": 20, "saxonLesson": 11 },
-    { "skill": "oo-team", "order": 30, "saxonLesson": 37 },
-    { "skill": "ee-team", "order": 40, "saxonLesson": 38 },
-    { "skill": "sight-a8", "order": 50, "saxonLesson": 40 },
-    { "skill": "checkpoint-1", "order": 900, "saxonLesson": null }
+    {
+      "skill": "sneaky-e",
+      "order": 10,
+      "saxonLesson": null
+    },
+    {
+      "skill": "ck-k",
+      "order": 20,
+      "saxonLesson": 11
+    },
+    {
+      "skill": "oo-team",
+      "order": 30,
+      "saxonLesson": 37
+    },
+    {
+      "skill": "ee-team",
+      "order": 40,
+      "saxonLesson": 38
+    },
+    {
+      "skill": "sight-a8",
+      "order": 50,
+      "saxonLesson": 40
+    },
+    {
+      "skill": "checkpoint-1",
+      "order": 900,
+      "saxonLesson": null
+    },
+    {
+      "skill": "syllables-vccv",
+      "order": 15,
+      "saxonLesson": 9
+    },
+    {
+      "skill": "suffixes",
+      "order": 60,
+      "saxonLesson": null
+    }
   ]
 }

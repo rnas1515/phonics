@@ -1,0 +1,63 @@
+{
+  "id": "suffixes",
+  "title": "Suffix Boxes",
+  "saxonLesson": null,
+  "skill": "suffixes",
+  "priority": 6,
+  "defaultActive": true,
+  "rule": "A suffix is an ending added to a base word, like ed, ing, or ly. Draw a box around the whole suffix.",
+  "trickText": "Find the base word first. Then look at the ending that was added to it. Box only the ending. Not every word that ends in the same letters has a suffix.",
+  "say": "Today's case: suffixes. A suffix is an ending added to a base word. First find the base word. Then put a box around the ending that was added.",
+  "example": {
+    "word": "jumped",
+    "answer": "j u m p e# d#",
+    "say": "Look at jumped. The base word is jump. The ending e d was added. So I put a box around e d."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "box"
+      ],
+      "instruction": "Find the base word. Then box the suffix.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "jumped",
+          "answer": "j u m p e# d#"
+        },
+        {
+          "word": "helped",
+          "answer": "h e l p e# d#"
+        },
+        {
+          "word": "camping",
+          "answer": "c a m p i# n# g#"
+        },
+        {
+          "word": "handing",
+          "answer": "h a n d i# n# g#"
+        },
+        {
+          "word": "sadly",
+          "answer": "s a d l# y#"
+        },
+        {
+          "word": "kindly",
+          "answer": "k i n d l# y#"
+        },
+        {
+          "word": "quickly",
+          "answer": "q u i c k l# y#"
+        },
+        {
+          "word": "plans",
+          "answer": "p l a n s#"
+        }
+      ]
+    }
+  ]
+}

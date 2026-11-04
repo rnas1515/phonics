@@ -147,7 +147,7 @@ p { margin: .3em 0; }
 .blank { min-width: clamp(70px, 18vw, 120px); height: clamp(72px, 19vw, 108px); display: grid; place-items: center; border: 4px dashed var(--brand); border-radius: 16px; font-size: clamp(2.2rem, 9vw, 4rem); font-weight: 700; color: var(--brand); }
 .blank.filled { border-style: solid; background: var(--good-bg); border-color: var(--good); color: var(--good); }
 
-.tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 8px; }
+.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 200px)); gap: 10px; margin: 18px 0 8px; }
 .tools.nudge { animation: shake .4s; }
 .tool { font: inherit; font-size: .9rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 6px; min-height: 92px; cursor: pointer; background: var(--card); border: 3px solid var(--line); border-radius: var(--radius); color: var(--ink); touch-action: manipulation; }
 .tool.on { border-color: var(--brand); background: #e6ecff; box-shadow: 0 0 0 3px var(--accent); }
@@ -158,6 +158,22 @@ p { margin: .3em 0; }
 .tool-glyph.g-strike::after { content: ''; position: absolute; left: 4px; right: 4px; top: 14px; height: 5px; background: var(--soft); transform: rotate(-14deg); border-radius: 3px; }
 .tool-glyph.g-underline::before { content: 'ee'; position: absolute; inset: 0; text-align: center; font-size: 1.4rem; line-height: 26px; }
 .tool-glyph.g-underline::after { content: ''; position: absolute; left: 4px; right: 4px; bottom: 0; height: 5px; background: var(--brand); border-radius: 3px; }
+
+/* box (suffix) + syllable divider */
+.tile.m-box { border-color: var(--brand); border-width: 5px; background: #eef2ff; }
+.tile.bx-next { margin-right: -10px; border-right-width: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.tile.bx-prev { border-left-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.gap { position: relative; width: 22px; align-self: stretch; border: 0; background: transparent; padding: 0; cursor: pointer; touch-action: manipulation; }
+.gap:disabled { cursor: default; }
+.gap:not(:disabled):hover::before { background: #cfd8f6; }
+.gap::before { content: ''; position: absolute; left: 3px; right: 3px; top: 0; bottom: 0; border-radius: 8px; }
+.gap::after { content: ''; position: absolute; left: 50%; top: 4px; bottom: 4px; width: 0; transform: translateX(-50%); border-radius: 4px; }
+.gap.on::after { width: 7px; background: var(--brand); }
+.gap.bad::before { background: var(--soft-bg); }
+.tool-glyph.g-box::before { content: 'ed'; position: absolute; inset: 0; text-align: center; font-size: 1.2rem; line-height: 26px; border: 3px solid var(--brand); border-radius: 6px; }
+.tool-glyph.g-divide::before { content: 'a'; position: absolute; left: 4px; top: 0; font-size: 1.4rem; line-height: 28px; }
+.tool-glyph.g-divide::after { content: 'b'; position: absolute; right: 4px; top: 0; font-size: 1.4rem; line-height: 28px; }
+.tool-glyph.g-divide { background: linear-gradient(var(--brand), var(--brand)) center / 4px 100% no-repeat; }
 
 /* PIN pad */
 .pinpad { max-width: 320px; margin: 10px auto; }
@@ -196,6 +212,5 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 @media (max-width: 560px) {
   :root { font-size: 18px; }
   .grid2 { grid-template-columns: 1fr; }
-  .tools { grid-template-columns: repeat(2, 1fr); }
   .hero-art { width: 70px; height: 70px; font-size: 2.8rem; }
 }

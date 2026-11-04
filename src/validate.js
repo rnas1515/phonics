@@ -1,5 +1,5 @@
 // Lesson validation + normalisation. Pure module (no DOM): used by the app, the tutor form and `npm test`.
-import { parseCoded, autoCode, describeCoding } from './coding.js';
+import { parseCodedFull, autoCode, describeCoding, ALL_TOOLS, MARKS } from './coding.js';
 
 export const TYPES = ['code', 'sort', 'fill', 'sightword', 'comprehension'];
 
@@ -92,6 +92,12 @@ export function normalizeLesson(raw, source = 'built-in') {
     a.instruction = str(a.instruction) ? a.instruction : DEFAULT_INSTRUCTIONS[a.type];
     a.optional = !!a.optional;
 
+    if (a.type === 'code') {
+      a.tools ??= MARKS;
+      if (!Array.isArray(a.tools) || !a.tools.length || a.tools.some((t) => !ALL_TOOLS.includes(t)))
+        err(`${at}: "tools" must be a list of ${ALL_TOOLS.join(', ')}`);
+      if (a.alsoAccept != null && a.alsoAccept !== 'ee-full') err(`${at}: "alsoAccept" can only be "ee-full"`);
+    }
     if (a.type === 'sort') {
       if (!Array.isArray(a.categories) || a.categories.length < 2 || a.categories.some((c) => !str(c.id) || !str(c.label)))
         err(`${at}: "categories" needs at least two {id, label}`);
@@ -110,11 +116,18 @@ export function normalizeLesson(raw, source = 'built-in') {
       try {
         if (a.type === 'code') {
           if (!str(it.word)) return err(`${where}: missing "word"`);
+          const needsExplicit = (a.tools || []).some((t) => !MARKS.includes(t));
+          if (needsExplicit && !str(it.answer)) return err(`${where}: this activity uses box/divide marks, so "answer" must be written out`);
           it.answer = str(it.answer) ? it.answer : autoCode(it.word);
-          const parsed = parseCoded(it.answer);
-          if (parsed.map((p) => p.ch).join('') !== it.word.toLowerCase())
+          const { letters, boundaries } = parseCodedFull(it.answer);
+          if (letters.map((p) => p.ch).join('') !== it.word.toLowerCase())
             err(`${where}: coded answer "${it.answer}" does not spell "${it.word}"`);
-          it.why ??= describeCoding(parsed, it.word);
+          it.why ??= describeCoding(letters, it.word, a.tools, boundaries);
+          if (a.alsoAccept === 'ee-full') {
+            // Observed school notation for ee: macron on the first e, slash through the second, underline both.
+            const alt = it.answer.replace(/\be_ e_\b/, 'e-_ e/_');
+            if (alt !== it.answer) it.acceptAlso = [alt];
+          }
         } else if (a.type === 'sort') {
           if (!str(it.word)) return err(`${where}: missing "word"`);
           const cat = (a.categories || []).find((c) => c.id === it.answer);

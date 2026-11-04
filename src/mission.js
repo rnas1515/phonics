@@ -4,7 +4,7 @@ import { show, ask, line, celebrate, tutorGate } from './ui.js';
 import { getLesson } from './lessons.js';
 import { pickItems, playItems } from './play.js';
 import { renderCoded } from './items.js';
-import { parseCoded } from './coding.js';
+import { parseCodedFull } from './coding.js';
 import { checkBadges, award } from './gamify.js';
 import * as store from './store.js';
 
@@ -41,7 +41,7 @@ async function introduce(root, lesson) {
 async function showExample(root, lesson) {
   const ex = lesson.example;
   const visual = lesson.activities[0].type === 'code' && ex.answer
-    ? renderCoded(parseCoded(ex.answer)).el
+    ? renderCoded(parseCodedFull(ex.answer)).el
     : h('div', { class: 'card-word' }, h('span', { class: 'big-word' }, ex.word), ex.answer ? h('span', { class: 'chip' }, ex.answer) : null);
   speak(ex.say || ex.word);
   await ask(root, [h('h2', {}, `Example: ${ex.word}`), visual, line(ex.say || '')], [{ id: 'ok', label: 'Got it', cls: 'primary' }]);
