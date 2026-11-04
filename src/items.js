@@ -162,7 +162,7 @@ async function codeItem(host, act, item, ctx) {
 async function sortItem(host, act, item, ctx) {
   const cats = act.categories;
   host.append(
-    h('div', { class: 'card-word' }, h('span', { class: 'big-word' }, item.word), speakBtn(item.word, 'Hear the word'))
+    h('div', { class: 'card-word' }, h('span', { class: 'big-word' + (item.word.length > 9 ? ' phrase' : '') }, item.word), speakBtn(item.word, 'Hear the word'))
   );
   const buttons = cats.map((c) => h('button', { class: 'btn cat', type: 'button', 'data-id': c.id }, c.label));
   host.append(h('div', { class: 'btn-row' }, buttons));
@@ -177,7 +177,7 @@ async function sortItem(host, act, item, ctx) {
 /* ---------- fill (generic) ---------- */
 async function fillItem(host, act, item, ctx) {
   host.append(
-    h('div', { class: 'card-word' }, h('span', { class: 'big-word' }, item.pattern.replace(/_+/g, ' ＿＿ ')), speakBtn(item.word, 'Hear the word'))
+    h('div', { class: 'card-word' }, h('span', { class: 'big-word' + (item.pattern.length > 9 ? ' phrase' : '') }, item.pattern.replace(/_+/g, ' ＿＿ ')), speakBtn(item.word, 'Hear the word'))
   );
   const buttons = act.choices.map((c) => h('button', { class: 'btn cat', type: 'button', 'data-id': c }, c));
   host.append(h('div', { class: 'btn-row' }, buttons));
@@ -195,6 +195,7 @@ const KIND_SAYS = { short: 'a short vowel, all alone', consonant: 'a consonant',
 async function oneLetterItem(host, act, item, ctx) {
   const { word, stem, answer, before, beforeKind } = item;
   let mistakes = 0;
+  const kindSay = () => act.kinds.find((k) => k.id === beforeKind)?.say || KIND_SAYS[beforeKind] || beforeKind;
   const blank = h('span', { class: 'blank' }, '?');
   const tiles = [...stem].map((c, i) => h('button', { class: 'tile small', type: 'button', 'aria-label': `letter ${c}` }, h('span', { class: 'ch' }, c)));
   const wordEl = h('div', { class: 'word', role: 'group' }, tiles, blank);
@@ -204,7 +205,9 @@ async function oneLetterItem(host, act, item, ctx) {
     prompt.replaceChildren(h('p', {}, text), speakBtn(text));
     speak(text, { queue: !interrupt });
   };
-  const rule = h('p', { class: 'rule-strip' }, h('b', {}, 'Short vowel alone'), ' → ck   ·   ', h('b', {}, 'Consonant or vowel team'), ' → k');
+  const rule = act.ruleStrip
+    ? h('p', { class: 'rule-strip' }, act.ruleStrip)
+    : h('p', { class: 'rule-strip' }, h('b', {}, 'Short vowel alone'), ' → ck   ·   ', h('b', {}, 'Consonant or vowel team'), ' → k');
   host.append(
     h('div', { class: 'word-head' }, h('span', { class: 'tag' }, 'ck or k?'), speakBtn(word, 'Hear the word')),
     wordEl, prompt, area, rule
@@ -233,7 +236,7 @@ async function oneLetterItem(host, act, item, ctx) {
     markTarget();
 
     // Step 2: what kind of letter is it?
-    setPrompt(`That letter is "${before}". What is it?`);
+    setPrompt(item.step2 || `That letter is "${before}". What is it?`);
     const kinds = act.kinds;
     const kb = kinds.map((k) => h('button', { class: 'btn cat', type: 'button', 'data-id': k.id }, k.label));
     area.replaceChildren(h('div', { class: 'btn-row' }, kb));
@@ -243,12 +246,12 @@ async function oneLetterItem(host, act, item, ctx) {
           if (b.dataset.id === beforeKind) { b.classList.add('right'); kb.forEach((x) => (x.disabled = true)); res(); }
           else {
             mistakes++; b.disabled = true; b.classList.add('wrong');
-            speak(`Look again. The letter is "${before}". It is ${KIND_SAYS[beforeKind]}.`);
+            speak(item.step2Why ? `Look again. ${item.step2Why}` : `Look again. The letter is "${before}". It is ${kindSay()}.`);
           }
         })
       )
     );
-    speak(`Yes! "${before}" is ${KIND_SAYS[beforeKind]}.`);
+    speak(item.step2Why ? `Yes! ${item.step2Why}` : `Yes! "${before}" is ${kindSay()}.`);
   } else {
     // Quick-fire (review): go straight to the choice, hint on demand.
     const hint = btn('💡 Hint', { cls: 'ghost', onClick: () => { markTarget(); speak('Look at the ONE letter right before the k sound. Short vowel alone: c k. Consonant or vowel team: just k.'); } });

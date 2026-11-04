@@ -120,6 +120,7 @@ export function normalizeLesson(raw, source = 'built-in') {
       if (a.oneLetter) {
         a.choices ??= ['ck', 'k'];
         a.kinds ??= DEFAULT_KINDS;
+        a.ruleStrip ??= null;
       } else if (!Array.isArray(a.choices) || a.choices.length < 2) err(`${at}: "choices" needs at least two options`);
     }
     if (a.type === 'sightword') a.marking = a.marking === 'tutor' ? 'tutor' : 'self';
@@ -149,9 +150,13 @@ export function normalizeLesson(raw, source = 'built-in') {
           it.why ??= cat.why || `${it.word} goes with "${cat.label}".`;
         } else if (a.type === 'fill' && a.oneLetter) {
           if (!str(it.word)) return err(`${where}: missing "word"`);
-          const d = deriveCk(it.word);
-          if (!d) return err(`${where}: "${it.word}" does not end in ck or k`);
-          Object.assign(it, { ...d, ...it });
+          const explicit = str(it.stem) && str(it.answer) && str(it.beforeKind);
+          const d = explicit ? null : deriveCk(it.word);
+          if (!explicit && !d) return err(`${where}: "${it.word}" does not end in ck or k (or give "stem", "answer", "beforeKind" and "why" yourself)`);
+          if (explicit && !str(it.why)) return err(`${where}: explicit items need a "why"`);
+          Object.assign(it, { ...(d || {}), ...it });
+          if (!a.choices.includes(it.answer)) err(`${where}: answer "${it.answer}" is not in "choices"`);
+          it.before ??= it.stem.slice(-1);
           it.why ??= ckWhy(it.word, it);
           if (!a.kinds.some((k) => k.id === it.beforeKind)) err(`${where}: unknown beforeKind "${it.beforeKind}"`);
         } else if (a.type === 'fill') {

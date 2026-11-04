@@ -1,0 +1,161 @@
+{
+  "id": "possessive",
+  "title": "Who Owns It?",
+  "saxonLesson": 14,
+  "skill": "possessive",
+  "priority": 3,
+  "defaultActive": true,
+  "rule": "When one person or animal owns something, add an apostrophe and s. If there is more than one but nobody owns anything, just add s.",
+  "trickText": "Ask: does someone own something? Then use an apostrophe and s, like the dog's bone. If it just means more than one, like two dogs, add only s.",
+  "say": "Today's case: the apostrophe. When one person or animal owns something, we add an apostrophe and s. But when there is just more than one, we add only s. Ask yourself: does anyone own something?",
+  "example": {
+    "word": "the dog's bone",
+    "answer": "'s",
+    "say": "The bone belongs to the dog. One owner owns something, so we write dog apostrophe s."
+  },
+  "discover": {
+    "intro": "Sort these. Does someone own something, or is it just more than one?",
+    "groups": [
+      {
+        "id": "own",
+        "label": "Someone owns something",
+        "why": "The apostrophe s shows who owns it."
+      },
+      {
+        "id": "many",
+        "label": "Just more than one",
+        "why": "It only means more than one, so it is just s."
+      }
+    ],
+    "items": [
+      {
+        "word": "the dog's bone",
+        "answer": "own"
+      },
+      {
+        "word": "two dogs ran",
+        "answer": "many"
+      },
+      {
+        "word": "Mom's car",
+        "answer": "own"
+      },
+      {
+        "word": "three cats sat",
+        "answer": "many"
+      },
+      {
+        "word": "Ben's hat",
+        "answer": "own"
+      },
+      {
+        "word": "five ducks swim",
+        "answer": "many"
+      }
+    ],
+    "question": "What shows that someone owns something?",
+    "options": [
+      {
+        "label": "An apostrophe and s",
+        "correct": true
+      },
+      {
+        "label": "Just an s",
+        "correct": false
+      },
+      {
+        "label": "Nothing at all",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! An apostrophe and s shows who owns something. Just s means more than one."
+  },
+  "activities": [
+    {
+      "type": "fill",
+      "choices": [
+        "'s",
+        "s"
+      ],
+      "instruction": "Does someone own something? Choose apostrophe s, or just s.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "the dog's bone",
+          "pattern": "the dog_ bone",
+          "answer": "'s",
+          "why": "One dog owns the bone, so add an apostrophe and s: dog's."
+        },
+        {
+          "word": "Mom's car",
+          "pattern": "Mom_ car",
+          "answer": "'s",
+          "why": "Mom owns the car, so add an apostrophe and s: Mom's."
+        },
+        {
+          "word": "the cat's tail",
+          "pattern": "the cat_ tail",
+          "answer": "'s",
+          "why": "The tail belongs to one cat, so add an apostrophe and s: cat's."
+        },
+        {
+          "word": "Ben's hat",
+          "pattern": "Ben_ hat",
+          "answer": "'s",
+          "why": "The hat belongs to Ben, so add an apostrophe and s: Ben's."
+        },
+        {
+          "word": "my sister's book",
+          "pattern": "my sister_ book",
+          "answer": "'s",
+          "why": "The book belongs to my sister, so add an apostrophe and s: sister's."
+        },
+        {
+          "word": "the bird's nest",
+          "pattern": "the bird_ nest",
+          "answer": "'s",
+          "why": "The nest belongs to the bird, so add an apostrophe and s: bird's."
+        },
+        {
+          "word": "two dogs ran",
+          "pattern": "two dog_ ran",
+          "answer": "s",
+          "why": "Two means more than one, and nobody owns anything. So add just s: dogs."
+        },
+        {
+          "word": "three cats sat",
+          "pattern": "three cat_ sat",
+          "answer": "s",
+          "why": "Three means more than one, and nobody owns anything. So add just s: cats."
+        },
+        {
+          "word": "five birds sing",
+          "pattern": "five bird_ sing",
+          "answer": "s",
+          "why": "Five birds is just more than one. No owner, so just s."
+        },
+        {
+          "word": "ten ducks swim",
+          "pattern": "ten duck_ swim",
+          "answer": "s",
+          "why": "Ten ducks is just more than one. No owner, so just s."
+        },
+        {
+          "word": "my books are here",
+          "pattern": "my book_ are here",
+          "answer": "s",
+          "why": "More than one book, and nobody owns anything. Just s."
+        },
+        {
+          "word": "the boys run",
+          "pattern": "the boy_ run",
+          "answer": "s",
+          "why": "More than one boy, and nobody owns anything here. Just s."
+        }
+      ]
+    }
+  ]
+}

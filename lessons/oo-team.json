@@ -134,5 +134,62 @@
         }
       ]
     }
-  ]
+  ],
+  "discover": {
+    "intro": "Sort these words. Does the word have the oo team?",
+    "groups": [
+      {
+        "id": "oo",
+        "label": "Has oo",
+        "why": "It has two o's side by side."
+      },
+      {
+        "id": "no",
+        "label": "No oo",
+        "why": "It does not have two o's together."
+      }
+    ],
+    "items": [
+      {
+        "word": "moon",
+        "answer": "oo"
+      },
+      {
+        "word": "hop",
+        "answer": "no"
+      },
+      {
+        "word": "book",
+        "answer": "oo"
+      },
+      {
+        "word": "cat",
+        "answer": "no"
+      },
+      {
+        "word": "food",
+        "answer": "oo"
+      },
+      {
+        "word": "log",
+        "answer": "no"
+      }
+    ],
+    "question": "Moon and book have different oo sounds. How do we code oo?",
+    "options": [
+      {
+        "label": "Underline both letters, the same way",
+        "correct": true
+      },
+      {
+        "label": "Underline only one o",
+        "correct": false
+      },
+      {
+        "label": "Put a breve on one o",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! oo has two sounds, but we code both the same way: underline both letters. Your ears decide the sound."
+  }
 }

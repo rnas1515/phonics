@@ -1,0 +1,99 @@
+{
+  "id": "or-combo",
+  "title": "The or Team",
+  "saxonLesson": 26,
+  "skill": "or-combo",
+  "priority": 4,
+  "defaultActive": true,
+  "rule": "The letters o and r together say /or/, like in corn. The letters a and r together say /ar/, like in car.",
+  "trickText": "Listen for the vowel sound. If it sounds like corn, use o r. If it sounds like car, use a r.",
+  "say": "Today's case: the or team. When o and r are together, they say or, like in corn. Listen carefully, and do not mix it up with a r, like in car.",
+  "activities": [
+    {
+      "type": "fill",
+      "choices": [
+        "or",
+        "ar"
+      ],
+      "instruction": "Listen to the word. Choose or, or ar.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "corn",
+          "pattern": "c__n",
+          "answer": "or",
+          "why": "The letters o r work together and say /or/, as in corn: corn."
+        },
+        {
+          "word": "fork",
+          "pattern": "f__k",
+          "answer": "or",
+          "why": "The letters o r work together and say /or/, as in corn: fork."
+        },
+        {
+          "word": "horse",
+          "pattern": "h__se",
+          "answer": "or",
+          "why": "The letters o r work together and say /or/, as in corn: horse."
+        },
+        {
+          "word": "storm",
+          "pattern": "st__m",
+          "answer": "or",
+          "why": "The letters o r work together and say /or/, as in corn: storm."
+        },
+        {
+          "word": "porch",
+          "pattern": "p__ch",
+          "answer": "or",
+          "why": "The letters o r work together and say /or/, as in corn: porch."
+        },
+        {
+          "word": "born",
+          "pattern": "b__n",
+          "answer": "or",
+          "why": "The letters o r work together and say /or/, as in corn: born."
+        },
+        {
+          "word": "car",
+          "pattern": "c__",
+          "answer": "ar",
+          "why": "The letters a r work together and say /ar/, as in car: car."
+        },
+        {
+          "word": "farm",
+          "pattern": "f__m",
+          "answer": "ar",
+          "why": "The letters a r work together and say /ar/, as in car: farm."
+        },
+        {
+          "word": "barn",
+          "pattern": "b__n",
+          "answer": "ar",
+          "why": "The letters a r work together and say /ar/, as in car: barn."
+        },
+        {
+          "word": "star",
+          "pattern": "st__",
+          "answer": "ar",
+          "why": "The letters a r work together and say /ar/, as in car: star."
+        },
+        {
+          "word": "yard",
+          "pattern": "y__d",
+          "answer": "ar",
+          "why": "The letters a r work together and say /ar/, as in car: yard."
+        },
+        {
+          "word": "shark",
+          "pattern": "sh__k",
+          "answer": "ar",
+          "why": "The letters a r work together and say /ar/, as in car: shark."
+        }
+      ]
+    }
+  ]
+}

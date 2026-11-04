@@ -40,6 +40,26 @@
       "skill": "suffixes",
       "order": 60,
       "saxonLesson": null
+    },
+    {
+      "skill": "possessive",
+      "order": 17,
+      "saxonLesson": 14
+    },
+    {
+      "skill": "ke-c",
+      "order": 22,
+      "saxonLesson": null
+    },
+    {
+      "skill": "or-combo",
+      "order": 25,
+      "saxonLesson": 26
+    },
+    {
+      "skill": "ai-ay",
+      "order": 70,
+      "saxonLesson": 61
     }
   ]
 }

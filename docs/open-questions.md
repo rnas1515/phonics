@@ -14,3 +14,7 @@ Items we are not guessing at. Nothing below is graded as a hard rule until confi
 7. **Sight words.** The child's "I read it" is self-reported and tracked as "Reading (self)". Tutor-observed reading is recorded
    in the checkpoint (section IV). Should there be a quick tutor-confirm after each sight-word session?
 8. **Newsletter / scope-and-sequence pages** to set the weekly active skills and teaching order (`curriculum.json`).
+9. **"or" combination (L26).** The app teaches it as a spelling choice (or / ar) only. What coding mark does the school use for it?
+10. **ai / ay.** Taught as "ay usually at the end, ai usually in the middle" (a tendency, not a rule). Confirm the teacher's wording.
+11. **ke and c endings.** Spelling rules come from your brief (ke after a long vowel, c in words with 2+ syllables). Confirm the lesson number and wording.
+12. **Possessive apostrophe (L14).** Only singular owner ('s) vs plain plural (s) is taught. Plural possessives (dogs') are left out until confirmed.

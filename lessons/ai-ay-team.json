@@ -1,0 +1,206 @@
+{
+  "id": "ai-ay",
+  "title": "The ai and ay Teams",
+  "saxonLesson": 61,
+  "skill": "ai-ay",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters ai and ay are teams that say long a. Underline both letters. We usually find ai in the middle of a word and ay at the end.",
+  "trickText": "Two letters, one sound: long a. Underline both letters. To choose the spelling, listen: if the sound is at the end of the word, it is usually ay. If it is in the middle, it is usually ai.",
+  "say": "Today's case: the ai and ay teams. Both say long a. We underline both letters. And here is a clue for spelling: ay is usually at the end of a word, and ai is usually in the middle.",
+  "example": {
+    "word": "rain",
+    "answer": "r a_ i_ n",
+    "say": "Look at rain. The a and i are a team. They make one sound, long a. So I underline both letters."
+  },
+  "discover": {
+    "intro": "Sort these words. Does the long a team come in the middle, or at the end?",
+    "groups": [
+      {
+        "id": "mid",
+        "label": "In the middle",
+        "why": "The long a team is in the middle of the word."
+      },
+      {
+        "id": "end",
+        "label": "At the end",
+        "why": "The long a team is at the end of the word."
+      }
+    ],
+    "items": [
+      {
+        "word": "rain",
+        "answer": "mid"
+      },
+      {
+        "word": "day",
+        "answer": "end"
+      },
+      {
+        "word": "snail",
+        "answer": "mid"
+      },
+      {
+        "word": "play",
+        "answer": "end"
+      },
+      {
+        "word": "wait",
+        "answer": "mid"
+      },
+      {
+        "word": "stay",
+        "answer": "end"
+      }
+    ],
+    "question": "Which team do we usually see at the end of a word?",
+    "options": [
+      {
+        "label": "ay",
+        "correct": true
+      },
+      {
+        "label": "ai",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! ay is usually at the end of a word, and ai is usually in the middle. Both are teams, so we underline both letters."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the team. Short vowels get a breve.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "rain"
+        },
+        {
+          "word": "mail"
+        },
+        {
+          "word": "train"
+        },
+        {
+          "word": "snail"
+        },
+        {
+          "word": "paid"
+        },
+        {
+          "word": "wait"
+        },
+        {
+          "word": "tail"
+        },
+        {
+          "word": "day"
+        },
+        {
+          "word": "play"
+        },
+        {
+          "word": "stay"
+        },
+        {
+          "word": "tray"
+        },
+        {
+          "word": "spray"
+        },
+        {
+          "word": "hop"
+        }
+      ]
+    },
+    {
+      "type": "fill",
+      "choices": [
+        "ai",
+        "ay"
+      ],
+      "instruction": "Listen to the word. Choose ai or ay.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "rain",
+          "pattern": "r__n",
+          "answer": "ai",
+          "why": "ai is usually in the middle of a word: rain."
+        },
+        {
+          "word": "mail",
+          "pattern": "m__l",
+          "answer": "ai",
+          "why": "ai is usually in the middle of a word: mail."
+        },
+        {
+          "word": "train",
+          "pattern": "tr__n",
+          "answer": "ai",
+          "why": "ai is usually in the middle of a word: train."
+        },
+        {
+          "word": "paid",
+          "pattern": "p__d",
+          "answer": "ai",
+          "why": "ai is usually in the middle of a word: paid."
+        },
+        {
+          "word": "wait",
+          "pattern": "w__t",
+          "answer": "ai",
+          "why": "ai is usually in the middle of a word: wait."
+        },
+        {
+          "word": "tail",
+          "pattern": "t__l",
+          "answer": "ai",
+          "why": "ai is usually in the middle of a word: tail."
+        },
+        {
+          "word": "day",
+          "pattern": "d__",
+          "answer": "ay",
+          "why": "ay is usually at the end of a word: day."
+        },
+        {
+          "word": "play",
+          "pattern": "pl__",
+          "answer": "ay",
+          "why": "ay is usually at the end of a word: play."
+        },
+        {
+          "word": "stay",
+          "pattern": "st__",
+          "answer": "ay",
+          "why": "ay is usually at the end of a word: stay."
+        },
+        {
+          "word": "tray",
+          "pattern": "tr__",
+          "answer": "ay",
+          "why": "ay is usually at the end of a word: tray."
+        },
+        {
+          "word": "spray",
+          "pattern": "spr__",
+          "answer": "ay",
+          "why": "ay is usually at the end of a word: spray."
+        },
+        {
+          "word": "say",
+          "pattern": "s__",
+          "answer": "ay",
+          "why": "ay is usually at the end of a word: say."
+        }
+      ]
+    }
+  ]
+}

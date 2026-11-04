@@ -135,5 +135,62 @@
         }
       ]
     }
-  ]
+  ],
+  "discover": {
+    "intro": "Sort these words. Does the word have two e's together?",
+    "groups": [
+      {
+        "id": "two",
+        "label": "Two e's together",
+        "why": "It has the letters e e side by side."
+      },
+      {
+        "id": "one",
+        "label": "One e",
+        "why": "It has just one e."
+      }
+    ],
+    "items": [
+      {
+        "word": "seed",
+        "answer": "two"
+      },
+      {
+        "word": "red",
+        "answer": "one"
+      },
+      {
+        "word": "feet",
+        "answer": "two"
+      },
+      {
+        "word": "fed",
+        "answer": "one"
+      },
+      {
+        "word": "tree",
+        "answer": "two"
+      },
+      {
+        "word": "ten",
+        "answer": "one"
+      }
+    ],
+    "question": "Seed, feet and tree have two e's together. What do the two e's do?",
+    "options": [
+      {
+        "label": "They work as a team and make one sound",
+        "correct": true
+      },
+      {
+        "label": "They make two different sounds",
+        "correct": false
+      },
+      {
+        "label": "One of them is always silent",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! The two e's are a team. Two letters, one sound: long e. We underline both letters."
+  }
 }

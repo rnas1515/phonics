@@ -1,0 +1,186 @@
+{
+  "id": "ke-c",
+  "title": "ke or c at the End",
+  "saxonLesson": null,
+  "skill": "ke-c",
+  "priority": 2,
+  "defaultActive": true,
+  "rule": "After a long vowel, the k sound is spelled k e, like make. In a word with two or more syllables, it is spelled with just c, like picnic.",
+  "trickText": "Count the syllables first. Two or more syllables? Use c. One syllable? Look at the ONE letter before the k sound: short vowel alone, c k. Long vowel with a sneaky e, k e. Consonant or vowel team, k.",
+  "say": "Today's case: more ways to spell the k sound at the end. After a long vowel, we use k e, like make. In a longer word, with two or more syllables, we use just c, like picnic. And you still remember c k and k.",
+  "example": {
+    "word": "make",
+    "answer": "ma + ke",
+    "say": "Look at make. The one letter before the k sound is a. It is a long vowel, with a sneaky e. So we spell it k e."
+  },
+  "activities": [
+    {
+      "type": "fill",
+      "oneLetter": true,
+      "choices": [
+        "ck",
+        "k",
+        "ke",
+        "c"
+      ],
+      "kinds": [
+        {
+          "id": "short",
+          "label": "A short vowel, all alone"
+        },
+        {
+          "id": "consonant",
+          "label": "A consonant"
+        },
+        {
+          "id": "team",
+          "label": "Part of a vowel team"
+        },
+        {
+          "id": "long",
+          "label": "A long vowel (sneaky e)",
+          "say": "a long vowel, with a sneaky e"
+        },
+        {
+          "id": "multi",
+          "label": "A word with 2 or more syllables",
+          "say": "a word with more than one syllable"
+        }
+      ],
+      "instruction": "Find the spelling for the k sound at the end. Count the syllables, then look at the ONE letter before it.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "make",
+          "stem": "ma",
+          "answer": "ke",
+          "before": "a",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the k sound. It is a long vowel, said with a sneaky e. So we spell it k e: make."
+        },
+        {
+          "word": "bike",
+          "stem": "bi",
+          "answer": "ke",
+          "before": "i",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the k sound. It is a long vowel, said with a sneaky e. So we spell it k e: bike."
+        },
+        {
+          "word": "joke",
+          "stem": "jo",
+          "answer": "ke",
+          "before": "o",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the k sound. It is a long vowel, said with a sneaky e. So we spell it k e: joke."
+        },
+        {
+          "word": "like",
+          "stem": "li",
+          "answer": "ke",
+          "before": "i",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the k sound. It is a long vowel, said with a sneaky e. So we spell it k e: like."
+        },
+        {
+          "word": "take",
+          "stem": "ta",
+          "answer": "ke",
+          "before": "a",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the k sound. It is a long vowel, said with a sneaky e. So we spell it k e: take."
+        },
+        {
+          "word": "lake",
+          "stem": "la",
+          "answer": "ke",
+          "before": "a",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the k sound. It is a long vowel, said with a sneaky e. So we spell it k e: lake."
+        },
+        {
+          "word": "picnic",
+          "stem": "picni",
+          "answer": "c",
+          "before": "i",
+          "beforeKind": "multi",
+          "step2": "picnic has more than one syllable. What kind of word is it?",
+          "step2Why": "picnic has two or more syllables: pic and nic.",
+          "why": "picnic has two or more syllables, so the k sound at the end is spelled with just c: picnic."
+        },
+        {
+          "word": "magic",
+          "stem": "magi",
+          "answer": "c",
+          "before": "i",
+          "beforeKind": "multi",
+          "step2": "magic has more than one syllable. What kind of word is it?",
+          "step2Why": "magic has two or more syllables: mag and ic.",
+          "why": "magic has two or more syllables, so the k sound at the end is spelled with just c: magic."
+        },
+        {
+          "word": "panic",
+          "stem": "pani",
+          "answer": "c",
+          "before": "i",
+          "beforeKind": "multi",
+          "step2": "panic has more than one syllable. What kind of word is it?",
+          "step2Why": "panic has two or more syllables: pan and ic.",
+          "why": "panic has two or more syllables, so the k sound at the end is spelled with just c: panic."
+        },
+        {
+          "word": "attic",
+          "stem": "atti",
+          "answer": "c",
+          "before": "i",
+          "beforeKind": "multi",
+          "step2": "attic has more than one syllable. What kind of word is it?",
+          "step2Why": "attic has two or more syllables: at and tic.",
+          "why": "attic has two or more syllables, so the k sound at the end is spelled with just c: attic."
+        },
+        {
+          "word": "comic",
+          "stem": "comi",
+          "answer": "c",
+          "before": "i",
+          "beforeKind": "multi",
+          "step2": "comic has more than one syllable. What kind of word is it?",
+          "step2Why": "comic has two or more syllables: com and ic.",
+          "why": "comic has two or more syllables, so the k sound at the end is spelled with just c: comic."
+        },
+        {
+          "word": "music",
+          "stem": "musi",
+          "answer": "c",
+          "before": "i",
+          "beforeKind": "multi",
+          "step2": "music has more than one syllable. What kind of word is it?",
+          "step2Why": "music has two or more syllables: mu and sic.",
+          "why": "music has two or more syllables, so the k sound at the end is spelled with just c: music."
+        },
+        {
+          "word": "back"
+        },
+        {
+          "word": "duck"
+        },
+        {
+          "word": "rock"
+        },
+        {
+          "word": "milk"
+        },
+        {
+          "word": "desk"
+        },
+        {
+          "word": "park"
+        }
+      ],
+      "ruleStrip": "Short vowel alone → ck  ·  Long vowel (sneaky e) → ke  ·  Consonant or vowel team → k  ·  2+ syllables → c"
+    }
+  ]
+}
