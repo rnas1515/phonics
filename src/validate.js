@@ -79,6 +79,20 @@ export function normalizeLesson(raw, source = 'built-in') {
   }
   if (L.bands != null && !Array.isArray(L.bands)) err('"bands" must be a list');
 
+  // Optional "what do you notice?" discovery: sort a few words, then answer one question to reveal the rule.
+  if (L.discover != null) {
+    const d = L.discover;
+    const ok = isObj(d) && Array.isArray(d.groups) && d.groups.length >= 2 && d.groups.every((g) => str(g.id) && str(g.label)) &&
+      Array.isArray(d.items) && d.items.length >= 2 && d.items.every((i) => str(i.word) && d.groups.some((g) => g.id === i.answer)) &&
+      str(d.question) && Array.isArray(d.options) && d.options.length >= 2 && d.options.filter((o) => o.correct).length === 1 && d.options.every((o) => str(o.label));
+    if (!ok) err('"discover" needs groups (>=2), items {word, answer=group id}, a question, and options with exactly one {correct:true}');
+    else {
+      d.intro = str(d.intro) ? d.intro : 'Sort these words. Then tell me what you notice.';
+      d.act = { type: 'sort', instruction: d.intro, categories: d.groups,
+        items: d.items.map((i) => ({ ...i, why: i.why || d.groups.find((g) => g.id === i.answer).why || `${i.word} goes with "${d.groups.find((g) => g.id === i.answer).label}".` })) };
+    }
+  }
+
   if (!Array.isArray(L.activities) || !L.activities.length) {
     err('"activities" must be a non-empty list');
     L.activities = [];

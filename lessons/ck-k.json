@@ -92,5 +92,62 @@
         }
       ]
     }
-  ]
+  ],
+  "discover": {
+    "intro": "Sort these words by how they end: c k, or just k.",
+    "groups": [
+      {
+        "id": "ck",
+        "label": "ends with ck",
+        "why": "It ends with c k."
+      },
+      {
+        "id": "k",
+        "label": "ends with k",
+        "why": "It ends with just k."
+      }
+    ],
+    "items": [
+      {
+        "word": "black",
+        "answer": "ck"
+      },
+      {
+        "word": "milk",
+        "answer": "k"
+      },
+      {
+        "word": "duck",
+        "answer": "ck"
+      },
+      {
+        "word": "park",
+        "answer": "k"
+      },
+      {
+        "word": "stick",
+        "answer": "ck"
+      },
+      {
+        "word": "cheek",
+        "answer": "k"
+      }
+    ],
+    "question": "Look at the ONE letter right before the ending. In black, duck and stick, what is it?",
+    "options": [
+      {
+        "label": "A short vowel, all alone",
+        "correct": true
+      },
+      {
+        "label": "A consonant",
+        "correct": false
+      },
+      {
+        "label": "A vowel team",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! A short vowel alone gets c k. After a consonant, like milk and park, or a vowel team, like cheek, we use just k."
+  }
 }

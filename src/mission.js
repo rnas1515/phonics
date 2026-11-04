@@ -5,6 +5,7 @@ import { getLesson } from './lessons.js';
 import { pickItems, playItems } from './play.js';
 import { renderCoded } from './items.js';
 import { parseCodedFull } from './coding.js';
+import { btn } from './ui.js';
 import { checkBadges, award } from './gamify.js';
 import * as store from './store.js';
 
@@ -38,13 +39,78 @@ async function introduce(root, lesson) {
   }
 }
 
+const MARK_SAY = {
+  breve: (c) => `Put a breve over the ${c}. It is a short vowel.`,
+  macron: (c) => `Put a macron over the ${c}. It says its name.`,
+  strike: (c) => `Cross out the ${c}. It is silent.`,
+  underline: (c) => `Underline the ${c}. It works with its neighbor.`,
+  box: (c) => `Put the ${c} in the box.`,
+};
+
+/** Worked example. Code lessons animate it one step at a time, narrated; the child taps Next to move on. */
 async function showExample(root, lesson) {
   const ex = lesson.example;
-  const visual = lesson.activities[0].type === 'code' && ex.answer
-    ? renderCoded(parseCodedFull(ex.answer)).el
-    : h('div', { class: 'card-word' }, h('span', { class: 'big-word' }, ex.word), ex.answer ? h('span', { class: 'chip' }, ex.answer) : null);
-  speak(ex.say || ex.word);
-  await ask(root, [h('h2', {}, `Example: ${ex.word}`), visual, line(ex.say || '')], [{ id: 'ok', label: 'Got it', cls: 'primary' }]);
+  const code = lesson.activities[0].type === 'code' && ex.answer;
+  if (!code) {
+    speak(ex.say || ex.word);
+    const visual = h('div', { class: 'card-word' }, h('span', { class: 'big-word' }, ex.word), ex.answer ? h('span', { class: 'chip' }, ex.answer) : null);
+    return ask(root, [h('h2', {}, `Example: ${ex.word}`), visual, line(ex.say || '')], [{ id: 'ok', label: 'Got it', cls: 'primary' }]);
+  }
+  const full = parseCodedFull(ex.answer);
+  const steps = [];
+  full.letters.forEach((l, i) => l.marks.forEach((m) => steps.push({ i, m })));
+  [...full.boundaries].forEach((p) => steps.push({ gap: p }));
+  const w = renderCoded({ letters: full.letters.map((l) => ({ ch: l.ch, marks: [] })), boundaries: new Set() }, { gaps: full.boundaries.size > 0 });
+  const marks = full.letters.map(() => new Set());
+  const bounds = new Set();
+  const say = h('div', { class: 'say big' });
+  const next = btn('Show me the first step ▶', { cls: 'primary' });
+  show(root, h('div', { class: 'panel' }, h('h2', {}, `Watch: ${ex.word}`), w.el, say, h('div', { class: 'btn-row' }, next)));
+  const setSay = (t) => { say.replaceChildren(h('p', {}, t)); speak(t); };
+  speak(`Watch how I code ${ex.word}.`);
+  for (const st of steps) {
+    await new Promise((res) => next.addEventListener('click', res, { once: true }));
+    next.textContent = 'Next step ▶';
+    if (st.gap) { bounds.add(st.gap); setSay(`Draw a line between ${full.letters[st.gap - 1].ch} and ${full.letters[st.gap].ch}.`); }
+    else { marks[st.i].add(st.m); setSay(MARK_SAY[st.m](full.letters[st.i].ch)); }
+    w.paint(marks, bounds);
+  }
+  next.textContent = 'Got it';
+  const done = new Promise((res) => next.addEventListener('click', res, { once: true })); // listen first so an early tap is not lost
+  if (ex.say) setTimeout(() => setSay(ex.say), 900);
+  await done;
+}
+
+/** "What do you notice?": sort a few words (not scored), then answer one question to reveal the rule. */
+async function discover(root, lesson, alive) {
+  const d = lesson.discover;
+  const items = d.act.items.map((item) => ({ lesson, act: d.act, item }));
+  const r = await playItems(root, items, { title: `🔎 ${lesson.title} · Notice`, practice: true, alive, instruction: d.intro });
+  if (!r || !alive()) return;
+  const opts = d.options.map((o, i) => ({ id: i, label: o.label }));
+  for (let tries = 0; ; tries++) {
+    speak(d.question);
+    const c = await ask(root, [h('h2', {}, 'What do you notice?'), line(d.question)], opts);
+    if (d.options[c].correct) {
+      const msg = d.reveal || `Yes! ${lesson.rule}`;
+      speak(msg);
+      await ask(root, [h('h2', {}, '💡 You found the rule!'), line(msg)], [{ id: 'ok', label: 'Now we try some together', cls: 'primary' }]);
+      return;
+    }
+    const hint = 'Not quite. Look at the words again. Try another answer.';
+    speak(hint);
+    await ask(root, [h('h2', {}, 'Look again'), line(hint)], [{ id: 'ok', label: 'Try again', cls: 'primary' }]);
+  }
+}
+
+/** "We do": two guided items with a tip shown first. Skipped once he has already practiced this skill. */
+async function weDo(root, lesson, alive) {
+  const k = store.getProgress().skills[lesson.skill];
+  if ((k?.attempts || 0) >= 6) return;
+  const act = lesson.activities.find((a) => !a.optional && ['code', 'sort', 'fill'].includes(a.type));
+  if (!act) return;
+  const items = pickItems(act, 2).map((item) => ({ lesson, act, item }));
+  await playItems(root, items, { title: `${lesson.title} · Together`, guided: true, alive, instruction: 'Now we try two together. Read the tip first, then you do it.' });
 }
 
 async function runSet(root, lesson, ai, alive) {
@@ -80,6 +146,12 @@ async function capNudge(root) {
 async function runLesson(root, lesson, alive) {
   const before = store.getProgress().points;
   await introduce(root, lesson);
+  if (lesson.kind !== 'checkpoint') {
+    if (lesson.discover) await discover(root, lesson, alive);
+    if (!alive()) return;
+    await weDo(root, lesson, alive);
+    if (!alive()) return;
+  }
   const outcomes = [];
   let stopped = false;
 

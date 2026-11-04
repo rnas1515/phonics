@@ -150,5 +150,62 @@
         }
       ]
     }
-  ]
+  ],
+  "discover": {
+    "intro": "Sort these words. Does the word have a sneaky e at the end?",
+    "groups": [
+      {
+        "id": "e",
+        "label": "Has a sneaky e",
+        "why": "It ends with an e after one consonant."
+      },
+      {
+        "id": "no",
+        "label": "No sneaky e",
+        "why": "It does not end with an e."
+      }
+    ],
+    "items": [
+      {
+        "word": "cap",
+        "answer": "no"
+      },
+      {
+        "word": "cape",
+        "answer": "e"
+      },
+      {
+        "word": "kit",
+        "answer": "no"
+      },
+      {
+        "word": "kite",
+        "answer": "e"
+      },
+      {
+        "word": "hop",
+        "answer": "no"
+      },
+      {
+        "word": "hope",
+        "answer": "e"
+      }
+    ],
+    "question": "Cap and cape are almost the same. What does the e at the end do to the vowel?",
+    "options": [
+      {
+        "label": "It makes the vowel say its name",
+        "correct": true
+      },
+      {
+        "label": "It makes the vowel quieter",
+        "correct": false
+      },
+      {
+        "label": "Nothing at all",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! The sneaky e is silent, but it makes the first vowel say its name. Cap becomes cape."
+  }
 }
