@@ -1,14 +1,67 @@
 {
   "id": "er-ir-ur",
-  "title": "er, ir and ur",
+  "title": "Combinations: er, ir, ur, ar",
   "saxonLesson": null,
   "skill": "er-ir-ur",
   "priority": 8,
   "defaultActive": true,
-  "rule": "The letters er, ir and ur all say the same sound, /er/. You have to remember which spelling each word uses.",
-  "trickText": "Say the word slowly. Hear the /er/ sound. Then picture the word: does it use er, ir, or ur? The more you read these words, the easier it gets.",
-  "say": "Today's case: er, ir and ur. They all make the same sound. The trick is to remember which spelling each word uses. Say the word, then choose.",
+  "rule": "The letters er, ir and ur all say /er/, and ar says /ar/. They are combinations: two letters that work together. Put an arc under them.",
+  "trickText": "Find the two letters that work together: er, ir, ur or ar. Draw an arc under both letters. Then say the word.",
+  "say": "Today's case: combinations. When a vowel and r are together, they make a new sound. We put an arc under the two letters.",
   "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "arc"
+      ],
+      "instruction": "Find the combination. Draw an arc under both letters.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "fern",
+          "answer": "f e~ r~ n"
+        },
+        {
+          "word": "bird",
+          "answer": "b i~ r~ d"
+        },
+        {
+          "word": "turn",
+          "answer": "t u~ r~ n"
+        },
+        {
+          "word": "star",
+          "answer": "s t a~ r~"
+        },
+        {
+          "word": "her",
+          "answer": "h e~ r~"
+        },
+        {
+          "word": "girl",
+          "answer": "g i~ r~ l"
+        },
+        {
+          "word": "surf",
+          "answer": "s u~ r~ f"
+        },
+        {
+          "word": "farm",
+          "answer": "f a~ r~ m"
+        },
+        {
+          "word": "shirt",
+          "answer": "s h i~ r~ t"
+        },
+        {
+          "word": "park",
+          "answer": "p a~ r~ k"
+        }
+      ]
+    },
     {
       "type": "fill",
       "choices": [
@@ -84,5 +137,10 @@
         }
       ]
     }
-  ]
+  ],
+  "example": {
+    "word": "bird",
+    "answer": "b i~ r~ d",
+    "say": "Look at bird. The i and r work together as a combination. So I put an arc under both letters."
+  }
 }

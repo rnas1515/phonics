@@ -1,0 +1,63 @@
+{
+  "id": "prefixes",
+  "title": "Prefix Boxes",
+  "saxonLesson": null,
+  "skill": "prefixes",
+  "priority": 6,
+  "defaultActive": true,
+  "rule": "A prefix is a beginning added before a base word, like un and re. Draw a box around the whole prefix.",
+  "trickText": "Find the base word first. Then look at the beginning that was added in front of it. Box only the prefix.",
+  "say": "Today's case: prefixes. A prefix is a beginning added in front of a base word. First find the base word. Then put a box around the beginning.",
+  "example": {
+    "word": "undo",
+    "answer": "u# n# d o",
+    "say": "Look at undo. The base word is do. The beginning u n was added in front. So I put a box around u n."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "box"
+      ],
+      "instruction": "Find the base word. Then box the prefix.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "undo",
+          "answer": "u# n# d o"
+        },
+        {
+          "word": "unlock",
+          "answer": "u# n# l o c k"
+        },
+        {
+          "word": "unfair",
+          "answer": "u# n# f a i r"
+        },
+        {
+          "word": "unsafe",
+          "answer": "u# n# s a f e"
+        },
+        {
+          "word": "redo",
+          "answer": "r# e# d o"
+        },
+        {
+          "word": "replay",
+          "answer": "r# e# p l a y"
+        },
+        {
+          "word": "reread",
+          "answer": "r# e# r e a d"
+        },
+        {
+          "word": "rebuild",
+          "answer": "r# e# b u i l d"
+        }
+      ]
+    }
+  ]
+}

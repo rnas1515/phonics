@@ -1,7 +1,7 @@
 // `npm test`: validates every lesson file and sanity-checks the coding helpers.
 import { readdirSync, readFileSync } from 'node:fs';
 import { normalizeLesson, deriveCk } from '../src/validate.js';
-import { autoCode, parseCodedFull, gradeCoding } from '../src/coding.js';
+import { autoCode, parseCodedFull, gradeCoding, teamFullAlt } from '../src/coding.js';
 
 let failed = 0;
 const eq = (name, got, want) => {
@@ -42,6 +42,20 @@ eq('focused suffix task ignores missing vowel marks', grade('t r uv s t e# d#', 
 eq('under divider at 2 accepted', grade('u n | d e r', [], [2], ['divide']), true);
 eq('under divider at 3 rejected', grade('u n | d e r', [], [3], ['divide']), false);
 eq('missing divider rejected', grade('u n | d e r', [], [], ['divide']), false);
+// school notation: arcs, k-back / cedilla, brackets, vowel-team full pattern, prefix box
+eq('arc under both letters of bird', grade('b i~ r~ d', [[1, 'arc'], [2, 'arc']], [], ['arc']), true);
+eq('arc on one letter only rejected', grade('b i~ r~ d', [[1, 'arc']], [], ['arc']), false);
+eq('underline instead of arc rejected', grade('b i~ r~ d', [[1, 'underline'], [2, 'underline']], [], ['arc']), false);
+eq('hard c gets k-back', grade('c` a t', [[0, 'kback']], [], ['kback', 'cedilla']), true);
+eq('soft c with k-back rejected', grade('c, e n t', [[0, 'kback']], [], ['kback', 'cedilla']), false);
+eq('stable syllable bracket + slashed e', grade('t a- b[ l e/', [[2, 'bracket'], [4, 'strike']], [], ['bracket', 'strike']), true);
+eq('bracket on wrong letter rejected', grade('t a- b[ l e/', [[3, 'bracket'], [4, 'strike']], [], ['bracket', 'strike']), false);
+eq('prefix box accepted', grade('u# n# d o', [[0, 'box'], [1, 'box']], [], ['box']), true);
+eq('team-full: ee', teamFullAlt('s l e_ e_ p'), 's l e-_ e/_ p');
+eq('team-full: ai', teamFullAlt('r a_ i_ n'), 'r a-_ i/_ n');
+eq('team-full: ay', teamFullAlt('d a_ y_'), 'd a-_ y/_');
+eq('team-full: oa', teamFullAlt('b o_ a_ t'), 'b o-_ a/_ t');
+eq('team-full: not applied to oo', teamFullAlt('m o_ o_ n'), null);
 for (const [w, e] of [['seek', 'k'], ['sick', 'ck'], ['bank', 'k'], ['back', 'ck'], ['peck', 'ck'], ['peek', 'k'], ['duck', 'ck'], ['dusk', 'k']])
   eq(`ending of ${w}`, deriveCk(w).answer, e);
 // every lesson: coded answers keep the word's spelling and fall inside the word

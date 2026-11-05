@@ -160,6 +160,24 @@ p { margin: .3em 0; }
 .tool-glyph.g-underline::before { content: 'ee'; position: absolute; inset: 0; text-align: center; font-size: 1.4rem; line-height: 26px; }
 .tool-glyph.g-underline::after { content: ''; position: absolute; left: 4px; right: 4px; bottom: 0; height: 5px; background: var(--brand); border-radius: 3px; }
 
+/* arc, k-back, cedilla, schwa, voice line, bracket */
+.tile.m-arc::after { content: ''; position: absolute; left: 6px; right: 6px; bottom: 5px; height: 16px; border: 0 solid var(--mk); border-bottom-width: 7px; border-radius: 0 0 18px 18px; }
+.tile.arc-next::after { right: -13px; border-bottom-right-radius: 0; }
+.tile.arc-prev::after { left: -3px; border-bottom-left-radius: 0; }
+.tile.m-kback .ch::before { content: ''; position: absolute; left: 6%; top: 8%; bottom: 8%; width: 7px; background: var(--mk); border-radius: 4px; }
+.tile.m-cedilla .ch::after { content: ''; position: absolute; left: 38%; bottom: -14px; width: 16px; height: 18px; border: 6px solid var(--mk); border-top: none; border-left: none; border-radius: 0 0 14px 0; }
+.tile.m-schwa .mk::before { content: 'ə'; font-size: .55em; line-height: 1; color: var(--mk); position: absolute; left: 50%; top: -6px; transform: translateX(-50%); }
+.tile.m-voice .ch { text-decoration: underline wavy var(--mk) 3px; text-underline-offset: 10px; }
+.tile.m-bracket::before { content: ''; position: absolute; left: -9px; top: 6%; bottom: 6%; width: 14px; border: 6px solid var(--mk); border-right: none; border-radius: 3px 0 0 3px; }
+.tool-glyph.g-arc::before { content: 'ar'; position: absolute; inset: 0; text-align: center; font-size: 1.2rem; line-height: 22px; }
+.tool-glyph.g-arc::after { content: ''; position: absolute; left: 6px; right: 6px; bottom: 0; height: 9px; border: 0 solid var(--brand); border-bottom-width: 4px; border-radius: 0 0 14px 14px; }
+.tool-glyph.g-kback::before { content: 'c'; position: absolute; inset: 0; text-align: center; font-size: 1.5rem; line-height: 28px; }
+.tool-glyph.g-kback::after { content: ''; position: absolute; left: 14px; top: 3px; bottom: 3px; width: 4px; background: var(--brand); border-radius: 2px; }
+.tool-glyph.g-cedilla::before { content: 'ç'; position: absolute; inset: 0; text-align: center; font-size: 1.5rem; line-height: 28px; }
+.tool-glyph.g-schwa::before { content: 'ə'; position: absolute; inset: 0; text-align: center; font-size: 1.6rem; line-height: 28px; }
+.tool-glyph.g-voice::before { content: 's'; position: absolute; inset: 0; text-align: center; font-size: 1.4rem; line-height: 26px; text-decoration: underline wavy var(--brand); text-underline-offset: 4px; }
+.tool-glyph.g-bracket::before { content: '[ble'; position: absolute; inset: 0; text-align: center; font-size: 1.1rem; line-height: 28px; }
+
 /* box (suffix) + syllable divider */
 .tile.m-box { border-color: var(--brand); border-width: 5px; background: #eef2ff; }
 .tile.bx-next { margin-right: -10px; border-right-width: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }

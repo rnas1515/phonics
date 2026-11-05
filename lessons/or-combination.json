@@ -5,10 +5,55 @@
   "skill": "or-combo",
   "priority": 4,
   "defaultActive": true,
-  "rule": "The letters o and r together say /or/, like in corn. The letters a and r together say /ar/, like in car.",
-  "trickText": "Listen for the vowel sound. If it sounds like corn, use o r. If it sounds like car, use a r.",
-  "say": "Today's case: the or team. When o and r are together, they say or, like in corn. Listen carefully, and do not mix it up with a r, like in car.",
+  "rule": "The letters o and r together are a combination and say /or/, like in corn. Put an arc under them. The letters a and r say /ar/, like in car.",
+  "trickText": "Find the o and r together. They are a combination, so put an arc under both letters. Then listen: if it sounds like corn, use o r. If it sounds like car, use a r.",
+  "say": "Today's case: the or team. When o and r are together, they are a combination and say or, like in corn. We put an arc under both letters. Listen carefully, and do not mix it up with a r, like in car.",
   "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "arc"
+      ],
+      "instruction": "Draw an arc under the combination.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "corn",
+          "answer": "c o~ r~ n"
+        },
+        {
+          "word": "fork",
+          "answer": "f o~ r~ k"
+        },
+        {
+          "word": "horse",
+          "answer": "h o~ r~ s e"
+        },
+        {
+          "word": "storm",
+          "answer": "s t o~ r~ m"
+        },
+        {
+          "word": "porch",
+          "answer": "p o~ r~ c h"
+        },
+        {
+          "word": "born",
+          "answer": "b o~ r~ n"
+        },
+        {
+          "word": "short",
+          "answer": "s h o~ r~ t"
+        },
+        {
+          "word": "sport",
+          "answer": "s p o~ r~ t"
+        }
+      ]
+    },
     {
       "type": "fill",
       "choices": [

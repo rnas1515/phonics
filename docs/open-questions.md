@@ -1,26 +1,20 @@
 # Questions for Rabih / the teacher
 
-Items we are not guessing at. Nothing below is graded as a hard rule until confirmed.
+The school's own reference pages (see `docs/notation.md`) settled most notation questions. What is still open:
 
-1. **ee coding.** The school list appears to show: macron on the first e, slash through the second e, underline under both.
-   The app currently accepts **either** underline-only or the full pattern for `ee`. Which is required? Same for oo, ai?
-2. **oo two sounds.** Does the school mark the moon-sound and book-sound oo differently (the spec saw different marks above the pair)?
-   The app currently codes both the same way (underline).
-3. **Suffix boxes.** Is the box required in worksheets, and should the letters inside a boxed suffix also be coded?
-   The app grades only the box ("target only").
-4. **VCV, consonant-le, soft c, schwa, accent marks, y-dot.** Not implemented. Need the exact classroom convention.
-5. **Syllable lessons.** Only VCCV is taught (L9). Confirm the division rule wording the teacher uses.
-6. **Lesson numbers.** Confirmed so far: L4, L6, L9, L11, L14, L26, L37, L38, L40, L61, L103, L110, L136. Sneaky e and suffixes are unplaced.
-7. **Sight words.** The child's "I read it" is self-reported and tracked as "Reading (self)". Tutor-observed reading is recorded
-   in the checkpoint (section IV). Should there be a quick tutor-confirm after each sight-word session?
-8. **Newsletter / scope-and-sequence pages** to set the weekly active skills and teaching order (`curriculum.json`).
-9. **"or" combination (L26).** The app teaches it as a spelling choice (or / ar) only. What coding mark does the school use for it?
-10. **ai / ay.** Taught as "ay usually at the end, ai usually in the middle" (a tendency, not a rule). Confirm the teacher's wording.
-11. **ke and c endings.** Spelling rules come from your brief (ke after a long vowel, c in words with 2+ syllables). Confirm the lesson number and wording.
-12. **Possessive apostrophe (L14).** Only singular owner ('s) vs plain plural (s) is taught. Plural possessives (dogs') are left out until confirmed.
-13. **Gemini curriculum notes (not adopted as authority).** Used only for topic ideas: er/ir/ur, oi/oy/ou/ow, hard and soft c/g, y as a vowel,
-    silent letters (kn, wr, gn, mb), and -ble/-gle/-tle/-dle endings. These lessons have no lesson numbers, no coding marks, and an
-    order I chose (`curriculum.json`, orders 80+). Please confirm the order and wording. "Endings: ble, gle, tle, dle" is switched off until confirmed.
-14. **Marks in the Gemini notes that nothing else confirms:** "K-back" on hard c, crossing out one twin consonant, crossing out the second
-    vowel in ai/ee/ea, brackets on stable syllables, a dot for soft g, accent marks. None are taught or graded. Which, if any, does the school use?
-15. **Gemini's lesson numbers (1 to 15)** contradict the confirmed anchors (L9 syllable division, L11 final /k/, L14 possessive, L26 "or"), so they are ignored.
+1. **ck.** The chart seems to show a slash through the c in ck, but the Coding Reminders example (duck) only shows an underline.
+   The app grades underline only. Which does the school require?
+2. **oo.** The chart shows a macron or breve over the first o for the two oo sounds, plus the underline. The app accepts underline only
+   (your brief says children are only required to underline). Should the sound mark be required?
+3. **Other vowel teams.** ea (three sounds), ow (long o), ei, ey, ie, ue, ew, au, aw, igh, tch, dge, eigh are on the chart but not yet lessons.
+   Which are being taught now?
+4. **Voice lines and schwa.** Tools exist; no lessons yet. Which words does the school use for practice?
+5. **Accent marks and V/C labels** in syllable division are not built yet (only the dividing line).
+6. **Lesson numbers.** Confirmed so far: L4, L6, L9, L11, L14, L26, L37, L38, L40, L61, L103, L110, L136. Sneaky e, suffixes, prefixes and
+   most new lessons are unplaced. The Gemini notes' lesson numbers contradict these and are ignored.
+7. **Order.** `curriculum.json` order for lessons without a number is my guess. Please check it.
+8. **Possessive apostrophe (L14).** Only singular 's vs plain plural s is taught. Plural possessives are left out.
+9. **ai / ay.** Taught as "ay usually at the end, ai usually in the middle" (a tendency). Confirm the teacher's wording.
+10. **ke and c endings.** Rules come from your brief. Confirm the lesson number and wording.
+11. **Sight words.** "I read it" is self-reported and tracked separately. Should a tutor confirm after each sight-word session?
+12. **Gemini notes.** Its "snaffled" mark, a dot on soft g, and crossing out twin consonants do not appear on the school pages, so they are not used.

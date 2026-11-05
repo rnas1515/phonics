@@ -5,10 +5,63 @@
   "skill": "diphthongs",
   "priority": 9,
   "defaultActive": true,
-  "rule": "The letters oi and oy say /oi/ as in coin and toy. The letters ou and ow say /ow/ as in cloud and cow. We usually find oi and ou in the middle of a word, and oy at the end. ow is often at the end.",
+  "rule": "The letters oi, oy, ou and ow are diphthongs: the sound glides. Put an arc under them. oi/oy say /oi/ as in coin and toy. ou/ow say /ow/ as in cloud and cow.",
   "trickText": "Listen for the gliding sound. If it sounds like coin or toy: oi is usually in the middle, oy at the end. If it sounds like cloud or cow: ou is usually in the middle, and ow is often at the end.",
   "say": "Today's case: gliding vowel sounds. oi and oy say oi, like coin and toy. ou and ow say ow, like cloud and cow. Listen to where the sound is in the word.",
   "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "arc"
+      ],
+      "instruction": "Find the diphthong. Draw an arc under both letters.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "coin",
+          "answer": "c o~ i~ n"
+        },
+        {
+          "word": "toy",
+          "answer": "t o~ y~"
+        },
+        {
+          "word": "cloud",
+          "answer": "c l o~ u~ d"
+        },
+        {
+          "word": "cow",
+          "answer": "c o~ w~"
+        },
+        {
+          "word": "boy",
+          "answer": "b o~ y~"
+        },
+        {
+          "word": "house",
+          "answer": "h o~ u~ s e"
+        },
+        {
+          "word": "oil",
+          "answer": "o~ i~ l"
+        },
+        {
+          "word": "now",
+          "answer": "n o~ w~"
+        },
+        {
+          "word": "joy",
+          "answer": "j o~ y~"
+        },
+        {
+          "word": "round",
+          "answer": "r o~ u~ n d"
+        }
+      ]
+    },
     {
       "type": "fill",
       "choices": [
@@ -133,5 +186,10 @@
         }
       ]
     }
-  ]
+  ],
+  "example": {
+    "word": "boy",
+    "answer": "b o~ y~",
+    "say": "Look at boy. The o and y make a gliding sound. It is a diphthong. So I put an arc under both letters."
+  }
 }

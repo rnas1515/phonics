@@ -8,6 +8,7 @@ const PRAISE = ['Nice detective work!', 'Case solved!', 'You got it!', 'Sharp ey
 
 const TOOL_LABEL = {
   breve: 'Short vowel', macron: 'Long vowel', strike: 'Cross out', underline: 'Underline', box: 'Box', divide: 'Divide',
+  arc: 'Arc', kback: 'K-back', cedilla: 'Cedilla', schwa: 'Schwa', voice: 'Voice line', bracket: 'Bracket',
 };
 
 export function runItem(host, act, item, ctx = {}) {
@@ -66,6 +67,8 @@ export function renderCoded(parsed, { onTap, onGap, gaps = false } = {}) {
       for (const m of marks[i] || []) cls.push('m-' + m);
       if (has(i, 'underline') && has(i + 1, 'underline')) cls.push('ul-next');
       if (has(i, 'underline') && has(i - 1, 'underline')) cls.push('ul-prev');
+      if (has(i, 'arc') && has(i + 1, 'arc')) cls.push('arc-next');
+      if (has(i, 'arc') && has(i - 1, 'arc')) cls.push('arc-prev');
       if (has(i, 'box') && has(i + 1, 'box')) cls.push('bx-next');
       if (has(i, 'box') && has(i - 1, 'box')) cls.push('bx-prev');
       if (bad.has(i)) cls.push('bad');

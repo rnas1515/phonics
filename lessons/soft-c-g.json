@@ -5,7 +5,7 @@
   "skill": "soft-c-g",
   "priority": 10,
   "defaultActive": true,
-  "rule": "The letter c usually says /s/ before e, i or y, and /k/ before a, o or u. The letter g usually says /j/ before e, i or y, and /g/ before a, o or u.",
+  "rule": "The letter c usually says /s/ before e, i or y, and /k/ before a, o or u. Code a hard c with a k-back and a soft c with a cedilla. The letter g works the same way: usually /j/ before e, i or y, and /g/ before a, o or u.",
   "trickText": "Look at the letter right after the c or g. e, i or y? It is usually soft: c says /s/, g says /j/. a, o or u? It is hard: c says /k/, g says /g/.",
   "say": "Today's case: hard and soft c and g. Look at the letter right after the c or the g. If it is e, i or y, the sound is usually soft. If it is a, o or u, the sound is hard.",
   "discover": {
@@ -62,6 +62,68 @@
     "reveal": "Yes! c is usually soft, /s/, before e or i. Before a, o or u it is hard, /k/. g works the same way: usually /j/ before e or i."
   },
   "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "kback",
+        "cedilla"
+      ],
+      "instruction": "Hard c says k: give it a k-back. Soft c says s: give it a cedilla.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "cat",
+          "answer": "c` a t"
+        },
+        {
+          "word": "cup",
+          "answer": "c` u p"
+        },
+        {
+          "word": "cot",
+          "answer": "c` o t"
+        },
+        {
+          "word": "candy",
+          "answer": "c` a n d y"
+        },
+        {
+          "word": "cent",
+          "answer": "c, e n t"
+        },
+        {
+          "word": "city",
+          "answer": "c, i t y"
+        },
+        {
+          "word": "cell",
+          "answer": "c, e l l"
+        },
+        {
+          "word": "face",
+          "answer": "f a c, e"
+        },
+        {
+          "word": "mice",
+          "answer": "m i c, e"
+        },
+        {
+          "word": "circus",
+          "answer": "c, i r c` u s"
+        },
+        {
+          "word": "cube",
+          "answer": "c` u b e"
+        },
+        {
+          "word": "fancy",
+          "answer": "f a n c, y"
+        }
+      ]
+    },
     {
       "type": "sort",
       "instruction": "Listen to the c. Is it hard, /k/, or soft, /s/?",
@@ -198,5 +260,10 @@
         }
       ]
     }
-  ]
+  ],
+  "example": {
+    "word": "cent",
+    "answer": "c, e n t",
+    "say": "Look at cent. The c comes before e, so it says s. It is a soft c. I give it a cedilla."
+  }
 }

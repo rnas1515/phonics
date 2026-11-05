@@ -4,11 +4,61 @@
   "saxonLesson": null,
   "skill": "stable-syllables",
   "priority": 13,
-  "defaultActive": false,
-  "rule": "Some words end in a consonant plus le: ble, gle, tle and dle. The le ending says /ul/.",
-  "trickText": "Say the word slowly. Hear the /ul/ at the end. Then picture the ending: ble, gle, tle, or dle? Practice helps you remember.",
+  "defaultActive": true,
+  "rule": "Some words end in a final, stable syllable: ble, dle, fle, gle, ple, tle. Put a bracket in front of it and cross out the silent e.",
+  "trickText": "Find the final, stable syllable at the end of the word. Put a bracket in front of it, and cross out the silent e.",
   "say": "Today's case: word endings that sound like ul. They are spelled with a consonant and le, like table, giggle, little, and candle.",
   "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "bracket",
+        "strike"
+      ],
+      "instruction": "Bracket the final, stable syllable. Cross out its silent e.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "table",
+          "answer": "t a- b[ l e/"
+        },
+        {
+          "word": "bubble",
+          "answer": "b u b b[ l e/"
+        },
+        {
+          "word": "giggle",
+          "answer": "g i g g[ l e/"
+        },
+        {
+          "word": "little",
+          "answer": "l i t t[ l e/"
+        },
+        {
+          "word": "candle",
+          "answer": "c a n d[ l e/"
+        },
+        {
+          "word": "needle",
+          "answer": "n e e d[ l e/"
+        },
+        {
+          "word": "jungle",
+          "answer": "j u n g[ l e/"
+        },
+        {
+          "word": "turtle",
+          "answer": "t u r t[ l e/"
+        },
+        {
+          "word": "puddle",
+          "answer": "p u d d[ l e/"
+        }
+      ]
+    },
     {
       "type": "fill",
       "choices": [
@@ -85,5 +135,10 @@
         }
       ]
     }
-  ]
+  ],
+  "example": {
+    "word": "table",
+    "answer": "t a- b[ l e/",
+    "say": "Look at table. The last syllable is b l e. It is a final, stable syllable. I put a bracket in front of it and cross out the silent e."
+  }
 }

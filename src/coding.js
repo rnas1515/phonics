@@ -3,14 +3,19 @@
 // Compact notation: one token per letter, separated by spaces. A letter may be
 // followed by mark characters:  v = breve,  - = macron,  / = strike-through,  _ = underline
 //   cake  -> "c a- k e/"      black -> "b l av c_ k_"      seed -> "s e_ e_ d"
-// Extra: # = box (suffix), a lone | token = syllable boundary:  "n a p | k i n",  "j u m p e# d#".
+// More marks (from the school's Coding Reminders): ~ arc (combinations, diphthongs), ` k-back (hard c), , cedilla (soft c),
+// @ schwa, = voice line, [ bracket in front of a final stable syllable.   "b[" = bracket before the b.
+// Extra: # = box (suffix/prefix), a lone | token = syllable boundary:  "n a p | k i n",  "j u m p e# d#".
 // A letter can carry several marks: "e-_" = macron + underline.
 
-const CODE = { v: 'breve', '-': 'macron', '/': 'strike', _: 'underline', '#': 'box' };
-export const MARK_CODE = { breve: 'v', macron: '-', strike: '/', underline: '_', box: '#' };
+const CODE = {
+  v: 'breve', '-': 'macron', '/': 'strike', _: 'underline', '#': 'box',
+  '~': 'arc', '`': 'kback', ',': 'cedilla', '@': 'schwa', '=': 'voice', '[': 'bracket',
+};
+export const MARK_CODE = Object.fromEntries(Object.entries(CODE).map(([c, m]) => [m, c]));
 export const MARKS = ['breve', 'macron', 'strike', 'underline'];
 /** Every tool an activity may offer. 'divide' = syllable boundary between two letters. */
-export const ALL_TOOLS = ['breve', 'macron', 'strike', 'underline', 'box', 'divide'];
+export const ALL_TOOLS = ['breve', 'macron', 'strike', 'underline', 'box', 'divide', 'arc', 'kback', 'cedilla', 'schwa', 'voice', 'bracket'];
 
 const VOWELS = 'aeiou';
 // Letter teams that are coded with an underline under both letters.
@@ -79,19 +84,67 @@ export function autoCode(word) {
   return serialize([...w].map((ch, i) => ({ ch, marks: m[i] })));
 }
 
+/** Runs of adjacent letters that share a mark, e.g. ['ee'] for underline in "seed". */
+function groupsOf(parsed, mark) {
+  const out = [];
+  for (let i = 0; i < parsed.length; i++) {
+    if (!parsed[i].marks.includes(mark)) continue;
+    let j = i;
+    while (j + 1 < parsed.length && parsed[j + 1].marks.includes(mark)) j++;
+    out.push(parsed.slice(i, j + 1).map((p) => p.ch).join(''));
+    i = j;
+  }
+  return out;
+}
+
+/** Observed school notation for vowel teams: macron on the first vowel, slash through the second, underline both. */
+const TEAM_PAIRS = new Set(['ee', 'ai', 'ay', 'oa']);
+export function teamFullAlt(coded) {
+  const { letters, boundaries } = parseCodedFull(coded);
+  let changed = false;
+  for (let i = 0; i < letters.length - 1; i++) {
+    const a = letters[i], b = letters[i + 1];
+    if (TEAM_PAIRS.has(a.ch + b.ch) && a.marks.join() === 'underline' && b.marks.join() === 'underline') {
+      a.marks = ['macron', 'underline'];
+      b.marks = ['strike', 'underline'];
+      changed = true;
+      i++;
+    }
+  }
+  return changed ? serialize(letters, boundaries) : null;
+}
+
 /** Plain-English reason for a coding, spoken when the child misses it. `tools` limits it to what was asked. */
 export function describeCoding(parsed, word, tools = MARKS, boundaries = new Set()) {
   const has = (mk) => tools.includes(mk) && parsed.some((p) => p.marks.includes(mk));
   const parts = [];
   if (has('box')) {
     const first = parsed.findIndex((p) => p.marks.includes('box'));
-    parts.push(`A suffix is an ending added to a base word. Here the base word is ${word.slice(0, first)} and the suffix is ${word.slice(first)}. Put a box around the whole suffix.`);
+    const last = parsed.length - 1 - [...parsed].reverse().findIndex((p) => p.marks.includes('box'));
+    parts.push(first === 0
+      ? `A prefix is a beginning added before a base word. Here the prefix is ${word.slice(0, last + 1)} and the base word is ${word.slice(last + 1)}. Put a box around the whole prefix.`
+      : `A suffix is an ending added to a base word. Here the base word is ${word.slice(0, first)} and the suffix is ${word.slice(first)}. Put a box around the whole suffix.`);
   }
+  if (has('arc')) parts.push(`${groupsOf(parsed, 'arc').join(' and ')} work${groupsOf(parsed, 'arc').length > 1 ? '' : 's'} together as a combination or diphthong. Put an arc under ${groupsOf(parsed, 'arc').length > 1 ? 'them' : 'those letters'}.`);
+  parsed.forEach((p, i) => {
+    const next = parsed[i + 1]?.ch;
+    const which = word.toLowerCase().indexOf('c') === i && word.toLowerCase().split('c').length > 2 ? 'first ' : '';
+    if (tools.includes('kback') && p.marks.includes('kback'))
+      parts.push(`The ${which}c${next ? ' before ' + next : ''} says /k/. It is a hard c, so give it a k-back.`);
+    if (tools.includes('cedilla') && p.marks.includes('cedilla'))
+      parts.push(`The ${which}c${next ? ' before ' + next : ''} says /s/. Before e, i or y, c is soft, so give it a cedilla.`);
+  });
+  if (has('bracket')) {
+    const bi = parsed.findIndex((p) => p.marks.includes('bracket'));
+    parts.push(`${word.slice(bi)} is a final, stable syllable. Put a bracket in front of it${tools.includes('strike') ? ' and cross out the silent e' : ''}.`);
+  }
+  if (has('schwa')) parts.push('An unstressed vowel that says uh gets a schwa.');
+  if (has('voice')) parts.push('This letter is voiced, so give it a voice line.');
   if (tools.includes('divide') && boundaries.size) {
     const p = [...boundaries][0];
     parts.push(`Two consonants sit between the vowels. Divide between them: ${word.slice(0, p)} | ${word.slice(p)}.`);
   }
-  if (has('strike') && has('macron') && !has('underline')) {
+  if (has('strike') && has('macron') && !has('underline') && !has('bracket')) {
     const vi = parsed.findIndex((p) => p.marks.includes('macron'));
     parts.push(
       `${word} has a sneaky e at the end. The e is silent and makes the ${parsed[vi].ch} say its name. ` +

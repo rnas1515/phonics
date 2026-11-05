@@ -1,5 +1,5 @@
 // Lesson validation + normalisation. Pure module (no DOM): used by the app, the tutor form and `npm test`.
-import { parseCodedFull, autoCode, describeCoding, ALL_TOOLS, MARKS } from './coding.js';
+import { parseCodedFull, autoCode, describeCoding, teamFullAlt, ALL_TOOLS, MARKS } from './coding.js';
 
 export const TYPES = ['code', 'sort', 'fill', 'sightword', 'comprehension'];
 
@@ -110,7 +110,7 @@ export function normalizeLesson(raw, source = 'built-in') {
       a.tools ??= MARKS;
       if (!Array.isArray(a.tools) || !a.tools.length || a.tools.some((t) => !ALL_TOOLS.includes(t)))
         err(`${at}: "tools" must be a list of ${ALL_TOOLS.join(', ')}`);
-      if (a.alsoAccept != null && a.alsoAccept !== 'ee-full') err(`${at}: "alsoAccept" can only be "ee-full"`);
+      if (a.alsoAccept != null && !['team-full', 'ee-full'].includes(a.alsoAccept)) err(`${at}: "alsoAccept" can only be "team-full"`);
     }
     if (a.type === 'sort') {
       if (!Array.isArray(a.categories) || a.categories.length < 2 || a.categories.some((c) => !str(c.id) || !str(c.label)))
@@ -138,10 +138,10 @@ export function normalizeLesson(raw, source = 'built-in') {
           if (letters.map((p) => p.ch).join('') !== it.word.toLowerCase())
             err(`${where}: coded answer "${it.answer}" does not spell "${it.word}"`);
           it.why ??= describeCoding(letters, it.word, a.tools, boundaries);
-          if (a.alsoAccept === 'ee-full') {
-            // Observed school notation for ee: macron on the first e, slash through the second, underline both.
-            const alt = it.answer.replace(/\be_ e_\b/, 'e-_ e/_');
-            if (alt !== it.answer) it.acceptAlso = [alt];
+          if (a.alsoAccept) {
+            // School notation for vowel teams (ee, ai, ay, oa): macron first vowel, slash second, underline both.
+            const alt = teamFullAlt(it.answer);
+            if (alt) it.acceptAlso = [alt];
           }
         } else if (a.type === 'sort') {
           if (!str(it.word)) return err(`${where}: missing "word"`);

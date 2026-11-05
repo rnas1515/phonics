@@ -90,6 +90,11 @@
       "skill": "stable-syllables",
       "order": 130,
       "saxonLesson": null
+    },
+    {
+      "skill": "prefixes",
+      "order": 62,
+      "saxonLesson": null
     }
   ]
 }

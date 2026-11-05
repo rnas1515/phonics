@@ -114,7 +114,8 @@
         {
           "word": "hop"
         }
-      ]
+      ],
+      "alsoAccept": "team-full"
     },
     {
       "type": "fill",

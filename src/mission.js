@@ -45,6 +45,12 @@ const MARK_SAY = {
   strike: (c) => `Cross out the ${c}. It is silent.`,
   underline: (c) => `Underline the ${c}. It works with its neighbor.`,
   box: (c) => `Put the ${c} in the box.`,
+  arc: (c) => `Draw an arc under the ${c}. It works with its partner.`,
+  kback: (c) => `Put a k-back on the ${c}. It says k.`,
+  cedilla: (c) => `Put a cedilla on the ${c}. It says s.`,
+  schwa: (c) => `Put a schwa on the ${c}.`,
+  voice: (c) => `Put a voice line under the ${c}.`,
+  bracket: (c) => `Put a bracket in front of the ${c}. A final, stable syllable starts here.`,
 };
 
 /** Worked example. Code lessons animate it one step at a time, narrated; the child taps Next to move on. */
