@@ -1,0 +1,135 @@
+{
+  "id": "ea-team",
+  "title": "The ea Team",
+  "saxonLesson": null,
+  "skill": "ea-team",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters ea are a vowel team. Most often they say long e, like leaf. Sometimes they say short e, like bread. Underline both letters. When ea says long e, you can also put a macron on the e and slash the a.",
+  "trickText": "Underline both letters of ea. Then listen: long e like leaf, or short e like bread? Your ears decide the sound.",
+  "say": "Today's case: the ea team. Two letters, one sound. Most often it says long e, like in leaf. But sometimes it says short e, like in bread. Listen carefully.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the ea team.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "leaf",
+          "answer": "l e_ a_ f"
+        },
+        {
+          "word": "seat",
+          "answer": "s e_ a_ t"
+        },
+        {
+          "word": "beach",
+          "answer": "b e_ a_ c_ h_"
+        },
+        {
+          "word": "team",
+          "answer": "t e_ a_ m"
+        },
+        {
+          "word": "meat",
+          "answer": "m e_ a_ t"
+        },
+        {
+          "word": "bean",
+          "answer": "b e_ a_ n"
+        },
+        {
+          "word": "sea",
+          "answer": "s e_ a_"
+        },
+        {
+          "word": "neat",
+          "answer": "n e_ a_ t"
+        },
+        {
+          "word": "each",
+          "answer": "e_ a_ c_ h_"
+        }
+      ],
+      "alsoAccept": "team-full"
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen. Does ea say long e, like leaf, or short e, like bread?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "long",
+          "label": "Long e (leaf)",
+          "why": "Here ea says long e."
+        },
+        {
+          "id": "short",
+          "label": "Short e (bread)",
+          "why": "Here ea says short e."
+        }
+      ],
+      "items": [
+        {
+          "word": "leaf",
+          "answer": "long"
+        },
+        {
+          "word": "seat",
+          "answer": "long"
+        },
+        {
+          "word": "beach",
+          "answer": "long"
+        },
+        {
+          "word": "team",
+          "answer": "long"
+        },
+        {
+          "word": "meat",
+          "answer": "long"
+        },
+        {
+          "word": "bean",
+          "answer": "long"
+        },
+        {
+          "word": "bread",
+          "answer": "short"
+        },
+        {
+          "word": "head",
+          "answer": "short"
+        },
+        {
+          "word": "thread",
+          "answer": "short"
+        },
+        {
+          "word": "dead",
+          "answer": "short"
+        },
+        {
+          "word": "sweat",
+          "answer": "short"
+        },
+        {
+          "word": "ready",
+          "answer": "short"
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "leaf",
+    "answer": "l e-_ a/_ f",
+    "say": "Look at leaf. The e and a are a team. Here they say long e. I put a macron on the e, slash the a, and underline both letters."
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "id": "ow-long-o",
+  "title": "ow Says Long o",
+  "saxonLesson": null,
+  "skill": "ow-long-o",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters ow can say long o, like snow, or they can say ow, like cow. Underline both letters. When ow says long o, you can also put a macron on the o and slash the w.",
+  "trickText": "Listen to the ow. Long o, like snow? Or the ow sound, like cow? Underline both letters either way.",
+  "say": "Today's case: ow has two sounds. In snow, it says long o. In cow, it says ow. Listen to the sound before you decide.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the ow team.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "snow",
+          "answer": "s n o_ w_"
+        },
+        {
+          "word": "grow",
+          "answer": "g r o_ w_"
+        },
+        {
+          "word": "show",
+          "answer": "s h o_ w_"
+        },
+        {
+          "word": "blow",
+          "answer": "b l o_ w_"
+        },
+        {
+          "word": "slow",
+          "answer": "s l o_ w_"
+        },
+        {
+          "word": "flow",
+          "answer": "f l o_ w_"
+        },
+        {
+          "word": "low",
+          "answer": "l o_ w_"
+        },
+        {
+          "word": "bowl",
+          "answer": "b o_ w_ l"
+        }
+      ],
+      "alsoAccept": "team-full"
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen. Does ow say long o, like snow, or ow, like cow?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "o",
+          "label": "Long o (snow)",
+          "why": "Here ow says long o."
+        },
+        {
+          "id": "ow",
+          "label": "ow (cow)",
+          "why": "Here ow says ow, like cow."
+        }
+      ],
+      "items": [
+        {
+          "word": "snow",
+          "answer": "o"
+        },
+        {
+          "word": "grow",
+          "answer": "o"
+        },
+        {
+          "word": "show",
+          "answer": "o"
+        },
+        {
+          "word": "blow",
+          "answer": "o"
+        },
+        {
+          "word": "slow",
+          "answer": "o"
+        },
+        {
+          "word": "flow",
+          "answer": "o"
+        },
+        {
+          "word": "cow",
+          "answer": "ow"
+        },
+        {
+          "word": "now",
+          "answer": "ow"
+        },
+        {
+          "word": "how",
+          "answer": "ow"
+        },
+        {
+          "word": "down",
+          "answer": "ow"
+        },
+        {
+          "word": "town",
+          "answer": "ow"
+        },
+        {
+          "word": "brown",
+          "answer": "ow"
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "snow",
+    "answer": "s n o-_ w/_",
+    "say": "Look at snow. The o and w are a team. Here they say long o. I put a macron on the o, slash the w, and underline both letters."
+  }
+}

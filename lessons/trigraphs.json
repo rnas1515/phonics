@@ -1,0 +1,87 @@
+{
+  "id": "trigraphs",
+  "title": "Trigraphs and eigh",
+  "saxonLesson": null,
+  "skill": "trigraphs",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "Some sounds are made by three letters: igh, tch and dge. One sound is made by four letters: eigh. Underline all the letters in the group.",
+  "trickText": "Look for igh, tch, dge, or eigh. These groups make one sound together. Underline every letter in the group: three for a trigraph, four for eigh.",
+  "say": "Today's case: three and four letter teams. igh says long i, like in night. tch says ch, like in patch. dge says j, like in bridge. And eigh says long a, like in sleigh. We underline every letter in the group.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Underline every letter in the group.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "night",
+          "answer": "n i_ g_ h_ t"
+        },
+        {
+          "word": "light",
+          "answer": "l i_ g_ h_ t"
+        },
+        {
+          "word": "right",
+          "answer": "r i_ g_ h_ t"
+        },
+        {
+          "word": "high",
+          "answer": "h i_ g_ h_"
+        },
+        {
+          "word": "patch",
+          "answer": "p a t_ c_ h_"
+        },
+        {
+          "word": "match",
+          "answer": "m a t_ c_ h_"
+        },
+        {
+          "word": "catch",
+          "answer": "c a t_ c_ h_"
+        },
+        {
+          "word": "fetch",
+          "answer": "f e t_ c_ h_"
+        },
+        {
+          "word": "bridge",
+          "answer": "b r i d_ g_ e_"
+        },
+        {
+          "word": "badge",
+          "answer": "b a d_ g_ e_"
+        },
+        {
+          "word": "edge",
+          "answer": "e d_ g_ e_"
+        },
+        {
+          "word": "sleigh",
+          "answer": "s l e_ i_ g_ h_"
+        },
+        {
+          "word": "weigh",
+          "answer": "w e_ i_ g_ h_"
+        },
+        {
+          "word": "eight",
+          "answer": "e_ i_ g_ h_ t"
+        }
+      ],
+      "tools": [
+        "underline"
+      ]
+    }
+  ],
+  "example": {
+    "word": "night",
+    "answer": "n i_ g_ h_ t",
+    "say": "Look at night. The letters i g h make one sound, long i. They are a trigraph. I underline all three letters."
+  }
+}

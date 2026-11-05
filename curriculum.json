@@ -95,6 +95,31 @@
       "skill": "prefixes",
       "order": 62,
       "saxonLesson": null
+    },
+    {
+      "skill": "ea-team",
+      "order": 71,
+      "saxonLesson": null
+    },
+    {
+      "skill": "ow-long-o",
+      "order": 72,
+      "saxonLesson": null
+    },
+    {
+      "skill": "ue-ie-ey",
+      "order": 73,
+      "saxonLesson": null
+    },
+    {
+      "skill": "aw-au-ew",
+      "order": 74,
+      "saxonLesson": null
+    },
+    {
+      "skill": "trigraphs",
+      "order": 75,
+      "saxonLesson": null
     }
   ]
 }

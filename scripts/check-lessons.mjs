@@ -55,6 +55,7 @@ eq('team-full: ee', teamFullAlt('s l e_ e_ p'), 's l e-_ e/_ p');
 eq('team-full: ai', teamFullAlt('r a_ i_ n'), 'r a-_ i/_ n');
 eq('team-full: ay', teamFullAlt('d a_ y_'), 'd a-_ y/_');
 eq('team-full: oa', teamFullAlt('b o_ a_ t'), 'b o-_ a/_ t');
+for (const [a, b] of [['l e_ a_ f', 'l e-_ a/_ f'], ['s n o_ w_', 's n o-_ w/_'], ['g l u_ e_', 'g l u-_ e/_'], ['p i_ e_', 'p i-_ e/_'], ['k e_ y_', 'k e-_ y/_']]) eq('team-full ' + a, teamFullAlt(a), b);
 eq('team-full: not applied to oo', teamFullAlt('m o_ o_ n'), null);
 for (const [w, e] of [['seek', 'k'], ['sick', 'ck'], ['bank', 'k'], ['back', 'ck'], ['peck', 'ck'], ['peek', 'k'], ['duck', 'ck'], ['dusk', 'k']])
   eq(`ending of ${w}`, deriveCk(w).answer, e);

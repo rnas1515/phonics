@@ -1,0 +1,138 @@
+{
+  "id": "aw-au-ew",
+  "title": "aw, au and ew Teams",
+  "saxonLesson": null,
+  "skill": "aw-au-ew",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters aw and au say the same sound, like in saw and sauce. The letters ew say long u, like in new. Underline both letters. We usually find aw at the end of a word and au in the middle.",
+  "trickText": "Find the two letters that work together and underline both. aw and au say the same sound. aw is usually at the end of a word, and au is usually in the middle.",
+  "say": "Today's case: aw, au and ew. aw and au make the same sound, like in saw and sauce. ew says long u, like in new. We underline both letters.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the vowel team.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "saw",
+          "answer": "s a_ w_"
+        },
+        {
+          "word": "paw",
+          "answer": "p a_ w_"
+        },
+        {
+          "word": "draw",
+          "answer": "d r a_ w_"
+        },
+        {
+          "word": "claw",
+          "answer": "c l a_ w_"
+        },
+        {
+          "word": "sauce",
+          "answer": "s a_ u_ c e"
+        },
+        {
+          "word": "cause",
+          "answer": "c a_ u_ s e"
+        },
+        {
+          "word": "pause",
+          "answer": "p a_ u_ s e"
+        },
+        {
+          "word": "new",
+          "answer": "n e_ w_"
+        },
+        {
+          "word": "few",
+          "answer": "f e_ w_"
+        },
+        {
+          "word": "grew",
+          "answer": "g r e_ w_"
+        },
+        {
+          "word": "chew",
+          "answer": "c_ h_ e_ w_"
+        },
+        {
+          "word": "blew",
+          "answer": "b l e_ w_"
+        }
+      ]
+    },
+    {
+      "type": "fill",
+      "choices": [
+        "aw",
+        "au"
+      ],
+      "instruction": "Listen. Choose aw or au.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "saw",
+          "pattern": "s__",
+          "answer": "aw",
+          "why": "aw is usually at the end of a word: saw."
+        },
+        {
+          "word": "paw",
+          "pattern": "p__",
+          "answer": "aw",
+          "why": "aw is usually at the end of a word: paw."
+        },
+        {
+          "word": "draw",
+          "pattern": "dr__",
+          "answer": "aw",
+          "why": "aw is usually at the end of a word: draw."
+        },
+        {
+          "word": "claw",
+          "pattern": "cl__",
+          "answer": "aw",
+          "why": "aw is usually at the end of a word: claw."
+        },
+        {
+          "word": "sauce",
+          "pattern": "s__ce",
+          "answer": "au",
+          "why": "au is usually in the middle of a word: sauce."
+        },
+        {
+          "word": "cause",
+          "pattern": "c__se",
+          "answer": "au",
+          "why": "au is usually in the middle of a word: cause."
+        },
+        {
+          "word": "pause",
+          "pattern": "p__se",
+          "answer": "au",
+          "why": "au is usually in the middle of a word: pause."
+        },
+        {
+          "word": "haul",
+          "pattern": "h__l",
+          "answer": "au",
+          "why": "au is usually in the middle of a word: haul."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "saw",
+    "answer": "s a_ w_",
+    "say": "Look at saw. The a and w are a team. They make one sound. So I underline both letters."
+  }
+}

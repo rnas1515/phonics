@@ -6,8 +6,9 @@ The school's own reference pages (see `docs/notation.md`) settled most notation 
    The app grades underline only. Which does the school require?
 2. **oo.** The chart shows a macron or breve over the first o for the two oo sounds, plus the underline. The app accepts underline only
    (your brief says children are only required to underline). Should the sound mark be required?
-3. **Other vowel teams.** ea (three sounds), ow (long o), ei, ey, ie, ue, ew, au, aw, igh, tch, dge, eigh are on the chart but not yet lessons.
-   Which are being taught now?
+3. **Vowel teams still without lessons.** ei, ea as long a (steak), ea as short e coding (breve), ou (soup), oo sound marks, and the
+   advanced stable syllables (tion, sion, tious, ture, cious). Lessons now exist for ea (long e), ow (long o), ue/ie/ey, aw/au/ew,
+   and igh/tch/dge/eigh. For igh/tch/dge the chart seems to show extra slashes on some letters; the app grades the underline only. Confirm.
 4. **Voice lines and schwa.** Tools exist; no lessons yet. Which words does the school use for practice?
 5. **Accent marks and V/C labels** in syllable division are not built yet (only the dividing line).
 6. **Lesson numbers.** Confirmed so far: L4, L6, L9, L11, L14, L26, L37, L38, L40, L61, L103, L110, L136. Sneaky e, suffixes, prefixes and

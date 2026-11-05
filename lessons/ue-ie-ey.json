@@ -1,0 +1,69 @@
+{
+  "id": "ue-ie-ey",
+  "title": "ue, ie and ey Teams",
+  "saxonLesson": null,
+  "skill": "ue-ie-ey",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters ue, ie and ey are vowel teams. ue and ie usually say long u and long i, like glue and pie. ey at the end often says long e, like key. Underline both letters. You can also put a macron on the first vowel and slash the second.",
+  "trickText": "Find the two letters that work together. Underline both. ue says long u. ie says long i. ey says long e.",
+  "say": "Today's case: three more vowel teams. ue, like in glue. ie, like in pie. And ey, like in key. Two letters, one sound.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the vowel team.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "glue",
+          "answer": "g l u_ e_"
+        },
+        {
+          "word": "blue",
+          "answer": "b l u_ e_"
+        },
+        {
+          "word": "true",
+          "answer": "t r u_ e_"
+        },
+        {
+          "word": "clue",
+          "answer": "c l u_ e_"
+        },
+        {
+          "word": "pie",
+          "answer": "p i_ e_"
+        },
+        {
+          "word": "tie",
+          "answer": "t i_ e_"
+        },
+        {
+          "word": "lie",
+          "answer": "l i_ e_"
+        },
+        {
+          "word": "key",
+          "answer": "k e_ y_"
+        },
+        {
+          "word": "donkey",
+          "answer": "d o n k e_ y_"
+        },
+        {
+          "word": "turkey",
+          "answer": "t u r k e_ y_"
+        }
+      ],
+      "alsoAccept": "team-full"
+    }
+  ],
+  "example": {
+    "word": "glue",
+    "answer": "g l u-_ e/_",
+    "say": "Look at glue. The u and e are a team. They say long u. I put a macron on the u, slash the e, and underline both letters."
+  }
+}

@@ -97,8 +97,8 @@ function groupsOf(parsed, mark) {
   return out;
 }
 
-/** Observed school notation for vowel teams: macron on the first vowel, slash through the second, underline both. */
-const TEAM_PAIRS = new Set(['ee', 'ai', 'ay', 'oa']);
+/** Observed school notation for vowel teams (only use it on activities whose words really say the long sound): macron on the first vowel, slash through the second, underline both. */
+const TEAM_PAIRS = new Set(['ee', 'ai', 'ay', 'oa', 'ea', 'ow', 'ue', 'ie', 'ey']);
 export function teamFullAlt(coded) {
   const { letters, boundaries } = parseCodedFull(coded);
   let changed = false;
