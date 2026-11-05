@@ -1,0 +1,137 @@
+{
+  "id": "voice-lines",
+  "title": "Voice Lines: s Says z",
+  "saxonLesson": null,
+  "skill": "voice-lines",
+  "priority": 8,
+  "defaultActive": true,
+  "rule": "Some letters are voiced: your throat hums when you say them. The letter s often says z, like in has. We code a voiced letter with a voice line.",
+  "trickText": "Say the word and put your fingers on your throat. If the s hums and says z, it is voiced. Put a voice line under the s.",
+  "say": "Today's case: voice lines. Put your fingers on your throat and say has. Feel the hum at the end? The s says z. That is a voiced letter, so we give it a voice line.",
+  "example": {
+    "word": "has",
+    "answer": "h a s=",
+    "say": "Say has. The s hums and says z. It is voiced, so I put a voice line under the s."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "voice"
+      ],
+      "instruction": "Find the s that says z. Give it a voice line.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "has",
+          "answer": "h a s="
+        },
+        {
+          "word": "is",
+          "answer": "i s="
+        },
+        {
+          "word": "his",
+          "answer": "h i s="
+        },
+        {
+          "word": "as",
+          "answer": "a s="
+        },
+        {
+          "word": "hers",
+          "answer": "h e r s="
+        },
+        {
+          "word": "rugs",
+          "answer": "r u g s="
+        },
+        {
+          "word": "dogs",
+          "answer": "d o g s="
+        },
+        {
+          "word": "hugs",
+          "answer": "h u g s="
+        },
+        {
+          "word": "beds",
+          "answer": "b e d s="
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen to the end of the word. Does s say s, or z?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "s",
+          "label": "s says s",
+          "why": "Here the s says s. Your throat does not hum."
+        },
+        {
+          "id": "z",
+          "label": "s says z",
+          "why": "Here the s says z. Your throat hums, so it is voiced."
+        }
+      ],
+      "items": [
+        {
+          "word": "cats",
+          "answer": "s"
+        },
+        {
+          "word": "hats",
+          "answer": "s"
+        },
+        {
+          "word": "caps",
+          "answer": "s"
+        },
+        {
+          "word": "cups",
+          "answer": "s"
+        },
+        {
+          "word": "bats",
+          "answer": "s"
+        },
+        {
+          "word": "dogs",
+          "answer": "z"
+        },
+        {
+          "word": "rugs",
+          "answer": "z"
+        },
+        {
+          "word": "beds",
+          "answer": "z"
+        },
+        {
+          "word": "hugs",
+          "answer": "z"
+        },
+        {
+          "word": "has",
+          "answer": "z"
+        },
+        {
+          "word": "his",
+          "answer": "z"
+        },
+        {
+          "word": "is",
+          "answer": "z"
+        }
+      ]
+    }
+  ]
+}

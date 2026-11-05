@@ -1,0 +1,63 @@
+{
+  "id": "schwa",
+  "title": "Schwa: the Uh Vowel",
+  "saxonLesson": null,
+  "skill": "schwa",
+  "priority": 8,
+  "defaultActive": true,
+  "rule": "A vowel at the end of a syllable that is not stressed often says uh, like the a in about. We code that vowel with a schwa.",
+  "trickText": "Say the word out loud. Which syllable is the loud, strong one? Find the quiet vowel at the start that just says uh. Put a schwa on it.",
+  "say": "Today's case: the schwa. In the word about, the first sound is a quiet uh. That is a schwa. We put a schwa on the vowel that says uh.",
+  "example": {
+    "word": "about",
+    "answer": "a@ b o u t",
+    "say": "Say about. The first part is quiet and says uh. The a is a schwa, so I put a schwa on the a."
+  },
+  "activities": [
+    {
+      "type": "code",
+      "tools": [
+        "schwa"
+      ],
+      "instruction": "Find the quiet a that says uh. Put a schwa on it.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "about",
+          "answer": "a@ b o u t"
+        },
+        {
+          "word": "around",
+          "answer": "a@ r o u n d"
+        },
+        {
+          "word": "ago",
+          "answer": "a@ g o"
+        },
+        {
+          "word": "away",
+          "answer": "a@ w a y"
+        },
+        {
+          "word": "alone",
+          "answer": "a@ l o n e"
+        },
+        {
+          "word": "above",
+          "answer": "a@ b o v e"
+        },
+        {
+          "word": "awake",
+          "answer": "a@ w a k e"
+        },
+        {
+          "word": "along",
+          "answer": "a@ l o n g"
+        }
+      ]
+    }
+  ]
+}

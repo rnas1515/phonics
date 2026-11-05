@@ -120,6 +120,16 @@
       "skill": "trigraphs",
       "order": 75,
       "saxonLesson": null
+    },
+    {
+      "skill": "schwa",
+      "order": 140,
+      "saxonLesson": null
+    },
+    {
+      "skill": "voice-lines",
+      "order": 150,
+      "saxonLesson": null
     }
   ]
 }
