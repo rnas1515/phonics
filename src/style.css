@@ -233,3 +233,8 @@ input[type='checkbox'] { width: 28px; height: 28px; }
   .grid2 { grid-template-columns: 1fr; }
   .hero-art { width: 70px; height: 70px; font-size: 2.8rem; }
 }
+
+/* tutor controls: comfortable to tap on a tablet */
+.tutor select { min-height: 44px; font: inherit; }
+.tutor input[type='checkbox'] { width: 32px; height: 32px; }
+.btn.small { min-height: 44px; }

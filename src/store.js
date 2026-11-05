@@ -139,7 +139,10 @@ export function markPassed(lesson, actIndex) {
   const k = (progress.skills[lesson.skill] ??= { attempts: 0, correct: 0, lastSeen: null, masteredAt: null, passed: {} });
   k.passed[`${lesson.id}:${actIndex}`] = new Date().toISOString();
   const required = lesson.activities.map((a, i) => [a, i]).filter(([a]) => !a.optional);
-  if (required.every(([, i]) => k.passed[`${lesson.id}:${i}`])) k.masteredAt ??= new Date().toISOString();
+  if (required.every(([, i]) => k.passed[`${lesson.id}:${i}`])) {
+    if (k.placed) { k.placed = false; k.masteredAt = new Date().toISOString(); } // earned by practice, not just the check-up
+    k.masteredAt ??= new Date().toISOString();
+  }
   ensureSession();
   saveProgress();
 }

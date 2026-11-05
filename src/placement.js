@@ -6,12 +6,14 @@ import { allLessons, checkable } from './lessons.js';
 import { pickItems, playItems } from './play.js';
 import * as store from './store.js';
 
-const ITEMS_PER_SKILL = 4;
+const ITEMS_PER_SKILL = 3;
 const SOFT_CAP_MIN = 12;
 
+// 3 clues per skill: 3 right or 2 right = secure/almost; fewer = to explore.
 export const statusFor = (correct, total) => {
-  const r = correct / total;
-  return r >= 0.75 ? 'secure' : r >= 0.5 ? 'shaky' : 'gap';
+  if (correct >= total) return 'secure';
+  if (correct >= total - 1) return total >= 3 ? 'shaky' : 'secure';
+  return 'gap';
 };
 
 const LABEL = { secure: '✔ Got it', shaky: '〰 Almost', gap: '🔍 To explore' };

@@ -1,11 +1,14 @@
 import { getProgress, saveProgress } from './store.js';
 
+// A badge for mastering a skill needs real practice; a skill marked secure by the check-up does not count.
+const earned = (P, skill) => !!P.skills[skill]?.masteredAt && !P.skills[skill].placed;
+
 export const BADGES = [
   { id: 'first-case', emoji: '🔍', name: 'First Case', how: 'Finish your first practice', test: (P) => P.sessions.some((s) => s.items > 0) },
-  { id: 'sneaky-e', emoji: '🕶️', name: 'Sneaky E Sleuth', how: 'Master Sneaky E', test: (P) => !!P.skills['sneaky-e']?.masteredAt },
-  { id: 'ck-k', emoji: '🗝️', name: 'ck / k Case Cracker', how: 'Master ck and k', test: (P) => !!P.skills['ck-k']?.masteredAt },
-  { id: 'teams', emoji: '👥', name: 'Team Spotter', how: 'Master the ee and oo teams', test: (P) => !!P.skills['ee-team']?.masteredAt && !!P.skills['oo-team']?.masteredAt },
-  { id: 'sight', emoji: '👁️', name: 'Sight Word Ace', how: 'Master the sight words', test: (P) => !!P.skills['sight-a8']?.masteredAt },
+  { id: 'sneaky-e', emoji: '🕶️', name: 'Sneaky E Sleuth', how: 'Master Sneaky E', test: (P) => earned(P, 'sneaky-e') },
+  { id: 'ck-k', emoji: '🗝️', name: 'ck / k Case Cracker', how: 'Master ck and k', test: (P) => earned(P, 'ck-k') },
+  { id: 'teams', emoji: '👥', name: 'Team Spotter', how: 'Master the ee and oo teams', test: (P) => earned(P, 'ee-team') && earned(P, 'oo-team') },
+  { id: 'sight', emoji: '👁️', name: 'Sight Word Ace', how: 'Master the sight words', test: (P) => earned(P, 'sight-a8') },
   { id: 'perfect', emoji: '💎', name: 'Perfect Set', how: 'Get every word right in a set', test: (P) => !!P.badges.perfect },
   { id: 'streak3', emoji: '🔥', name: '3-Day Streak', how: 'Practice 3 days in a row', test: (P) => P.streak.best >= 3 },
   { id: 'streak7', emoji: '🚀', name: '7-Day Streak', how: 'Practice 7 days in a row', test: (P) => P.streak.best >= 7 },

@@ -29,24 +29,29 @@ function chooseVoice() {
 export const letters = (s) => [...String(s).toUpperCase()].join(' ');
 
 export function stopSpeaking() {
-  if (ttsSupported) speechSynthesis.cancel();
+  try { if (ttsSupported) speechSynthesis.cancel(); } catch { /* speech is optional */ }
 }
 
 /**
  * Speak text. Interrupts current speech unless opts.queue. Resolves when finished
- * (or straight away if muted / unsupported), so it is always safe to ignore.
+ * (or straight away if muted / unsupported / the browser refuses), so it is always safe to ignore.
+ * It never throws: a speech problem must not stop a lesson.
  */
 export function speak(text, opts = {}) {
   if (!ttsSupported || !cfg.enabled || !text) return Promise.resolve();
   return new Promise((resolve) => {
-    if (!opts.queue) speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = opts.rate ?? cfg.rate;
-    u.pitch = 1;
-    const v = chooseVoice();
-    if (v) { u.voice = v; u.lang = v.lang; } else u.lang = 'en-US';
-    const t = setTimeout(resolve, Math.max(3000, text.length * 120)); // some engines never fire onend
-    u.onend = u.onerror = () => { clearTimeout(t); resolve(); };
-    speechSynthesis.speak(u);
+    try {
+      if (!opts.queue) speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = opts.rate ?? cfg.rate;
+      u.pitch = 1;
+      const v = chooseVoice();
+      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = 'en-US';
+      const t = setTimeout(resolve, Math.max(3000, text.length * 120)); // some engines never fire onend
+      u.onend = u.onerror = () => { clearTimeout(t); resolve(); };
+      speechSynthesis.speak(u);
+    } catch {
+      resolve();
+    }
   });
 }
