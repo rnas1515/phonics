@@ -69,6 +69,14 @@ for (const f of readdirSync(new URL('../lessons/', import.meta.url)).filter((f) 
   }
 }
 
+// voice ranking: natural voices beat robotic ones
+import { scoreVoice } from '../src/tts.js';
+const V = (name, lang = 'en-US') => ({ name, lang });
+eq('natural beats default', scoreVoice(V('Microsoft Aria Online (Natural) - English (United States)')) > scoreVoice(V('Microsoft David - English (United States)')), true);
+eq('premium beats compact', scoreVoice(V('Ava (Premium)')) > scoreVoice(V('Samantha (Compact)')), true);
+eq('novelty voices excluded', scoreVoice(V('Zarvox')) < 0, true);
+eq('US english preferred', scoreVoice(V('Google US English', 'en-US')) > scoreVoice(V('Google UK English Female', 'en-GB')), true);
+
 const dir = new URL('../lessons/', import.meta.url);
 for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
   const { lesson, errors } = normalizeLesson(JSON.parse(readFileSync(new URL(f, dir), 'utf8')));

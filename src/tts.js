@@ -14,15 +14,34 @@ export function listVoices() {
   return speechSynthesis.getVoices().filter((v) => /^en/i.test(v.lang));
 }
 
+/**
+ * How natural a voice is likely to sound (higher is better). Neural / "Natural" / "Premium" / "Enhanced" voices beat the
+ * old robotic defaults; novelty and compact voices are ruled out. American English is preferred (US curriculum).
+ */
+export function scoreVoice(v) {
+  const n = v.name || '';
+  let s = 0;
+  if (/natural|neural|online/i.test(n)) s += 50;
+  if (/premium/i.test(n)) s += 45;
+  if (/enhanced/i.test(n)) s += 35;
+  if (/siri/i.test(n)) s += 30;
+  if (/google/i.test(n)) s += 25;
+  if (/samantha|ava|allison|zoe|nicky|aria|jenny|emma|ana\b|susan|evan|nathan/i.test(n)) s += 15;
+  if (/^en[-_]US/i.test(v.lang)) s += 10;
+  else if (/^en[-_](GB|AU|CA)/i.test(v.lang)) s += 4;
+  if (/compact|espeak|eloquence|fred|zarvox|bad news|bells|whisper|boing|bubbles|cellos|trinoids|albert|junior|kathy|ralph|organ|good news|superstar|jester|hysterical|wobble/i.test(n)) s -= 100;
+  return s;
+}
+
+/** English voices, best first. */
+export function rankedVoices() {
+  return listVoices().map((v) => [scoreVoice(v), v]).sort((a, b) => b[0] - a[0]).map(([, v]) => v);
+}
+
 function chooseVoice() {
-  const voices = listVoices();
-  if (!voices.length) return null;
-  return (
-    voices.find((v) => v.name === cfg.voice) ||
-    voices.find((v) => /en-US/i.test(v.lang) && /samantha|google us|aria|jenny|natural/i.test(v.name)) ||
-    voices.find((v) => /en-US/i.test(v.lang)) ||
-    voices[0]
-  );
+  const ranked = rankedVoices();
+  if (!ranked.length) return null;
+  return ranked.find((v) => v.name === cfg.voice) || ranked[0];
 }
 
 /** Spell letters aloud: "ck" -> "C K" */

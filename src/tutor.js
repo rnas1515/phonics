@@ -1,5 +1,5 @@
 import { h, download, slug } from './util.js';
-import { speak, listVoices, configureTts } from './tts.js';
+import { speak, rankedVoices, scoreVoice, configureTts } from './tts.js';
 import { pinPad, btn } from './ui.js';
 import { allLessons, problems, accuracy } from './lessons.js';
 import { normalizeLesson, deriveCk } from './validate.js';
@@ -202,8 +202,9 @@ function settingsTab(refresh) {
   const name = h('input', { type: 'text', value: S.name });
   const cap = h('input', { type: 'number', min: 5, max: 60, value: S.sessionMinutes });
   const rate = h('input', { type: 'range', min: 0.6, max: 1.2, step: 0.05, value: S.tts.rate });
-  const voices = listVoices();
-  const voice = h('select', {}, h('option', { value: '' }, 'Automatic'), voices.map((v) => h('option', { value: v.name, selected: v.name === S.tts.voice }, `${v.name} (${v.lang})`)));
+  const voices = rankedVoices();
+  const voice = h('select', {}, h('option', { value: '' }, 'Automatic (best available)'),
+    voices.map((v, i) => h('option', { value: v.name, selected: v.name === S.tts.voice }, `${i < 3 && scoreVoice(v) > 10 ? '★ ' : ''}${v.name} (${v.lang})`)));
   const apply = () => {
     S.name = name.value.trim() || 'Marcelo';
     S.sessionMinutes = Math.min(60, Math.max(5, +cap.value || 15));
@@ -223,7 +224,7 @@ function settingsTab(refresh) {
     h('label', { class: 'field' }, h('span', {}, "Child's first name"), name),
     h('label', { class: 'field' }, h('span', {}, 'Soft session cap (minutes)'), cap),
     h('label', { class: 'field' }, h('span', {}, 'Voice speed'), rate),
-    h('label', { class: 'field' }, h('span', {}, 'Voice'), voice),
+    h('label', { class: 'field' }, h('span', {}, 'Voice (★ = most natural on this device; try a few with Test voice)'), voice),
     btn('🔊 Test voice', { cls: 'ghost', onClick: () => { apply(); speak('Hello detective. Let us solve some words.'); } }),
     h('h3', {}, 'Tutor PIN'), h('div', { class: 'btn-row' }, p1, setPin),
     h('h3', {}, 'Backup / move to another device'),
