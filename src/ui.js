@@ -57,25 +57,37 @@ export function celebrate() {
   setTimeout(() => box.remove(), 3200);
 }
 
-/** Numeric PIN pad. Calls onOk() when the PIN is right. */
+/** Numeric PIN pad. Calls onOk() when the PIN is right. The digits live in a variable (not in a text box), so phone keyboards and autofill cannot interfere. */
 export function pinPad(onOk, hint = 'Enter the tutor PIN') {
-  const input = h('input', { class: 'pin-input', type: 'password', inputmode: 'numeric', autocomplete: 'off', maxlength: 8, 'aria-label': 'PIN' });
+  const MAX = 8;
+  let value = '';
   const msg = h('p', { class: 'pin-msg', role: 'status' }, hint);
-  const submit = () => {
-    if (checkPin(input.value)) onOk();
-    else { msg.textContent = 'That PIN is not right.'; input.value = ''; input.focus(); }
+  const shown = h('div', { class: 'pin-input', role: 'img', 'aria-label': 'PIN digits entered: none' }, '\u00a0');
+  const paint = () => {
+    shown.textContent = value ? '\u25CF '.repeat(value.length).trim() : '\u00a0';
+    shown.setAttribute('aria-label', `PIN digits entered: ${value.length}`);
   };
-  input.addEventListener('keydown', (e) => e.key === 'Enter' && submit());
-  const key = (k) =>
-    btn(k, {
-      cls: 'key',
-      onClick: () => {
-        if (k === '⌫') input.value = input.value.slice(0, -1);
-        else if (k === 'OK') submit();
-        else input.value += k;
-      },
-    });
-  return h('div', { class: 'pinpad' }, msg, input, h('div', { class: 'keys' }, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', 'OK'].map(key)));
+  const submit = () => {
+    if (checkPin(value)) return onOk();
+    msg.textContent = 'That PIN is not right.'; value = ''; paint();
+  };
+  const press = (k) => {
+    if (k === 'Delete') value = value.slice(0, -1);
+    else if (k === 'Clear') value = '';
+    else if (k === 'OK') return submit();
+    else if (value.length < MAX) value += k;
+    paint();
+  };
+  const key = (k) => btn(k, { cls: 'key' + (k.length > 2 ? ' keyword' : ''), onClick: () => press(k) });
+  const root = h('div', { class: 'pinpad', tabindex: 0 }, msg, shown, h('div', { class: 'keys' }, ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Delete', '0', 'OK'].map(key)),
+    h('div', { class: 'btn-row' }, btn('Clear', { cls: 'ghost small', onClick: () => press('Clear') })));
+  // A real keyboard still works (computers, iPads with keyboards).
+  root.addEventListener('keydown', (e) => {
+    if (/^[0-9]$/.test(e.key)) press(e.key);
+    else if (e.key === 'Backspace') press('Delete');
+    else if (e.key === 'Enter') press('OK');
+  });
+  return root;
 }
 
 /** Blocks until a grown-up enters the PIN (or the child skips). Resolves true/false. */

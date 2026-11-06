@@ -351,3 +351,7 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .photo-msg { font-weight: 700; }
 /* iPhone/iPad: quick taps on keys and links must never turn into a double-tap zoom */
 a, button, .btn, input, select { touch-action: manipulation; }
+.pin-input { min-height: 3.2rem; display: flex; align-items: center; justify-content: center; background: #fff; letter-spacing: .1em; }
+.btn.key.keyword { font-size: 1.05rem; text-transform: none; }
+.keys { grid-auto-rows: 64px; align-items: stretch; }
+.keys .btn.key { min-height: 0; height: 100%; display: flex; align-items: center; justify-content: center; }
