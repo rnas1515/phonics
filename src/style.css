@@ -253,3 +253,5 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .lab-steps { list-style: none; counter-reset: step; padding-left: 0; }
 .lab-steps li { counter-increment: step; }
 .lab-steps li::before { content: counter(step); flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; display: grid; place-items: center; margin-top: 4px; }
+
+.card.concept { margin-top: 12px; }

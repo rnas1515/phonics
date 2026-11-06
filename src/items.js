@@ -30,13 +30,21 @@ function tip(host, item) {
   speak(item.why, { queue: true });
 }
 
-/** Show feedback + a Next button. Resolves when Next is pressed. */
-function finish(host, ctx, { good, text, spoken }) {
+/**
+ * Show feedback + a Next button. Resolves when Next is pressed.
+ * With `concept`, also show the lesson's idea (its trick) so a missed answer teaches the rule, not just the word.
+ */
+function finish(host, ctx, { good, text, spoken, concept }) {
   const fb = h('div', { class: 'feedback ' + (good ? 'good' : 'soft'), role: 'status' }, h('p', {}, text));
+  const idea = concept ? ctx.lesson?.trickText || ctx.lesson?.rule : '';
+  const card = idea
+    ? h('div', { class: 'card trick concept' }, h('strong', {}, '🔎 Remember the idea'), h('div', { class: 'say' }, h('p', {}, idea), speakBtn(idea)))
+    : null;
   const next = btn(ctx.last ? 'Finish ▶' : 'Next ▶', { cls: 'primary next' });
-  host.append(fb, next);
+  host.append(fb, card, next);
   next.focus();
   speak(spoken ?? text);
+  if (idea) speak(idea, { queue: true });
   return new Promise((res) =>
     next.addEventListener('click', () => { stopSpeaking(); res(); }, { once: true })
   );
@@ -167,7 +175,7 @@ async function codeItem(host, act, item, ctx) {
       bounds.clear(); if (tools.includes('divide')) exp.boundaries.forEach((p) => bounds.add(p));
       w.paint(state, bounds);
       msg.textContent = 'Here is the answer. Read why, then go on.';
-      await finish(host, ctx, { good: false, text: `Here is the answer. ${item.why}`, spoken: 'Not quite. ' + item.why });
+      await finish(host, ctx, { good: false, concept: true, text: `Here is the answer. ${item.why}`, spoken: 'Not quite. ' + item.why });
       return resolve({ correct: false });
     }
     w.paint(state, bounds, new Set(best.badLetters), new Set(best.badBounds));
@@ -190,7 +198,7 @@ async function sortItem(host, act, item, ctx) {
   const id = await new Promise((res) => buttons.forEach((b) => b.addEventListener('click', () => res(b.dataset.id), { once: true })));
   buttons.forEach((b) => { b.disabled = true; if (b.dataset.id === item.answer) b.classList.add('right'); else if (b.dataset.id === id) b.classList.add('wrong'); });
   const ok = id === item.answer;
-  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: pick(PRAISE) } : { good: false, text: item.why, spoken: 'Not quite. ' + item.why });
+  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: pick(PRAISE) } : { good: false, concept: true, text: item.why, spoken: 'Not quite. ' + item.why });
   return { correct: ok };
 }
 
@@ -205,7 +213,7 @@ async function fillItem(host, act, item, ctx) {
   const id = await new Promise((res) => buttons.forEach((b) => b.addEventListener('click', () => res(b.dataset.id), { once: true })));
   buttons.forEach((b) => { b.disabled = true; if (b.dataset.id === item.answer) b.classList.add('right'); else if (b.dataset.id === id) b.classList.add('wrong'); });
   const ok = id === item.answer;
-  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: pick(PRAISE) } : { good: false, text: item.why, spoken: 'Not quite. ' + item.why });
+  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: pick(PRAISE) } : { good: false, concept: true, text: item.why, spoken: 'Not quite. ' + item.why });
   return { correct: ok };
 }
 
@@ -296,7 +304,7 @@ async function oneLetterItem(host, act, item, ctx) {
   blank.textContent = answer;
   blank.classList.add('filled');
   markTarget();
-  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: `${pick(PRAISE)} ${word}.` } : { good: false, text: item.why, spoken: item.why });
+  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: `${pick(PRAISE)} ${word}.` } : { good: false, concept: mistakes >= 2, text: item.why, spoken: item.why });
   return { correct: ok };
 }
 
@@ -346,7 +354,7 @@ async function compItem(host, act, item, ctx) {
   const i = await new Promise((res) => buttons.forEach((b) => b.addEventListener('click', () => res(+b.dataset.i), { once: true })));
   buttons.forEach((b, j) => { b.disabled = true; if (j === item.answer) b.classList.add('right'); else if (j === i) b.classList.add('wrong'); });
   const ok = i === item.answer;
-  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: pick(PRAISE) } : { good: false, text: `The answer is "${item.choices[item.answer]}". ${item.why}`, spoken: `Not quite. The answer is ${item.choices[item.answer]}.` });
+  await finish(host, ctx, ok ? { good: true, text: `${pick(PRAISE)} ${item.why}`, spoken: pick(PRAISE) } : { good: false, concept: true, text: `The answer is "${item.choices[item.answer]}". ${item.why}`, spoken: `Not quite. The answer is ${item.choices[item.answer]}.` });
   return { correct: ok };
 }
 
