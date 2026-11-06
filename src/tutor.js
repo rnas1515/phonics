@@ -1,3 +1,4 @@
+import { cloud } from './cloud.js';
 import { cloudSection } from './cloudui.js';
 import { assessmentsTab } from './assessments.js';
 import { GRADES, DEFAULT_GRADE, validGrade } from './grades.js';
@@ -14,10 +15,26 @@ import * as store from './store.js';
 let unlocked = false; // resets when the page reloads
 let lastTab = 'Progress';
 
+/** "Forgot PIN?": prove who you are with the cloud account password, and the PIN goes back to 1234. */
+function forgotPin(root) {
+  if (!cloud.configured) return h('p', { class: 'hintline' }, 'Forgot the PIN? The PIN is kept on each device. Try 1234, or the PIN you set on this device.');
+  const email = h('input', { type: 'email', placeholder: 'Account email', value: cloud.state().email || '', autocomplete: 'email', 'aria-label': 'Account email' });
+  const pw = h('input', { type: 'password', placeholder: 'Account password', autocomplete: 'current-password', 'aria-label': 'Account password' });
+  const msg = h('p', { class: 'hintline', role: 'status' });
+  const box = h('div', { class: 'form', hidden: true }, email, pw,
+    btn('Reset PIN to 1234', { cls: 'primary', onClick: async () => {
+      msg.textContent = 'Checking…';
+      try { await cloud.signIn(email.value.trim(), pw.value); store.resetPin(); msg.textContent = 'PIN reset to 1234. Enter it above, then change it in Settings.'; box.hidden = true; }
+      catch (e) { msg.textContent = '⚠ ' + (e.message || 'Could not check the account'); }
+    } }), msg);
+  return h('div', {}, btn('Forgot PIN?', { cls: 'ghost small', onClick: () => { box.hidden = !box.hidden; } }), box);
+}
+
 export function tutorScreen(root) {
   if (!unlocked) {
     root.replaceChildren(h('div', { class: 'panel narrow' }, h('h2', {}, '🔒 Tutor area'),
       pinPad(() => { unlocked = true; tutorScreen(root); }),
+      forgotPin(root),
       h('a', { class: 'btn ghost', href: '#/' }, 'Back to HQ')));
     return;
   }

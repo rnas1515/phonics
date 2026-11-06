@@ -390,3 +390,14 @@ console.log('\nAll lesson checks passed');
   eq('invoke sends the user token', seen.o.headers.Authorization, 'Bearer tok-1');
   eq('invoke returns data', out.words[0].word, 'cake');
 }
+
+// ---- PIN reset ----
+{
+  const st = await import('../src/store.js');
+  st.setPin('987654');
+  eq('custom pin works', st.checkPin('987654'), true);
+  eq('default no longer works', st.checkPin('1234'), false);
+  st.resetPin();
+  eq('reset restores 1234', st.checkPin('1234'), true);
+  eq('reset marks default', st.getSettings().pinIsDefault, true);
+}

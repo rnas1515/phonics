@@ -214,6 +214,7 @@ export function removeLessonLocal(id) {
 }
 
 export function checkPin(pin) { return hashPin(pin) === settings.pin; }
+export function resetPin() { settings.pin = hashPin('1234'); settings.pinIsDefault = true; saveSettings(); }
 export function setPin(pin) { settings.pin = hashPin(pin); settings.pinIsDefault = false; saveSettings(); }
 
 /** The grade of the child shown now (older profiles without one count as 2nd grade). */
