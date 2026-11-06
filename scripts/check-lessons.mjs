@@ -101,6 +101,56 @@ for (const [w, c] of [
 eq('word lab: sight word has no coding', analyzeWord('said').empty, true);
 eq('word lab: ve exception noted', analyzeWord('have').irregular, true);
 
+// profiles: several children on one device, and Marcelo's existing data survives the upgrade
+{
+  const mem = new Map();
+  globalThis.localStorage = { getItem: (k) => (mem.has(k) ? mem.get(k) : null), setItem: (k, v) => mem.set(k, String(v)), removeItem: (k) => mem.delete(k), get length() { return mem.size; }, key: (i) => [...mem.keys()][i] };
+  globalThis.sessionStorage = { length: 0, key: () => null, getItem: () => null, setItem() {}, removeItem() {} };
+  globalThis.window = { dispatchEvent() {} };
+  // data saved by the version before profiles existed
+  mem.set('wd.progress.v1', JSON.stringify({ points: 50, rewards: { counted: { x: 1 }, progress: 3, tokens: 1, earned: 1, lost: 0 } }));
+  mem.set('wd.settings.v1', JSON.stringify({ name: 'Marcelo', pin: 'oldpin', pinIsDefault: false, active: { 'wild-colt': false } }));
+  const st = await import('../src/store.js');
+  eq('upgrade keeps points', st.getProgress().points, 50);
+  eq('upgrade keeps reward progress', st.getProgress().rewards.progress + '/' + st.getProgress().rewards.tokens, '3/1');
+  eq('upgrade keeps name', st.getSettings().name, 'Marcelo');
+  eq('upgrade keeps active-skill choices', st.getSettings().active['wild-colt'], false);
+  eq('upgrade keeps the PIN', st.getSettings().pin, 'oldpin');
+  eq('one profile to begin with', st.getProfiles().length, 1);
+  const ana = st.addProfile('Ana', '🦊');
+  eq('second profile added', st.getProfiles().length, 2);
+  st.switchProfile(ana);
+  eq('new child starts at zero points', st.getProgress().points, 0);
+  eq('new child has the right name', st.getSettings().name, 'Ana');
+  eq('new child has no reward progress', st.getProgress().rewards.progress, 0);
+  eq('the PIN is shared', st.getSettings().pin, 'oldpin');
+  eq("Marcelo's active-skill choices do not leak", Object.keys(st.getSettings().active).length, 0);
+  st.recordItem({ skill: 'ck-k', word: 'duck', correct: true });
+  eq('Ana earns points', st.getProgress().points, 10);
+  st.switchProfile('p1');
+  eq("Marcelo's points are untouched", st.getProgress().points, 50);
+  eq("Marcelo's skills are untouched", Object.keys(st.getProgress().skills).length, 0);
+  st.switchProfile(ana);
+  eq("Ana's progress is still there", st.getProgress().points, 10);
+  st.updateProfile(ana, { name: 'Anabel' });
+  eq('rename shows in settings', st.getSettings().name, 'Anabel');
+  const sb = st.addProfile('   ', 'x');
+  eq('a blank name is refused', sb, null);
+  for (let i = 0; i < 10; i++) st.addProfile('Kid' + i);
+  eq('profiles are capped', st.getProfiles().length, st.MAX_PROFILES);
+  eq('delete the child shown moves to someone else', st.deleteProfile(ana), true);
+  eq('deleted child progress is gone', mem.has('wd.progress.' + ana), false);
+  eq('still on a valid profile', st.getProfiles().some((p) => p.id === st.currentProfileId()), true);
+  st.switchProfile('p1');
+  const backup = st.exportAll();
+  st.getProgress().points = 1; st.importAll(backup);
+  eq('restore a backup into the same child', st.getProgress().points, 50);
+  eq('restore keeps the shared PIN', st.getSettings().pin, 'oldpin');
+  st.deleteAll();
+  eq('delete everything leaves one fresh profile', st.getProfiles().length + '/' + st.getProgress().points, '1/0');
+  eq('delete everything removes saved keys', [...mem.keys()].filter((k) => k.startsWith('wd.progress')).length, 0);
+}
+
 // speech is split into short pieces, nothing is lost, order is kept
 import { splitSpeech } from '../src/tts.js';
 {

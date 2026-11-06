@@ -1,7 +1,12 @@
 // Local-only persistence (localStorage). Nothing leaves the device.
 import { today } from './util.js';
 
-const K = { progress: 'wd.progress.v1', settings: 'wd.settings.v1', custom: 'wd.customLessons.v1' };
+const K = { settings: 'wd.settings.v1', custom: 'wd.customLessons.v1', profiles: 'wd.profiles.v1' };
+// Each child has their own progress and per-child settings. The first profile keeps the original keys,
+// so progress saved before profiles existed is still Marcelo's.
+const progressKey = (id) => (id === 'p1' ? 'wd.progress.v1' : `wd.progress.${id}`);
+const profileKey = (id) => `wd.profile.${id}`;
+export const MAX_PROFILES = 6;
 
 function read(key, fallback) {
   try {
@@ -57,9 +62,23 @@ const DEFAULT_PROGRESS = () => ({
   streak: { last: null, count: 0, best: 0 },
 });
 
-let settings = { ...DEFAULT_SETTINGS(), ...read(K.settings, {}) };
-let progress = { ...DEFAULT_PROGRESS(), ...read(K.progress, {}) };
+// Settings shared by everyone (one tutor PIN, voice, game rules). Name and active skills belong to each child.
+const SHARED_KEYS = ['pin', 'pinIsDefault', 'sessionMinutes', 'lessonsPerGame', 'maxTokens', 'gameMinutes', 'tts'];
+const sharedStored = read(K.settings, {}); // before profiles existed this file also held name and active
+let profiles = read(K.profiles, null);
+if (!profiles?.list?.length) profiles = { list: [{ id: 'p1', name: sharedStored.name || 'Marcelo', avatar: 'img' }], current: 'p1' };
+if (!profiles.list.some((p) => p.id === profiles.current)) profiles.current = profiles.list[0].id;
+let currentId = profiles.current;
+let settings, progress;
 let custom = read(K.custom, []);
+
+function loadProfile(id) {
+  const prof = profiles.list.find((p) => p.id === id);
+  const own = read(profileKey(id), null) ?? (id === 'p1' ? { active: sharedStored.active } : {});
+  progress = { ...DEFAULT_PROGRESS(), ...read(progressKey(id), {}) };
+  settings = { ...DEFAULT_SETTINGS(), ...sharedStored, name: prof.name, active: own.active || {} };
+}
+loadProfile(currentId);
 
 export const getSettings = () => settings;
 export const getProgress = () => progress;
@@ -67,8 +86,58 @@ export const getCustomLessons = () => custom;
 
 const notify = () => window.dispatchEvent(new Event('wd:update'));
 
-export function saveSettings() { write(K.settings, settings); notify(); }
-export function saveProgress() { write(K.progress, progress); notify(); }
+const writeProfiles = () => write(K.profiles, { list: profiles.list, current: currentId });
+export function saveSettings() {
+  for (const k of SHARED_KEYS) sharedStored[k] = settings[k];
+  write(K.settings, Object.fromEntries(SHARED_KEYS.map((k) => [k, settings[k]])));
+  write(profileKey(currentId), { active: settings.active });
+  const prof = profiles.list.find((p) => p.id === currentId);
+  if (prof && settings.name && prof.name !== settings.name) { prof.name = settings.name; writeProfiles(); }
+  notify();
+}
+export function saveProgress() { write(progressKey(currentId), progress); notify(); }
+
+/* ---------- profiles (several children on one device) ---------- */
+export const getProfiles = () => profiles.list.map((p) => ({ ...p }));
+export const currentProfileId = () => currentId;
+export const currentProfile = () => ({ ...profiles.list.find((p) => p.id === currentId) });
+
+export function switchProfile(id) {
+  if (!profiles.list.some((p) => p.id === id) || id === currentId) return;
+  currentId = id;
+  current = null; // a new practice session starts for the new child
+  writeProfiles();
+  loadProfile(id);
+  notify();
+}
+export function addProfile(name, avatar = '🦊') {
+  const clean = String(name).trim().slice(0, 20);
+  if (!clean || profiles.list.length >= MAX_PROFILES) return null;
+  const id = 'p' + Date.now().toString(36);
+  profiles.list.push({ id, name: clean, avatar });
+  writeProfiles();
+  notify();
+  return id;
+}
+export function updateProfile(id, patch) {
+  const p = profiles.list.find((x) => x.id === id);
+  if (!p) return;
+  if (patch.name != null && String(patch.name).trim()) p.name = String(patch.name).trim().slice(0, 20);
+  if (patch.avatar) p.avatar = patch.avatar;
+  writeProfiles();
+  if (id === currentId) settings.name = p.name;
+  notify();
+}
+/** Delete a child and all their progress. The last profile cannot be deleted. */
+export function deleteProfile(id) {
+  if (profiles.list.length < 2 || !profiles.list.some((p) => p.id === id)) return false;
+  for (const key of [progressKey(id), profileKey(id)]) { try { localStorage.removeItem(key); } catch { /* ignore */ } }
+  profiles.list = profiles.list.filter((p) => p.id !== id);
+  if (id === currentId) { currentId = profiles.list[0].id; current = null; loadProfile(currentId); }
+  writeProfiles();
+  notify();
+  return true;
+}
 export function saveCustomLessons(list) { custom = list; write(K.custom, custom); }
 
 export function checkPin(pin) { return hashPin(pin) === settings.pin; }
@@ -182,25 +251,40 @@ export function troubleWords() {
     .sort((a, b) => b.wrong - a.wrong);
 }
 
+/** Backup of the child shown now: their progress, name and active skills, plus any added lessons. */
 export function exportAll() {
-  return JSON.stringify({ app: 'word-detective', version: 1, progress, settings, customLessons: custom }, null, 2);
+  return JSON.stringify({ app: 'word-detective', version: 2, name: settings.name, active: settings.active, progress, customLessons: custom }, null, 2);
 }
+/** Restore a backup into the child shown now. Shared settings (PIN, voice) are left alone. */
 export function importAll(text) {
   const d = JSON.parse(text);
   if (d.app !== 'word-detective') throw new Error('This is not a Word Detective backup file');
   progress = { ...DEFAULT_PROGRESS(), ...d.progress };
-  settings = { ...DEFAULT_SETTINGS(), ...d.settings };
-  custom = d.customLessons || [];
-  write(K.progress, progress); write(K.settings, settings); write(K.custom, custom);
-  notify();
+  const src = d.settings || d; // version 1 backups kept these inside "settings"
+  if (src.name) settings.name = src.name;
+  settings.active = src.active || {};
+  const have = new Set(custom.map((l) => l.id));
+  custom = [...custom, ...(d.customLessons || []).filter((l) => l && !have.has(l.id))];
+  write(K.custom, custom);
+  write(progressKey(currentId), progress);
+  saveSettings();
 }
-/** Delete everything this app stored on this device (progress, settings, custom lessons). */
+/** Delete everything this app stored on this device: every child's progress, settings and added lessons. */
 export function deleteAll() {
-  for (const key of Object.values(K)) { try { localStorage.removeItem(key); } catch { /* ignore */ } }
-  progress = DEFAULT_PROGRESS();
-  settings = DEFAULT_SETTINGS();
+  for (const area of [() => localStorage, () => sessionStorage]) {
+    try {
+      const a = area();
+      const keys = [];
+      for (let i = 0; i < a.length; i++) keys.push(a.key(i));
+      keys.filter((k) => k && k.startsWith('wd.')).forEach((k) => a.removeItem(k));
+    } catch { /* ignore */ }
+  }
+  for (const k of Object.keys(sharedStored)) delete sharedStored[k];
+  profiles = { list: [{ id: 'p1', name: 'Marcelo', avatar: 'img' }], current: 'p1' };
+  currentId = 'p1';
   custom = [];
   current = null;
+  loadProfile('p1');
   notify();
 }
 export function resetProgress() {

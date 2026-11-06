@@ -5,9 +5,11 @@ import { allLessons, problems, accuracy, weekOf } from './lessons.js';
 import { normalizeLesson, deriveCk } from './validate.js';
 import { autoCode, parseCodedFull } from './coding.js';
 import { renderCoded } from './items.js';
+import { avatarEl, AVATARS } from './profiles.js';
 import * as store from './store.js';
 
 let unlocked = false; // resets when the page reloads
+let lastTab = 'Progress';
 
 export function tutorScreen(root) {
   if (!unlocked) {
@@ -17,21 +19,26 @@ export function tutorScreen(root) {
     return;
   }
   const tabs = {
-    Progress: progressTab, 'Trouble words': troubleTab, Sessions: sessionsTab, Lessons: lessonsTab, Settings: settingsTab,
+    Progress: progressTab, 'Trouble words': troubleTab, Sessions: sessionsTab, Lessons: lessonsTab, Children: childrenTab, Settings: settingsTab,
   };
   const body = h('div', { class: 'tab-body' });
   const bar = h('div', { class: 'tabs', role: 'tablist' });
   const open = (name) => {
+    lastTab = name;
     [...bar.children].forEach((b) => b.setAttribute('aria-selected', String(b.textContent === name)));
-    body.replaceChildren(tabs[name](() => open(name)));
+    body.replaceChildren(tabs[name](() => open(name), root));
   };
   Object.keys(tabs).forEach((n) => bar.append(h('button', { class: 'tab', role: 'tab', type: 'button', onClick: () => open(n) }, n)));
+  const kids = store.getProfiles();
   const warn = store.getSettings().pinIsDefault ? h('p', { class: 'banner' }, '⚠ The PIN is still the default (1234). Change it in Settings.') : null;
   root.replaceChildren(h('div', { class: 'tutor' },
     h('div', { class: 'panel-head' }, h('h2', {}, 'Tutor view'),
       h('div', {}, btn('Lock', { cls: 'ghost', onClick: () => { unlocked = false; tutorScreen(root); } }), h('a', { class: 'btn ghost', href: '#/' }, 'Back to HQ'))),
+    kids.length > 1 ? h('label', { class: 'field child-switch' }, h('span', {}, 'Child shown below'),
+      h('select', { 'aria-label': 'Child shown', onChange: (e) => { store.switchProfile(e.target.value); tutorScreen(root); } },
+        kids.map((p) => h('option', { value: p.id, selected: p.id === store.currentProfileId() }, p.name)))) : null,
     warn, bar, body));
-  open('Progress');
+  open(tabs[lastTab] ? lastTab : 'Progress');
 }
 
 const dimPct = (k, d) => (k?.dims?.[d]?.attempts ? Math.round((k.dims[d].correct / k.dims[d].attempts) * 100) + '%' : 'unknown');
@@ -197,6 +204,42 @@ function addForm(refresh) {
   return form;
 }
 
+/* ---------- children (profiles) ---------- */
+function childrenTab(refresh, root) {
+  const kids = store.getProfiles();
+  const cur = store.currentProfileId();
+  const opts = (sel, withCartoon) => [...(withCartoon ? [['img', 'Cartoon']] : []), ...AVATARS.map((a) => [a, a])]
+    .map(([v, l]) => h('option', { value: v, selected: v === sel }, l));
+  const msg = h('p', { class: 'hintline', role: 'status' });
+  const rows = kids.map((p) => {
+    const name = h('input', { type: 'text', value: p.name, maxlength: 20, 'aria-label': `Name for ${p.name}` });
+    const av = h('select', { 'aria-label': `Picture for ${p.name}` }, opts(p.avatar, p.avatar === 'img'));
+    const save = () => { store.updateProfile(p.id, { name: name.value, avatar: av.value }); tutorScreen(root); };
+    name.addEventListener('change', save);
+    av.addEventListener('change', save);
+    return h('div', { class: 'profile-row' },
+      h('span', { class: 'pr-pic' }, avatarEl(p, 52)), name, av,
+      p.id === cur ? h('span', { class: 'chip done' }, 'Showing') : btn('Show', { cls: 'ghost small', onClick: () => { store.switchProfile(p.id); tutorScreen(root); } }),
+      kids.length > 1 ? btn('Delete', { cls: 'ghost small danger', onClick: () => {
+        if (confirm(`Delete ${p.name} and ALL their progress? This cannot be undone.`)) { store.deleteProfile(p.id); tutorScreen(root); }
+      } }) : null);
+  });
+  const newName = h('input', { type: 'text', maxlength: 20, placeholder: 'First name', 'aria-label': 'New child first name' });
+  const newAv = h('select', { 'aria-label': 'Picture for the new child' }, opts(AVATARS[kids.length % AVATARS.length], false));
+  const add = btn('Add child', { cls: 'primary', onClick: () => {
+    if (!newName.value.trim()) return (msg.textContent = 'Type a first name.');
+    if (!store.addProfile(newName.value, newAv.value)) return (msg.textContent = 'Could not add that child.');
+    tutorScreen(root);
+  } });
+  return h('div', {},
+    h('p', { class: 'hintline' }, 'Each child has their own progress, points, badges, check-up and game time. The tutor PIN and voice settings are shared. Use first names only.'),
+    h('div', {}, rows),
+    kids.length >= store.MAX_PROFILES
+      ? h('p', { class: 'banner' }, `You can have up to ${store.MAX_PROFILES} children on one device.`)
+      : [h('h3', {}, 'Add a child'), h('div', { class: 'profile-row' }, newName, newAv, add)],
+    msg);
+}
+
 /* ---------- settings ---------- */
 function settingsTab(refresh) {
   const S = store.getSettings();
@@ -222,7 +265,7 @@ function settingsTab(refresh) {
     try { store.importAll(await e.target.files[0].text()); msg.textContent = 'Backup restored ✔'; refresh(); } catch (err) { msg.textContent = '⚠ ' + err.message; }
   } });
   return h('div', { class: 'form', onChange: apply },
-    h('label', { class: 'field' }, h('span', {}, "Child's first name"), name),
+    h('label', { class: 'field' }, h('span', {}, 'First name (this child)'), name),
     h('label', { class: 'field' }, h('span', {}, 'Soft session cap (minutes)'), cap),
     h('label', { class: 'field' }, h('span', {}, 'Voice speed'), rate),
     h('label', { class: 'field' }, h('span', {}, 'Voice (★ = most natural on this device; try a few with Test voice)'), voice),
@@ -231,10 +274,10 @@ function settingsTab(refresh) {
     h('h3', {}, 'Tutor PIN'), h('div', { class: 'btn-row' }, p1, setPin),
     h('h3', {}, 'Backup / move to another device'),
     h('p', { class: 'hintline' }, 'Progress is saved only in this browser. To use another device, export here and restore there. Nothing is ever sent anywhere.'),
-    h('div', { class: 'btn-row' }, btn('Export backup', { cls: 'ghost', onClick: () => download(`word-detective-backup-${new Date().toISOString().slice(0, 10)}.json`, store.exportAll()) }),
+    h('div', { class: 'btn-row' }, btn('Export backup (this child)', { cls: 'ghost', onClick: () => download(`word-detective-backup-${new Date().toISOString().slice(0, 10)}.json`, store.exportAll()) }),
       h('label', { class: 'file' }, 'Restore backup ', imp)),
     h('h3', {}, 'Danger zone'),
-    btn('Delete everything on this device', { cls: 'ghost danger', onClick: () => { if (confirm('Delete ALL data stored by this app on this device: progress, settings and added lessons?')) { store.deleteAll(); msg.textContent = 'Everything deleted.'; refresh(); } } }),
-    btn('Reset all progress', { cls: 'ghost danger', onClick: () => { if (confirm('Erase all progress, points and badges on this device?')) { store.resetProgress(); msg.textContent = 'Progress reset.'; refresh(); } } }),
+    btn('Delete everything on this device (all children)', { cls: 'ghost danger', onClick: () => { if (confirm('Delete ALL data stored by this app on this device: progress for every child, settings and added lessons?')) { store.deleteAll(); msg.textContent = 'Everything deleted.'; refresh(); } } }),
+    btn("Reset this child's progress", { cls: 'ghost danger', onClick: () => { if (confirm("Erase this child's progress, points and badges?")) { store.resetProgress(); msg.textContent = 'Progress reset.'; refresh(); } } }),
     msg);
 }

@@ -2,7 +2,7 @@
 import { h } from '../util.js';
 import { speak, stopSpeaking } from '../tts.js';
 import { btn, line, celebrate } from '../ui.js';
-import { getSettings } from '../store.js';
+import { getSettings, currentProfileId } from '../store.js';
 import { rewardStatus, spendToken, recordGame } from '../rewards.js';
 import { checkBadges } from '../gamify.js';
 import * as memory from './memory.js';
@@ -10,10 +10,10 @@ import * as sortrush from './sortrush.js';
 import * as mystery from './mystery.js';
 
 const GAMES = [memory, sortrush, mystery];
-const KEY = 'wd.gameEnd';
+const KEY = () => 'wd.gameEnd.' + currentProfileId(); // each child has their own game session
 
-const sessionEnd = () => { try { return Number(sessionStorage.getItem(KEY)) || 0; } catch { return 0; } };
-const setSessionEnd = (t) => { try { sessionStorage.setItem(KEY, String(t)); } catch { /* the session just will not survive a reload */ } };
+const sessionEnd = () => { try { return Number(sessionStorage.getItem(KEY())) || 0; } catch { return 0; } };
+const setSessionEnd = (t) => { try { sessionStorage.setItem(KEY(), String(t)); } catch { /* the session just will not survive a reload */ } };
 const fmt = (ms) => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
 
 export function gamesScreen(root) {
