@@ -1,3 +1,4 @@
+import { assessmentsTab } from './assessments.js';
 import { GRADES, DEFAULT_GRADE, validGrade } from './grades.js';
 import { h, download, slug } from './util.js';
 import { speak, rankedVoices, scoreVoice, configureTts, currentVoiceName } from './tts.js';
@@ -20,7 +21,7 @@ export function tutorScreen(root) {
     return;
   }
   const tabs = {
-    Progress: progressTab, 'Trouble words': troubleTab, Sessions: sessionsTab, Lessons: lessonsTab, Children: childrenTab, Settings: settingsTab,
+    Progress: progressTab, 'Trouble words': troubleTab, Sessions: sessionsTab, Lessons: lessonsTab, Assessments: assessmentsTab, Children: childrenTab, Settings: settingsTab,
   };
   const body = h('div', { class: 'tab-body' });
   const bar = h('div', { class: 'tabs', role: 'tablist' });

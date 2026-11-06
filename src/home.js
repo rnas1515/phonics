@@ -67,7 +67,7 @@ export function homeScreen(root) {
         h('a', { class: 'btn primary xl', href: '#/checkup' }, started ? 'Keep going ▶' : "Let's start ▶"))
     : next
     ? h('section', { class: 'card mission' },
-        h('span', { class: 'tag' }, why === 'checkpoint' ? "Today's mission · Checkpoint" : "Today's mission"),
+        h('span', { class: 'tag' }, why === 'checkpoint' ? "Today's mission · Checkpoint" : why === 'fix' ? "Today's mission · From your assessment" : "Today's mission"),
         h('h2', {}, next.title),
         h('p', {}, next.rule),
         h('a', { class: 'btn primary xl', href: `#/mission/${next.id}`, onClick: () => speak('') }, 'Start the case ▶'))

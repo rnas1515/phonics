@@ -1,3 +1,4 @@
+import { deletePhotosFor, deleteAllPhotos } from './photos.js';
 import { DEFAULT_GRADE, validGrade } from './grades.js';
 // Local-only persistence (localStorage). Nothing leaves the device.
 import { nextReview } from './spaced.js';
@@ -58,6 +59,7 @@ const DEFAULT_PROGRESS = () => ({
   reviews: 0,
   rewards: { counted: {}, progress: 0, tokens: 0, earned: 0, lost: 0 }, // game tokens: 1 per 5 lessons passed
   games: { sessions: 0, plays: {}, best: {} },
+  assessments: [], // [{id, date, title, photo, words:[{word,skill}], lessonId}]
   placement: {}, // skillId -> {status:'secure'|'shaky'|'gap', score, date}
   points: 0,
   badges: {},
@@ -133,6 +135,7 @@ export function updateProfile(id, patch) {
 }
 /** Delete a child and all their progress. The last profile cannot be deleted. */
 export function deleteProfile(id) {
+  deletePhotosFor(id);
   if (profiles.list.length < 2 || !profiles.list.some((p) => p.id === id)) return false;
   for (const key of [progressKey(id), profileKey(id)]) { try { localStorage.removeItem(key); } catch { /* ignore */ } }
   profiles.list = profiles.list.filter((p) => p.id !== id);
@@ -226,6 +229,11 @@ export function recordReviewRound(results) {
   saveProgress();
 }
 
+/** Assessments recorded for the child shown now. */
+export const getAssessments = () => (progress.assessments ??= []);
+export function addAssessment(a) { getAssessments().unshift(a); saveProgress(); }
+export function removeAssessment(id) { progress.assessments = getAssessments().filter((a) => a.id !== id); saveProgress(); }
+
 /** Mark one activity as passed; the skill is mastered when every required activity has been. */
 export function markPassed(lesson, actIndex) {
   const k = (progress.skills[lesson.skill] ??= { attempts: 0, correct: 0, lastSeen: null, masteredAt: null, passed: {} });
@@ -289,6 +297,7 @@ export function importAll(text) {
 }
 /** Delete everything this app stored on this device: every child's progress, settings and added lessons. */
 export function deleteAll() {
+  deleteAllPhotos();
   for (const area of [() => localStorage, () => sessionStorage]) {
     try {
       const a = area();
@@ -306,6 +315,7 @@ export function deleteAll() {
   notify();
 }
 export function resetProgress() {
+  deletePhotosFor(currentId);
   progress = DEFAULT_PROGRESS();
   current = null;
   saveProgress();

@@ -52,11 +52,13 @@ export function accuracy(skill) {
 
 /** Lessons the check-up can probe: skills with code / sort / fill activities (sight words have their own screen). */
 export const checkable = (lessons = allLessons().filter(isActive)) =>
-  lessons.filter((l) => l.kind === 'lesson' && l.activities.some((a) => !a.optional && ['code', 'sort', 'fill'].includes(a.type)));
+  lessons.filter((l) => l.kind === 'lesson' && !l.assessment && l.activities.some((a) => !a.optional && ['code', 'sort', 'fill'].includes(a.type)));
 
 /** Today's mission: check-up first; then gaps, shaky skills, then the next unmastered skill in order. */
 export function suggestNext(lessons = allLessons().filter(isActive)) {
   const P = getProgress();
+  const fix = lessons.find((l) => l.assessment && !isMastered(l)); // built from his own assessment: first
+  if (fix) return { lesson: fix, why: 'fix' };
   const probe = checkable(lessons);
   const pending = probe.filter((l) => !P.placement[l.skill]);
   if (pending.length) return { lesson: null, why: 'checkup', started: pending.length < probe.length };

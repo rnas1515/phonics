@@ -255,3 +255,25 @@ console.log('\nAll lesson checks passed');
   if (!bad.errors.some((e) => /grade/.test(e))) throw new Error('bad grade should be reported');
   console.log('grades ok');
 }
+
+// ---- assessment lesson builder ----
+{
+  const { buildFixLesson, guessSkill } = await import('../src/assessment.js');
+  const { normalizeLesson } = await import('../src/validate.js');
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const lessons = readdirSync('lessons').filter((f) => f.endsWith('.json')).map((f) => normalizeLesson(JSON.parse(readFileSync('lessons/' + f, 'utf8')), 'built-in').lesson);
+  const sneaky = lessons.find((l) => l.skill === 'sneaky-e');
+  const known = sneaky.activities.find((a) => a.type === 'code').items[0].word;
+  if (guessSkill(known, lessons) !== 'sneaky-e') throw new Error('guessSkill failed for ' + known);
+  const r = buildFixLesson({ date: '2026-11-06', grade: 2, lessons, words: [{ word: known, skill: 'sneaky-e' }, { word: 'chimp', skill: '' }, { word: 'said', sentence: 'She said hello.' }, { word: 'x' }] });
+  if (!r.lesson) throw new Error('no lesson built');
+  const n = normalizeLesson(r.lesson, 'custom');
+  if (!n.lesson) throw new Error('built lesson invalid: ' + n.errors.join('; '));
+  const types = r.lesson.activities.map((a) => a.type);
+  if (types[0] !== 'code' || types.at(-1) !== 'sightword') throw new Error('activity order: ' + types);
+  if (r.lesson.activities[0].items.some((i) => i.word === 'said')) throw new Error('irregular word should be sight-only');
+  if (!r.lesson.activities.at(-1).items.some((i) => i.sentence)) throw new Error('sentence lost');
+  if (!r.lesson.assessment || r.lesson.defaultActive !== false) throw new Error('flags wrong');
+  if (buildFixLesson({ date: '2026-11-06', lessons, words: [] }).lesson) throw new Error('empty should fail');
+  console.log('assessment builder ok');
+}

@@ -337,6 +337,7 @@ async function oneLetterItem(host, act, item, ctx) {
 async function sightItem(host, act, item, ctx) {
   const tutor = act.marking === 'tutor';
   host.append(h('div', { class: 'flash' }, h('span', { class: 'flash-word' }, item.word)));
+  if (item.sentence) host.append(h('p', { class: 'hintline sent' }, 'Then read it in a sentence: ', h('strong', {}, item.sentence)));
   const row = h('div', { class: 'btn-row' });
   host.append(row);
 

@@ -335,3 +335,11 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 /* update banner */
 .update-banner { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; padding: 12px 16px; background: var(--brand); color: #fff; border-radius: var(--radius); box-shadow: 0 6px 24px rgba(0,0,0,.3); font-weight: 700; }
 .update-banner .btn.ghost { color: #fff; border-color: rgba(255,255,255,.6); }
+
+/* assessments */
+.assess-photo { display: block; max-width: 100%; max-height: 360px; border: 3px solid var(--line); border-radius: 12px; margin: 8px 0; }
+.assess-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; border: 2px solid var(--line); }
+.word-rows .wr input[type='text'] { flex: 1 1 130px; }
+.word-rows .wr select { flex: 1 1 150px; max-width: 100%; }
+.profile-row .grow { flex: 1 1 160px; min-width: 0; }
+.hintline.sent { text-align: center; font-size: 1.1rem; }
