@@ -3,6 +3,7 @@
   "title": "ck or k?",
   "saxonLesson": 11,
   "skill": "ck-k",
+  "grade": 1,
   "priority": 2,
   "defaultActive": true,
   "rule": "At the end of a word, look at the ONE letter right before the k sound. A short vowel alone: spell it ck. A consonant or a vowel team: spell it k.",

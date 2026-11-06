@@ -3,6 +3,7 @@
   "title": "ch or tch at the End",
   "saxonLesson": null,
   "skill": "final-ch",
+  "grade": 2,
   "priority": 2,
   "defaultActive": true,
   "rule": "At the end of a word, look at the ONE letter right before the ch sound. A short vowel alone: tch, like match. A consonant or a vowel team: ch, like lunch and beach. A few words are exceptions: much, such, rich, which.",

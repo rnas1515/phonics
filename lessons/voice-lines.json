@@ -3,6 +3,7 @@
   "title": "Voice Lines: s Says z",
   "saxonLesson": null,
   "skill": "voice-lines",
+  "grade": 2,
   "priority": 8,
   "defaultActive": true,
   "rule": "Some letters are voiced: your throat hums when you say them. The letter s often says z, like in has. We code a voiced letter with a voice line.",

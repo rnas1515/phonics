@@ -3,6 +3,7 @@
   "title": "The Floss Rule",
   "saxonLesson": null,
   "skill": "floss-rule",
+  "grade": 1,
   "priority": 3,
   "defaultActive": true,
   "rule": "In a one-syllable word with one short vowel, double the last letter when it is f, l, s or z: ff, ll, ss, zz. Floss helps you remember. A few words are exceptions, like if, of, bus, yes and us.",

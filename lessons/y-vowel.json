@@ -3,6 +3,7 @@
   "title": "y as a Vowel",
   "saxonLesson": null,
   "skill": "y-vowel",
+  "grade": 2,
   "priority": 11,
   "defaultActive": true,
   "rule": "At the end of a short word, y says long i, like fly. At the end of a longer word, y usually says long e, like baby.",

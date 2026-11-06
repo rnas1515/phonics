@@ -3,6 +3,7 @@
   "title": "Wild Colt Words",
   "saxonLesson": null,
   "skill": "wild-colt",
+  "grade": 2,
   "priority": 3,
   "defaultActive": true,
   "rule": "In words ending in old, ild, ind, olt and ost, the vowel is long and says its name. These are the Wild Colt words: old, wild, find, colt, most. Put a macron on the vowel.",

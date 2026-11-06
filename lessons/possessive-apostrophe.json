@@ -3,6 +3,7 @@
   "title": "Who Owns It?",
   "saxonLesson": 14,
   "skill": "possessive",
+  "grade": 2,
   "priority": 3,
   "defaultActive": true,
   "rule": "When one person or animal owns something, add an apostrophe and s. If there is more than one but nobody owns anything, just add s.",

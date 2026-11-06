@@ -3,6 +3,7 @@
   "title": "Schwa: the Uh Vowel",
   "saxonLesson": null,
   "skill": "schwa",
+  "grade": 2,
   "priority": 8,
   "defaultActive": true,
   "rule": "A vowel at the end of a syllable that is not stressed often says uh, like the a in about. We code that vowel with a schwa.",

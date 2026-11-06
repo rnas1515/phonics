@@ -3,6 +3,7 @@
   "title": "Prefix Boxes",
   "saxonLesson": null,
   "skill": "prefixes",
+  "grade": 2,
   "priority": 6,
   "defaultActive": true,
   "rule": "A prefix is a beginning added before a base word, like un, re, pre, dis and mis. Draw a box around the whole prefix.",

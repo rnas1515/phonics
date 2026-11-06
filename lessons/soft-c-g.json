@@ -3,6 +3,7 @@
   "title": "Hard and Soft c and g",
   "saxonLesson": null,
   "skill": "soft-c-g",
+  "grade": 2,
   "priority": 10,
   "defaultActive": true,
   "rule": "The letter c usually says /s/ before e, i or y, and /k/ before a, o or u. Code a hard c with a k-back and a soft c with a cedilla. The letter g works the same way: usually /j/ before e, i or y, and /g/ before a, o or u.",

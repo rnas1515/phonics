@@ -3,6 +3,7 @@
   "title": "The oo Team",
   "saxonLesson": 37,
   "skill": "oo-team",
+  "grade": 1,
   "priority": 4,
   "defaultActive": true,
   "inReview": true,

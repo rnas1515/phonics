@@ -3,6 +3,7 @@
   "title": "V|CV: Open Syllables",
   "saxonLesson": null,
   "skill": "vcv",
+  "grade": 2,
   "priority": 4,
   "defaultActive": true,
   "rule": "When one consonant sits between two vowels (V C V), try dividing after the first vowel: ba|by. The first syllable is open and the vowel says its name. If that does not sound right, try dividing after the consonant: cab|in.",

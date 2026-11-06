@@ -243,3 +243,15 @@ console.log('\nAll lesson checks passed');
   if (down.step !== 0 || Math.round((Date.parse(down.due) - now) / D) !== LADDER[0]) throw new Error('should restart at 3 days');
   console.log('spaced review ok');
 }
+
+// ---- grades ----
+{
+  const { validGrade, GRADES } = await import('../src/grades.js');
+  if (validGrade(1) !== 1 || validGrade('2') !== 2 || validGrade(7) !== 2 || validGrade(undefined) !== 2) throw new Error('validGrade wrong');
+  if (GRADES.length < 2) throw new Error('grades missing');
+  const { normalizeLesson } = await import('../src/validate.js');
+  const base = { id: 'x', title: 'X', skill: 'x', activities: [] };
+  const bad = normalizeLesson({ ...base, grade: 'one' }, 'test');
+  if (!bad.errors.some((e) => /grade/.test(e))) throw new Error('bad grade should be reported');
+  console.log('grades ok');
+}

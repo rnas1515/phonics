@@ -3,6 +3,7 @@
   "title": "The ph Digraph",
   "saxonLesson": null,
   "skill": "ph",
+  "grade": 1,
   "priority": 7,
   "defaultActive": true,
   "rule": "The letters ph are a digraph: two letters, one sound, f. Underline both letters. You have to remember which words use ph, like phone and graph.",

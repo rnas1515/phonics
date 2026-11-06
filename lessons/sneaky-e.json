@@ -3,6 +3,7 @@
   "title": "Sneaky E",
   "saxonLesson": null,
   "skill": "sneaky-e",
+  "grade": 1,
   "priority": 1,
   "defaultActive": true,
   "rule": "A vowel, then one consonant, then an e at the end. The e is silent and sneaky: it makes the vowel say its name.",

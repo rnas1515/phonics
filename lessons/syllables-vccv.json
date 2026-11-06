@@ -3,6 +3,7 @@
   "title": "Syllable Split",
   "saxonLesson": 9,
   "skill": "syllables-vccv",
+  "grade": 2,
   "priority": 2,
   "defaultActive": true,
   "rule": "When two consonants sit between two vowels (VCCV), divide the word between the consonants.",

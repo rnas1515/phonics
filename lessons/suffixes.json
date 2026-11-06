@@ -3,6 +3,7 @@
   "title": "Suffix Boxes",
   "saxonLesson": null,
   "skill": "suffixes",
+  "grade": 2,
   "priority": 6,
   "defaultActive": true,
   "rule": "A suffix is an ending added to a base word, like ed, ing, ly, er, est, ful, less, ness, or s and es. Draw a box around the whole suffix.",

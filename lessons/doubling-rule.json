@@ -3,6 +3,7 @@
   "title": "The Doubling Rule",
   "saxonLesson": null,
   "skill": "doubling-rule",
+  "grade": 2,
   "priority": 4,
   "defaultActive": true,
   "rule": "When a short word has one short vowel and ends in one consonant, and the ending starts with a vowel (ing, ed, er, est), double the last letter: hop becomes hopping.",

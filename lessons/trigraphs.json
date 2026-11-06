@@ -3,6 +3,7 @@
   "title": "Trigraphs and eigh",
   "saxonLesson": null,
   "skill": "trigraphs",
+  "grade": 2,
   "priority": 7,
   "defaultActive": true,
   "rule": "Some sounds are made by three letters: igh, tch and dge. One sound is made by four letters: eigh. Underline all the letters in the group.",

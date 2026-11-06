@@ -3,6 +3,7 @@
   "title": "Compound Words",
   "saxonLesson": null,
   "skill": "compound-words",
+  "grade": 2,
   "priority": 9,
   "defaultActive": true,
   "rule": "A compound word is two smaller words put together, like sun and set make sunset. Divide it between the two words.",

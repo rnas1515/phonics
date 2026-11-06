@@ -3,6 +3,7 @@
   "title": "Endings: ble, dle, fle, gle, ple, tle",
   "saxonLesson": null,
   "skill": "stable-syllables",
+  "grade": 2,
   "priority": 13,
   "defaultActive": true,
   "rule": "Some words end in a final, stable syllable: ble, dle, fle, gle, ple, tle. Put a bracket in front of it and cross out the silent e.",

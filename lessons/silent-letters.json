@@ -3,6 +3,7 @@
   "title": "Silent Letters",
   "saxonLesson": null,
   "skill": "silent-letters",
+  "grade": 2,
   "priority": 12,
   "defaultActive": true,
   "rule": "In some words one letter is silent, a ghost letter. In kn the k is silent, in wr the w, in gn the g, and in words ending mb the b. Cross out the ghost letter and underline the pair.",

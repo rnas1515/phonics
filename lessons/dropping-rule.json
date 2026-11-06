@@ -3,6 +3,7 @@
   "title": "The Dropping Rule",
   "saxonLesson": null,
   "skill": "dropping-rule",
+  "grade": 2,
   "priority": 4,
   "defaultActive": true,
   "rule": "When a word ends in a silent e and the ending starts with a vowel (ing, er, est, ed), drop the e: bake becomes baking. If the ending starts with a consonant (ly, ful, less, ness), keep the e: safe becomes safely.",

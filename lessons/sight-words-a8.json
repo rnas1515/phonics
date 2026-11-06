@@ -3,6 +3,7 @@
   "title": "Sight Words",
   "saxonLesson": 40,
   "skill": "sight-a8",
+  "grade": 2,
   "priority": 5,
   "defaultActive": true,
   "rule": "Some words do not follow the phonics rules. We learn them by sight.",

@@ -1,3 +1,4 @@
+import { GRADES, DEFAULT_GRADE, validGrade } from './grades.js';
 import { h, download, slug } from './util.js';
 import { speak, rankedVoices, scoreVoice, configureTts, currentVoiceName } from './tts.js';
 import { pinPad, btn } from './ui.js';
@@ -214,11 +215,13 @@ function childrenTab(refresh, root) {
   const rows = kids.map((p) => {
     const name = h('input', { type: 'text', value: p.name, maxlength: 20, 'aria-label': `Name for ${p.name}` });
     const av = h('select', { 'aria-label': `Picture for ${p.name}` }, opts(p.avatar, p.avatar === 'img'));
-    const save = () => { store.updateProfile(p.id, { name: name.value, avatar: av.value }); tutorScreen(root); };
+    const gr = h('select', { 'aria-label': `Grade for ${p.name}` }, GRADES.map((g) => h('option', { value: g.id, selected: g.id === validGrade(p.grade) }, g.label)));
+    const save = () => { store.updateProfile(p.id, { name: name.value, avatar: av.value, grade: gr.value }); tutorScreen(root); };
+    gr.addEventListener('change', save);
     name.addEventListener('change', save);
     av.addEventListener('change', save);
     return h('div', { class: 'profile-row' },
-      h('span', { class: 'pr-pic' }, avatarEl(p, 52)), name, av,
+      h('span', { class: 'pr-pic' }, avatarEl(p, 52)), name, av, gr,
       p.id === cur ? h('span', { class: 'chip done' }, 'Showing') : btn('Show', { cls: 'ghost small', onClick: () => { store.switchProfile(p.id); tutorScreen(root); } }),
       kids.length > 1 ? btn('Delete', { cls: 'ghost small danger', onClick: () => {
         if (confirm(`Delete ${p.name} and ALL their progress? This cannot be undone.`)) { store.deleteProfile(p.id); tutorScreen(root); }
@@ -226,17 +229,18 @@ function childrenTab(refresh, root) {
   });
   const newName = h('input', { type: 'text', maxlength: 20, placeholder: 'First name', 'aria-label': 'New child first name' });
   const newAv = h('select', { 'aria-label': 'Picture for the new child' }, opts(AVATARS[kids.length % AVATARS.length], false));
+  const newGr = h('select', { 'aria-label': 'Grade for the new child' }, GRADES.map((g) => h('option', { value: g.id, selected: g.id === DEFAULT_GRADE }, g.label)));
   const add = btn('Add child', { cls: 'primary', onClick: () => {
     if (!newName.value.trim()) return (msg.textContent = 'Type a first name.');
-    if (!store.addProfile(newName.value, newAv.value)) return (msg.textContent = 'Could not add that child.');
+    if (!store.addProfile(newName.value, newAv.value, newGr.value)) return (msg.textContent = 'Could not add that child.');
     tutorScreen(root);
   } });
   return h('div', {},
-    h('p', { class: 'hintline' }, 'Each child has their own progress, points, badges, check-up and game time. The tutor PIN and voice settings are shared. Use first names only.'),
+    h('p', { class: 'hintline' }, 'Each child has their own progress, points, badges, check-up and game time. The tutor PIN and voice settings are shared. Use first names only. The grade decides which lessons are on by default; the Lessons tab can still switch any lesson on or off.'),
     h('div', {}, rows),
     kids.length >= store.MAX_PROFILES
       ? h('p', { class: 'banner' }, `You can have up to ${store.MAX_PROFILES} children on one device.`)
-      : [h('h3', {}, 'Add a child'), h('div', { class: 'profile-row' }, newName, newAv, add)],
+      : [h('h3', {}, 'Add a child'), h('div', { class: 'profile-row' }, newName, newAv, newGr, add)],
     msg);
 }
 

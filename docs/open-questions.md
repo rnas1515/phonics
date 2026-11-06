@@ -37,3 +37,6 @@ The schedule is in `schedule.json`. Teaching order and the check-up follow it. N
 20. **Compound words.** Taught as dividing between the two words, plus real compound or not. Not a coding mark on the school pages; confirm it is meant to be practised this way.
 21. **Not built, unclear:** the "o" (week of Oct 9) and the "a" (week of Oct 16). Also the sight words for the other weeks. Please send the sight-word lists.
 22. **Ghost letter digraphs** (kn, wr, gn): now a coding task (slash the silent letter, underline the pair), as shown on the school chart.
+
+## Grade tags
+Which lessons belong to 1st grade? The current split (sneaky e, ck/k, ee, oo, ai/ay, oa, ea, ow, floss rule, wh, ph = 1st; everything else = 2nd) is a guess. There is no 1st-grade content written beyond those lessons.

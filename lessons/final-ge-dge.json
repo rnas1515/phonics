@@ -3,6 +3,7 @@
   "title": "ge or dge at the End",
   "saxonLesson": null,
   "skill": "final-ge",
+  "grade": 2,
   "priority": 2,
   "defaultActive": true,
   "rule": "At the end of a word, look at the ONE letter right before the j sound. A short vowel alone: dge, like badge. A long vowel or a consonant: ge, like page and large.",

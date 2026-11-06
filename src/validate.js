@@ -66,6 +66,8 @@ export function normalizeLesson(raw, source = 'built-in') {
   if (L.saxonLesson != null && !Number.isInteger(L.saxonLesson)) err('"saxonLesson" must be a whole number or null');
   L.saxonLesson ??= null;
   L.kind = L.kind === 'checkpoint' ? 'checkpoint' : 'lesson';
+  if (L.grade != null && !(Number.isInteger(L.grade) && L.grade >= 1)) err('"grade" must be a whole number (1 = 1st grade) or left out');
+  L.grade ??= 2; // the grade a child must be in (or above) to see this lesson by default
   L.priority = Number.isFinite(L.priority) ? L.priority : 5;
   L.defaultActive = L.defaultActive !== false;
   L.inReview = !!L.inReview;

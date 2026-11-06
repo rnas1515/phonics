@@ -1,3 +1,4 @@
+import { DEFAULT_GRADE, validGrade } from './grades.js';
 // Local-only persistence (localStorage). Nothing leaves the device.
 import { nextReview } from './spaced.js';
 import { today } from './util.js';
@@ -111,11 +112,11 @@ export function switchProfile(id) {
   loadProfile(id);
   notify();
 }
-export function addProfile(name, avatar = '🦊') {
+export function addProfile(name, avatar = '🦊', grade = DEFAULT_GRADE) {
   const clean = String(name).trim().slice(0, 20);
   if (!clean || profiles.list.length >= MAX_PROFILES) return null;
   const id = 'p' + Date.now().toString(36);
-  profiles.list.push({ id, name: clean, avatar });
+  profiles.list.push({ id, name: clean, avatar, grade: validGrade(grade) });
   writeProfiles();
   notify();
   return id;
@@ -125,6 +126,7 @@ export function updateProfile(id, patch) {
   if (!p) return;
   if (patch.name != null && String(patch.name).trim()) p.name = String(patch.name).trim().slice(0, 20);
   if (patch.avatar) p.avatar = patch.avatar;
+  if (patch.grade != null) p.grade = validGrade(patch.grade);
   writeProfiles();
   if (id === currentId) settings.name = p.name;
   notify();
@@ -144,9 +146,13 @@ export function saveCustomLessons(list) { custom = list; write(K.custom, custom)
 export function checkPin(pin) { return hashPin(pin) === settings.pin; }
 export function setPin(pin) { settings.pin = hashPin(pin); settings.pinIsDefault = false; saveSettings(); }
 
+/** The grade of the child shown now (older profiles without one count as 2nd grade). */
+export function currentGrade() { return validGrade(currentProfile().grade); }
+
+/** A lesson is on when the tutor switched it on, or by default when it suits the child's grade. */
 export function isActive(lesson) {
   const v = settings.active[lesson.id];
-  return v === undefined ? lesson.defaultActive : v;
+  return v === undefined ? lesson.defaultActive && (lesson.grade ?? 2) <= currentGrade() : v;
 }
 export function setActive(id, on) { settings.active[id] = on; saveSettings(); }
 

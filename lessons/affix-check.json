@@ -3,6 +3,7 @@
   "title": "Real Affix or Not?",
   "saxonLesson": null,
   "skill": "affix-check",
+  "grade": 2,
   "priority": 6,
   "defaultActive": true,
   "rule": "Some words only look like they have a prefix or suffix. Take the ending or beginning off. If a real word is left, it is a prefix or suffix. If not, it is just part of the word.",

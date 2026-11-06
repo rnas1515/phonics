@@ -3,6 +3,7 @@
   "title": "The ee Team",
   "saxonLesson": 38,
   "skill": "ee-team",
+  "grade": 1,
   "priority": 3,
   "defaultActive": true,
   "inReview": true,
