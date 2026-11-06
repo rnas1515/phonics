@@ -76,6 +76,18 @@ let currentId = profiles.current;
 let settings, progress;
 let custom = read(K.custom, []);
 
+// Sync bookkeeping: when each child / lesson last changed here, and what was deleted here.
+const SYNC_META = 'wd.syncmeta.v1';
+const emptyMeta = () => ({ at: { children: {}, lessons: {} }, gone: { children: {}, lessons: {} } });
+let meta = { ...emptyMeta(), ...read(SYNC_META, {}) };
+const stampNow = () => new Date().toISOString();
+const saveMeta = () => write(SYNC_META, meta);
+const touch = (kind, id) => { meta.at[kind][id] = stampNow(); delete meta.gone[kind][id]; saveMeta(); };
+const tombstone = (kind, id) => { meta.gone[kind][id] = stampNow(); delete meta.at[kind][id]; saveMeta(); };
+export const getSyncMeta = () => meta;
+export function setSynced(kind, id, iso) { meta.at[kind][id] = iso; saveMeta(); }
+export function clearGone(kind, id) { delete meta.gone[kind][id]; saveMeta(); }
+
 function loadProfile(id) {
   const prof = profiles.list.find((p) => p.id === id);
   const own = read(profileKey(id), null) ?? (id === 'p1' ? { active: sharedStored.active } : {});
@@ -92,6 +104,7 @@ const notify = () => window.dispatchEvent(new Event('wd:update'));
 
 const writeProfiles = () => write(K.profiles, { list: profiles.list, current: currentId });
 export function saveSettings() {
+  touch('children', currentId);
   for (const k of SHARED_KEYS) sharedStored[k] = settings[k];
   write(K.settings, Object.fromEntries(SHARED_KEYS.map((k) => [k, settings[k]])));
   write(profileKey(currentId), { active: settings.active });
@@ -99,7 +112,7 @@ export function saveSettings() {
   if (prof && settings.name && prof.name !== settings.name) { prof.name = settings.name; writeProfiles(); }
   notify();
 }
-export function saveProgress() { write(progressKey(currentId), progress); notify(); }
+export function saveProgress() { touch('children', currentId); write(progressKey(currentId), progress); notify(); }
 
 /* ---------- profiles (several children on one device) ---------- */
 export const getProfiles = () => profiles.list.map((p) => ({ ...p }));
@@ -119,6 +132,7 @@ export function addProfile(name, avatar = '🦊', grade = DEFAULT_GRADE) {
   if (!clean || profiles.list.length >= MAX_PROFILES) return null;
   const id = 'p' + Date.now().toString(36);
   profiles.list.push({ id, name: clean, avatar, grade: validGrade(grade) });
+  touch('children', id);
   writeProfiles();
   notify();
   return id;
@@ -129,6 +143,7 @@ export function updateProfile(id, patch) {
   if (patch.name != null && String(patch.name).trim()) p.name = String(patch.name).trim().slice(0, 20);
   if (patch.avatar) p.avatar = patch.avatar;
   if (patch.grade != null) p.grade = validGrade(patch.grade);
+  touch('children', id);
   writeProfiles();
   if (id === currentId) settings.name = p.name;
   notify();
@@ -138,13 +153,65 @@ export function deleteProfile(id) {
   deletePhotosFor(id);
   if (profiles.list.length < 2 || !profiles.list.some((p) => p.id === id)) return false;
   for (const key of [progressKey(id), profileKey(id)]) { try { localStorage.removeItem(key); } catch { /* ignore */ } }
+  tombstone('children', id);
   profiles.list = profiles.list.filter((p) => p.id !== id);
   if (id === currentId) { currentId = profiles.list[0].id; current = null; loadProfile(currentId); }
   writeProfiles();
   notify();
   return true;
 }
-export function saveCustomLessons(list) { custom = list; write(K.custom, custom); }
+export function saveCustomLessons(list) {
+  const before = new Map(custom.map((l) => [l.id, JSON.stringify(l)]));
+  custom = list;
+  write(K.custom, custom);
+  for (const l of list) if (before.get(l.id) !== JSON.stringify(l)) touch('lessons', l.id);
+  for (const id of before.keys()) if (!list.some((l) => l.id === id)) tombstone('lessons', id);
+}
+
+/* ---------- cloud sync helpers (used by cloud.js) ---------- */
+export function exportChild(id) {
+  const p = profiles.list.find((x) => x.id === id);
+  if (!p) return null;
+  const prog = id === currentId ? progress : { ...DEFAULT_PROGRESS(), ...read(progressKey(id), {}) };
+  const active = id === currentId ? settings.active : read(profileKey(id), null)?.active || {};
+  return { local_id: id, name: p.name, avatar: p.avatar || '', grade: validGrade(p.grade), progress: prog, active };
+}
+export function importChild(rec, stamp) {
+  const id = rec.local_id;
+  let p = profiles.list.find((x) => x.id === id);
+  if (!p) {
+    if (profiles.list.length >= MAX_PROFILES) return false;
+    p = { id }; profiles.list.push(p);
+  }
+  Object.assign(p, { name: rec.name || p.name || 'Child', avatar: rec.avatar || '🦊', grade: validGrade(rec.grade) });
+  write(progressKey(id), rec.progress || {});
+  write(profileKey(id), { active: rec.active || {} });
+  writeProfiles();
+  if (id === currentId) loadProfile(id);
+  setSynced('children', id, stamp);
+  notify();
+  return true;
+}
+export function removeChildLocal(id) {
+  if (profiles.list.length < 2 || !profiles.list.some((p) => p.id === id)) return false;
+  for (const key of [progressKey(id), profileKey(id)]) { try { localStorage.removeItem(key); } catch { /* ignore */ } }
+  profiles.list = profiles.list.filter((p) => p.id !== id);
+  delete meta.at.children[id]; saveMeta();
+  if (id === currentId) { currentId = profiles.list[0].id; current = null; loadProfile(currentId); }
+  writeProfiles();
+  notify();
+  return true;
+}
+export function importLesson(raw, stamp) {
+  custom = [...custom.filter((l) => l.id !== raw.id), raw];
+  write(K.custom, custom);
+  setSynced('lessons', raw.id, stamp);
+}
+export function removeLessonLocal(id) {
+  custom = custom.filter((l) => l.id !== id);
+  write(K.custom, custom);
+  delete meta.at.lessons[id]; saveMeta();
+}
 
 export function checkPin(pin) { return hashPin(pin) === settings.pin; }
 export function setPin(pin) { settings.pin = hashPin(pin); settings.pinIsDefault = false; saveSettings(); }
@@ -310,6 +377,7 @@ export function deleteAll() {
   profiles = { list: [{ id: 'p1', name: 'Marcelo', avatar: 'img' }], current: 'p1' };
   currentId = 'p1';
   custom = [];
+  meta = emptyMeta();
   current = null;
   loadProfile('p1');
   notify();

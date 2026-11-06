@@ -277,3 +277,93 @@ console.log('\nAll lesson checks passed');
   if (buildFixLesson({ date: '2026-11-06', lessons, words: [] }).lesson) throw new Error('empty should fail');
   console.log('assessment builder ok');
 }
+
+// ---- cloud sync planner ----
+{
+  const { planSync } = await import('../src/syncplan.js');
+  const t = (d) => `2026-11-0${d}T10:00:00.000Z`;
+  const rem = (key, d, deleted = false) => ({ key, updated_at: `2026-11-0${d}T10:00:00.000+00:00`, deleted });
+  const p = planSync({ localKeys: ['a', 'b', 'c', 'd'], at: { a: t(5), b: t(2), c: t(3) }, gone: { e: t(4) }, remote: [rem('a', 3), rem('b', 5), rem('c', 3), rem('f', 1), rem('e', 2), rem('g', 2, true)] });
+  eq('plan: local newer pushes', p.push.includes('a'), true);
+  eq('plan: remote newer pulls', p.pull.includes('b'), true);
+  eq('plan: equal times do nothing', [...p.pull, ...p.push].includes('c'), false);
+  eq('plan: unstamped local loses to remote data', p.push.includes('d'), true); // not on remote: uploaded
+  eq('plan: unknown remote record is pulled', p.pull.includes('f'), true);
+  eq('plan: newer local deletion is sent', p.pushDelete.includes('e'), true);
+  eq('plan: remote tombstone for a record we do not have is ignored', [...p.pull, ...p.push, ...p.drop].includes('g'), false);
+  const q = planSync({ localKeys: ['x'], at: { x: t(1) }, remote: [rem('x', 4, true)] });
+  eq('plan: newer remote tombstone drops the local copy', q.drop.join(), 'x');
+  const w = planSync({ localKeys: ['x'], at: { x: t(6) }, remote: [rem('x', 4, true)] });
+  eq('plan: newer local edit beats an old tombstone', w.push.join(), 'x');
+  const u = planSync({ localKeys: ['y'], at: {}, remote: [rem('y', 4)] });
+  eq('plan: never-edited local record takes the remote copy', u.pull.join(), 'y');
+}
+
+// ---- cloud sync, two devices and a fake server ----
+{
+  const mkStorage = () => { const m = new Map(); return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k), get length() { return m.size; }, key: (i) => [...m.keys()][i] }; };
+  const server = { children: new Map(), lessons: new Map(), users: new Set() };
+  const fakeFetch = async (url, o = {}) => {
+    const u = new URL(url); const body = o.body ? JSON.parse(o.body) : null;
+    const reply = (data, status = 200) => ({ ok: status < 300, status, text: async () => (data === null ? '' : JSON.stringify(data)) });
+    if (o.headers.apikey !== 'KEY') return reply({ message: 'bad key' }, 401);
+    if (u.pathname === '/auth/v1/signup' || u.pathname === '/auth/v1/token') return reply({ access_token: 'tok-' + (body.email || 'r'), refresh_token: 'ref', expires_in: 3600, user: { id: 'u1', email: body.email || 'a@b.c' } });
+    if (u.pathname === '/auth/v1/logout') return reply(null);
+    if (!/^Bearer tok-/.test(o.headers.Authorization || '')) return reply({ message: 'no auth' }, 401);
+    const tbl = u.pathname.endsWith('/children') ? server.children : server.lessons;
+    const idf = tbl === server.children ? 'local_id' : 'id';
+    if (o.method === 'POST') { for (const r of body) tbl.set(r[idf], { ...tbl.get(r[idf]), ...r }); return reply(null, 201); }
+    return reply([...tbl.values()]);
+  };
+  const { createCloud } = await import('../src/cloud.js');
+  const devices = {};
+  const open = async (name) => {
+    globalThis.localStorage = mkStorage();
+    const store = await import(`../src/store.js?dev=${name}`);
+    devices[name] = { ls: globalThis.localStorage, store, cloud: createCloud({ url: 'https://x.test', key: 'KEY', fetch: fakeFetch, store }) };
+  };
+  const on = (name) => { globalThis.localStorage = devices[name].ls; return devices[name]; };
+
+  await open('A'); await open('B');
+  const A = on('A');
+  eq('cloud: configured', A.cloud.configured, true);
+  eq('cloud: not signed in at first', A.cloud.signedIn(), false);
+  await A.cloud.signIn('mom@example.com', 'secret123');
+  eq('cloud: signed in', A.cloud.signedIn(), true);
+  A.store.getProgress().points = 120; A.store.saveProgress();
+  A.store.addProfile('Ana', '🦊', 1);
+  A.store.saveCustomLessons([{ id: 'fix-1', title: 'Fix 1' }]);
+  const r1 = await A.cloud.syncNow();
+  eq('cloud: first sync uploads', r1.pushed >= 3, true);
+  eq('server holds Marcelo points', server.children.get('p1').progress.points, 120);
+  eq('server holds the lesson', server.lessons.has('fix-1'), true);
+
+  const B = on('B');
+  await B.cloud.signIn('mom@example.com', 'secret123');
+  await B.cloud.syncNow();
+  eq('device B received the points', B.store.getProgress().points, 120);
+  eq('device B received the second child', B.store.getProfiles().some((p) => p.name === 'Ana' && p.grade === 1), true);
+  eq('device B received the lesson', B.store.getCustomLessons().some((l) => l.id === 'fix-1'), true);
+
+  B.store.getProgress().points = 200; B.store.saveProgress();
+  await B.cloud.syncNow();
+  on('A'); await A.cloud.syncNow();
+  eq('device A received the newer points', A.store.getProgress().points, 200);
+
+  // delete on A reaches B; lesson deletion too
+  const anaId = A.store.getProfiles().find((p) => p.name === 'Ana').id;
+  A.store.deleteProfile(anaId); A.store.saveCustomLessons([]);
+  await A.cloud.syncNow();
+  on('B'); await B.cloud.syncNow();
+  eq('deleted child is gone on B', B.store.getProfiles().some((p) => p.name === 'Ana'), false);
+  eq('deleted lesson is gone on B', B.store.getCustomLessons().length, 0);
+
+  // failure paths never throw from trySync, and bad credentials say so
+  on('A'); A.cloud.signOut && await A.cloud.signOut();
+  eq('cloud: signed out', A.cloud.signedIn(), false);
+  const bad = createCloud({ url: 'https://x.test', key: 'WRONG', fetch: fakeFetch, store: A.store });
+  let msg = ''; try { await bad.signIn('a@b.c', 'x'); } catch (e) { msg = e.message; }
+  eq('cloud: wrong key is reported', msg, 'bad key');
+  eq('cloud off without config', createCloud({ url: '', key: '' }).configured, false);
+  console.log('cloud sync ok');
+}

@@ -11,6 +11,7 @@ import { labScreen } from './wordlab.js';
 import { gamesScreen } from './games/index.js';
 import { whoScreen, hasPicked, avatarEl } from './profiles.js';
 import { watchForUpdates } from './updates.js';
+import { startAutoSync } from './cloud.js';
 
 configureTts(store.getSettings().tts);
 
@@ -59,3 +60,4 @@ if (store.getProfiles().length > 1 && !hasPicked() && !['#/who', '#/tutor'].incl
 render();
 
 watchForUpdates();
+startAutoSync();

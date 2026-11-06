@@ -1,3 +1,4 @@
+import { cloudSection } from './cloudui.js';
 import { assessmentsTab } from './assessments.js';
 import { GRADES, DEFAULT_GRADE, validGrade } from './grades.js';
 import { h, download, slug } from './util.js';
@@ -278,9 +279,10 @@ function settingsTab(refresh) {
     btn('🔊 Test voice', { cls: 'ghost', onClick: () => { apply(); speak('Hello detective. Let us solve some words.'); } }),
     h('h3', {}, 'Tutor PIN'), h('div', { class: 'btn-row' }, p1, setPin),
     h('h3', {}, 'Backup / move to another device'),
-    h('p', { class: 'hintline' }, 'Progress is saved only in this browser. To use another device, export here and restore there. Nothing is ever sent anywhere.'),
+    h('p', { class: 'hintline' }, 'Progress is saved in this browser. To use another device without a cloud account, export here and restore there.'),
     h('div', { class: 'btn-row' }, btn('Export backup (this child)', { cls: 'ghost', onClick: () => download(`word-detective-backup-${new Date().toISOString().slice(0, 10)}.json`, store.exportAll()) }),
       h('label', { class: 'file' }, 'Restore backup ', imp)),
+    cloudSection(refresh),
     h('h3', {}, 'Danger zone'),
     btn('Delete everything on this device (all children)', { cls: 'ghost danger', onClick: () => { if (confirm('Delete ALL data stored by this app on this device: progress for every child, settings and added lessons?')) { store.deleteAll(); msg.textContent = 'Everything deleted.'; refresh(); } } }),
     btn("Reset this child's progress", { cls: 'ghost danger', onClick: () => { if (confirm("Erase this child's progress, points and badges?")) { store.resetProgress(); msg.textContent = 'Progress reset.'; refresh(); } } }),
