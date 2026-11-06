@@ -259,3 +259,6 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 /* full toolbox: compact buttons; divider gaps stay out of the way until needed */
 .tool { min-height: 76px; padding: 8px 4px; font-size: .82rem; }
 .word.gaps-hidden .gap { display: none; }
+
+.hero-art { overflow: hidden; padding: 0; border: 4px solid var(--accent); background: #fff; }
+.hero-art img { width: 100%; height: 100%; object-fit: cover; display: block; }

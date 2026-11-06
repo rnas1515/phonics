@@ -1,4 +1,5 @@
 import { h, today } from './util.js';
+import avatar from './assets/avatar.png';
 import { speak } from './tts.js';
 import { allLessons, suggestNext, isMastered, accuracy } from './lessons.js';
 import { BADGES } from './gamify.js';
@@ -61,7 +62,7 @@ export function homeScreen(root) {
   root.replaceChildren(
     h('div', { class: 'home' },
       h('div', { class: 'hero' },
-        h('div', { class: 'hero-art', 'aria-hidden': 'true' }, '🕵️'),
+        h('div', { class: 'hero-art' }, h('img', { src: avatar, alt: `Detective ${S.name}`, width: 100, height: 100 })),
         h('div', {}, h('p', { class: 'eyebrow' }, 'Detective HQ'), h('h1', {}, hello))),
       h('div', { class: 'stats' },
         h('div', { class: 'stat' }, h('b', {}, `🔥 ${liveStreak(P.streak)}`), h('span', {}, 'day streak')),
