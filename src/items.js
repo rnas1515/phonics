@@ -6,6 +6,9 @@ import { parseCodedFull, gradeCoding, MARKS, CONFLICTS } from './coding.js';
 
 const PRAISE = ['Nice detective work!', 'Case solved!', 'You got it!', 'Sharp eyes!', 'Exactly right!'];
 
+// Order the toolbox is shown in.
+const PALETTE = ['breve', 'macron', 'strike', 'underline', 'arc', 'box', 'divide', 'kback', 'cedilla', 'bracket', 'schwa', 'voice'];
+
 const TOOL_LABEL = {
   breve: 'Short vowel', macron: 'Long vowel', strike: 'Cross out', underline: 'Underline', box: 'Box', divide: 'Divide',
   arc: 'Arc', kback: 'K-back', cedilla: 'Cedilla', schwa: 'Schwa', voice: 'Voice line', bracket: 'Bracket',
@@ -90,8 +93,10 @@ export function renderCoded(parsed, { onTap, onGap, gaps = false } = {}) {
 
 /* ---------- code ---------- */
 async function codeItem(host, act, item, ctx) {
+  // Every tool is always available. Only the marks this task asks about (`scope`) are graded, so extras elsewhere cost nothing.
   const tools = act.tools || MARKS;
-  const markTools = tools.filter((t) => t !== 'divide');
+  const scopeMarks = tools.filter((t) => t !== 'divide');
+  const markTools = PALETTE.filter((t) => t !== 'divide');
   const exp = parseCodedFull(item.answer);
   const alts = (item.acceptAlso || []).map(parseCodedFull);
   const word = exp.letters.map((e) => e.ch).join('');
@@ -100,7 +105,7 @@ async function codeItem(host, act, item, ctx) {
   let tool = null, attempts = 0, mistakes = 0, locked = false;
 
   const w = renderCoded({ letters: exp.letters.map((e) => ({ ch: e.ch, marks: [] })), boundaries: new Set() }, {
-    gaps: tools.includes('divide'),
+    gaps: true,
     onTap: (i) => {
       if (locked) return;
       if (!markTools.includes(tool)) {
@@ -122,11 +127,15 @@ async function codeItem(host, act, item, ctx) {
   });
   w.paint(state, bounds);
 
-  const toolBtns = tools.map((t) =>
+  const toolBtns = PALETTE.map((t) =>
     h('button', { class: 'tool', type: 'button', 'data-tool': t, onClick: () => { tool = t; paintTools(); } }, h('span', { class: 'tool-glyph g-' + t }), h('span', { class: 'tool-label' }, TOOL_LABEL[t]))
   );
-  const toolRow = h('div', { class: 'tools t' + tools.length, role: 'toolbar', 'aria-label': 'Coding tools' }, toolBtns);
-  const paintTools = () => toolBtns.forEach((b) => b.classList.toggle('on', b.dataset.tool === tool));
+  const toolRow = h('div', { class: 'tools', role: 'toolbar', 'aria-label': 'Coding tools' }, toolBtns);
+  // syllable-divider gaps show when the task is about dividing, or when the Divide tool is picked
+  const paintTools = () => {
+    toolBtns.forEach((b) => b.classList.toggle('on', b.dataset.tool === tool));
+    w.el.classList.toggle('gaps-hidden', !(tools.includes('divide') || tool === 'divide'));
+  };
   const only = tools.length === 1 ? tools[0] : null;
   if (only === 'divide') tool = 'divide';
   paintTools();
@@ -171,7 +180,7 @@ async function codeItem(host, act, item, ctx) {
     mistakes++; attempts++;
     if (attempts >= 2) {
       locked = true; check.disabled = clear.disabled = true;
-      exp.letters.forEach((e, i) => (state[i] = new Set(e.marks.filter((m) => markTools.includes(m)))));
+      exp.letters.forEach((e, i) => (state[i] = new Set(e.marks.filter((m) => scopeMarks.includes(m)))));
       bounds.clear(); if (tools.includes('divide')) exp.boundaries.forEach((p) => bounds.add(p));
       w.paint(state, bounds);
       msg.textContent = 'Here is the answer. Read why, then go on.';

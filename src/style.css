@@ -148,7 +148,7 @@ p { margin: .3em 0; }
 .blank { min-width: clamp(70px, 18vw, 120px); height: clamp(72px, 19vw, 108px); display: grid; place-items: center; border: 4px dashed var(--brand); border-radius: 16px; font-size: clamp(2.2rem, 9vw, 4rem); font-weight: 700; color: var(--brand); }
 .blank.filled { border-style: solid; background: var(--good-bg); border-color: var(--good); color: var(--good); }
 
-.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 200px)); gap: 10px; margin: 18px 0 8px; }
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; margin: 18px 0 8px; }
 .tools.nudge { animation: shake .4s; }
 .tool { font: inherit; font-size: .9rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 6px; min-height: 92px; cursor: pointer; background: var(--card); border: 3px solid var(--line); border-radius: var(--radius); color: var(--ink); touch-action: manipulation; }
 .tool.on { border-color: var(--brand); background: #e6ecff; box-shadow: 0 0 0 3px var(--accent); }
@@ -255,3 +255,7 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .lab-steps li::before { content: counter(step); flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; display: grid; place-items: center; margin-top: 4px; }
 
 .card.concept { margin-top: 12px; }
+
+/* full toolbox: compact buttons; divider gaps stay out of the way until needed */
+.tool { min-height: 76px; padding: 8px 4px; font-size: .82rem; }
+.word.gaps-hidden .gap { display: none; }
