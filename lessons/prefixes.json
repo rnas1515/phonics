@@ -5,9 +5,9 @@
   "skill": "prefixes",
   "priority": 6,
   "defaultActive": true,
-  "rule": "A prefix is a beginning added before a base word, like un and re. Draw a box around the whole prefix.",
-  "trickText": "Find the base word first. Then look at the beginning that was added in front of it. Box only the prefix.",
-  "say": "Today's case: prefixes. A prefix is a beginning added in front of a base word. First find the base word. Then put a box around the beginning.",
+  "rule": "A prefix is a beginning added before a base word, like un, re, pre, dis and mis. Draw a box around the whole prefix.",
+  "trickText": "Find the base word first. Take the beginning off: is what is left a real word? Then it is a prefix. Box only the beginning.",
+  "say": "Today's case: prefixes. A prefix is a beginning added in front of a base word. Take the beginning off and check that a real word is left. Then put a box around the beginning.",
   "example": {
     "word": "undo",
     "answer": "u# n# d o",
@@ -56,6 +56,38 @@
         {
           "word": "rebuild",
           "answer": "r# e# b u i l d"
+        },
+        {
+          "word": "preview",
+          "answer": "p# r# e# v i e w"
+        },
+        {
+          "word": "preheat",
+          "answer": "p# r# e# h e a t"
+        },
+        {
+          "word": "prepaid",
+          "answer": "p# r# e# p a i d"
+        },
+        {
+          "word": "dislike",
+          "answer": "d# i# s# l i k e"
+        },
+        {
+          "word": "disagree",
+          "answer": "d# i# s# a g r e e"
+        },
+        {
+          "word": "misspell",
+          "answer": "m# i# s# s p e l l"
+        },
+        {
+          "word": "mistake",
+          "answer": "m# i# s# t a k e"
+        },
+        {
+          "word": "misuse",
+          "answer": "m# i# s# u s e"
         }
       ]
     }

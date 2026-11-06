@@ -1,0 +1,294 @@
+{
+  "id": "affix-check",
+  "title": "Real Affix or Not?",
+  "saxonLesson": null,
+  "skill": "affix-check",
+  "priority": 6,
+  "defaultActive": true,
+  "rule": "Some words only look like they have a prefix or suffix. Take the ending or beginning off. If a real word is left, it is a prefix or suffix. If not, it is just part of the word.",
+  "trickText": "Cover the ending or beginning. Read what is left. Is it a real word? Jumped: take off ed, jump is a word, so ed is a suffix. Red: take off ed, r is not a word, so ed is just part of red.",
+  "say": "Today's case: real or fake. Some words only look like they have an ending or a beginning added. Take it off and look at what is left. If it is a real word, you found a suffix or prefix. If it is not, it is just part of the word.",
+  "discover": {
+    "intro": "Sort these words. Is ed a suffix, or just part of the word?",
+    "groups": [
+      {
+        "id": "suf",
+        "label": "ed is a suffix",
+        "why": "Take ed off and a real word is left."
+      },
+      {
+        "id": "not",
+        "label": "ed is part of the word",
+        "why": "Take ed off and no real word is left."
+      }
+    ],
+    "items": [
+      {
+        "word": "jumped",
+        "answer": "suf"
+      },
+      {
+        "word": "red",
+        "answer": "not"
+      },
+      {
+        "word": "helped",
+        "answer": "suf"
+      },
+      {
+        "word": "bed",
+        "answer": "not"
+      },
+      {
+        "word": "walked",
+        "answer": "suf"
+      },
+      {
+        "word": "sled",
+        "answer": "not"
+      }
+    ],
+    "question": "How can you tell if ed is a suffix?",
+    "options": [
+      {
+        "label": "Take it off. If a real word is left, it is a suffix",
+        "correct": true
+      },
+      {
+        "label": "If the word ends in ed, it is always a suffix",
+        "correct": false
+      },
+      {
+        "label": "If the word is short, it is a suffix",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! Take the ending off. If a real word is left, like jump in jumped, it is a suffix. In red, r is not a word, so ed is just part of the word."
+  },
+  "activities": [
+    {
+      "type": "sort",
+      "instruction": "Take the ending off. Is it a real suffix, or just part of the word?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "yes",
+          "label": "Real suffix",
+          "why": "What is left is a real word."
+        },
+        {
+          "id": "no",
+          "label": "Not a suffix",
+          "why": "What is left is not a word, so the ending is part of the word."
+        }
+      ],
+      "items": [
+        {
+          "word": "jumped",
+          "answer": "yes",
+          "why": "Take off \"ed\": \"jump\" is a real word, so ed is a suffix in jumped."
+        },
+        {
+          "word": "helped",
+          "answer": "yes",
+          "why": "Take off \"ed\": \"help\" is a real word, so ed is a suffix in helped."
+        },
+        {
+          "word": "camping",
+          "answer": "yes",
+          "why": "Take off \"ing\": \"camp\" is a real word, so ing is a suffix in camping."
+        },
+        {
+          "word": "handing",
+          "answer": "yes",
+          "why": "Take off \"ing\": \"hand\" is a real word, so ing is a suffix in handing."
+        },
+        {
+          "word": "sadly",
+          "answer": "yes",
+          "why": "Take off \"ly\": \"sad\" is a real word, so ly is a suffix in sadly."
+        },
+        {
+          "word": "kindly",
+          "answer": "yes",
+          "why": "Take off \"ly\": \"kind\" is a real word, so ly is a suffix in kindly."
+        },
+        {
+          "word": "taller",
+          "answer": "yes",
+          "why": "Take off \"er\": \"tall\" is a real word, so er is a suffix in taller."
+        },
+        {
+          "word": "fastest",
+          "answer": "yes",
+          "why": "Take off \"est\": \"fast\" is a real word, so est is a suffix in fastest."
+        },
+        {
+          "word": "helpful",
+          "answer": "yes",
+          "why": "Take off \"ful\": \"help\" is a real word, so ful is a suffix in helpful."
+        },
+        {
+          "word": "kindness",
+          "answer": "yes",
+          "why": "Take off \"ness\": \"kind\" is a real word, so ness is a suffix in kindness."
+        },
+        {
+          "word": "red",
+          "answer": "no",
+          "why": "Take off \"ed\": \"r\" is not a real word, so ed is just part of red. It is not a suffix."
+        },
+        {
+          "word": "bed",
+          "answer": "no",
+          "why": "Take off \"ed\": \"b\" is not a real word, so ed is just part of bed. It is not a suffix."
+        },
+        {
+          "word": "sled",
+          "answer": "no",
+          "why": "Take off \"ed\": \"sl\" is not a real word, so ed is just part of sled. It is not a suffix."
+        },
+        {
+          "word": "ring",
+          "answer": "no",
+          "why": "Take off \"ing\": \"r\" is not a real word, so ing is just part of ring. It is not a suffix."
+        },
+        {
+          "word": "bring",
+          "answer": "no",
+          "why": "Take off \"ing\": \"br\" is not a real word, so ing is just part of bring. It is not a suffix."
+        },
+        {
+          "word": "fly",
+          "answer": "no",
+          "why": "Take off \"ly\": \"f\" is not a real word, so ly is just part of fly. It is not a suffix."
+        },
+        {
+          "word": "nest",
+          "answer": "no",
+          "why": "Take off \"est\": \"n\" is not a real word, so est is just part of nest. It is not a suffix."
+        },
+        {
+          "word": "best",
+          "answer": "no",
+          "why": "Take off \"est\": \"b\" is not a real word, so est is just part of best. It is not a suffix."
+        },
+        {
+          "word": "her",
+          "answer": "no",
+          "why": "Take off \"er\": \"h\" is not a real word, so er is just part of her. It is not a suffix."
+        },
+        {
+          "word": "sister",
+          "answer": "no",
+          "why": "Take off \"er\": \"sist\" is not a real word, so er is just part of sister. It is not a suffix."
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Take the beginning off. Is it a real prefix, or just part of the word?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "yes",
+          "label": "Real prefix",
+          "why": "What is left is a real word."
+        },
+        {
+          "id": "no",
+          "label": "Not a prefix",
+          "why": "What is left is not a word, so the beginning is part of the word."
+        }
+      ],
+      "items": [
+        {
+          "word": "undo",
+          "answer": "yes",
+          "why": "Take off \"un\": \"do\" is a real word, so un is a prefix in undo."
+        },
+        {
+          "word": "unlock",
+          "answer": "yes",
+          "why": "Take off \"un\": \"lock\" is a real word, so un is a prefix in unlock."
+        },
+        {
+          "word": "unfair",
+          "answer": "yes",
+          "why": "Take off \"un\": \"fair\" is a real word, so un is a prefix in unfair."
+        },
+        {
+          "word": "redo",
+          "answer": "yes",
+          "why": "Take off \"re\": \"do\" is a real word, so re is a prefix in redo."
+        },
+        {
+          "word": "replay",
+          "answer": "yes",
+          "why": "Take off \"re\": \"play\" is a real word, so re is a prefix in replay."
+        },
+        {
+          "word": "preview",
+          "answer": "yes",
+          "why": "Take off \"pre\": \"view\" is a real word, so pre is a prefix in preview."
+        },
+        {
+          "word": "dislike",
+          "answer": "yes",
+          "why": "Take off \"dis\": \"like\" is a real word, so dis is a prefix in dislike."
+        },
+        {
+          "word": "misspell",
+          "answer": "yes",
+          "why": "Take off \"mis\": \"spell\" is a real word, so mis is a prefix in misspell."
+        },
+        {
+          "word": "under",
+          "answer": "no",
+          "why": "Take off \"un\": \"der\" is not a real word, so un is just part of under. It is not a prefix."
+        },
+        {
+          "word": "uncle",
+          "answer": "no",
+          "why": "Take off \"un\": \"cle\" is not a real word, so un is just part of uncle. It is not a prefix."
+        },
+        {
+          "word": "reach",
+          "answer": "no",
+          "why": "Take off \"re\": \"ach\" is not a real word, so re is just part of reach. It is not a prefix."
+        },
+        {
+          "word": "real",
+          "answer": "no",
+          "why": "Take off \"re\": \"al\" is not a real word, so re is just part of real. It is not a prefix."
+        },
+        {
+          "word": "rest",
+          "answer": "no",
+          "why": "Take off \"re\": \"st\" is not a real word, so re is just part of rest. It is not a prefix."
+        },
+        {
+          "word": "dish",
+          "answer": "no",
+          "why": "Take off \"dis\": \"h\" is not a real word, so dis is just part of dish. It is not a prefix."
+        },
+        {
+          "word": "mist",
+          "answer": "no",
+          "why": "Take off \"mis\": \"t\" is not a real word, so mis is just part of mist. It is not a prefix."
+        },
+        {
+          "word": "prey",
+          "answer": "no",
+          "why": "Take off \"pre\": \"y\" is not a real word, so pre is just part of prey. It is not a prefix."
+        }
+      ]
+    }
+  ]
+}

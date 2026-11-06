@@ -19,3 +19,6 @@ The school's own reference pages (see `docs/notation.md`) settled most notation 
 10. **ke and c endings.** Rules come from your brief. Confirm the lesson number and wording.
 11. **Sight words.** "I read it" is self-reported and tracked separately. Should a tutor confirm after each sight-word session?
 12. **Gemini notes.** Its "snaffled" mark, a dot on soft g, and crossing out twin consonants do not appear on the school pages, so they are not used.
+13. **Prefixes and suffixes.** Taught so far: un-, re-, pre-, dis-, mis- and -ed, -ing, -ly, -er, -est, -ful, -less, -ness, -s, -es, with a box only.
+    The "Real Affix or Not?" lesson asks whether a real word is left when the ending or beginning is removed. Not built yet: dropping the silent e
+    (bake + ing) and doubling the last consonant (hop + ing). Your brief lists them at L103. Please confirm the school's wording and which endings come first.

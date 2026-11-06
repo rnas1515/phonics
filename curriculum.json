@@ -130,6 +130,11 @@
       "skill": "voice-lines",
       "order": 150,
       "saxonLesson": null
+    },
+    {
+      "skill": "affix-check",
+      "order": 63,
+      "saxonLesson": null
     }
   ]
 }

@@ -5,9 +5,9 @@
   "skill": "suffixes",
   "priority": 6,
   "defaultActive": true,
-  "rule": "A suffix is an ending added to a base word, like ed, ing, or ly. Draw a box around the whole suffix.",
-  "trickText": "Find the base word first. Then look at the ending that was added to it. Box only the ending. Not every word that ends in the same letters has a suffix.",
-  "say": "Today's case: suffixes. A suffix is an ending added to a base word. First find the base word. Then put a box around the ending that was added.",
+  "rule": "A suffix is an ending added to a base word, like ed, ing, ly, er, est, ful, less, ness, or s and es. Draw a box around the whole suffix.",
+  "trickText": "Find the base word first. Take the ending off: is what is left a real word? Then it is a suffix. Box only the ending.",
+  "say": "Today's case: suffixes. A suffix is an ending added to a base word. Take the ending off and check that a real word is left. Then put a box around the ending.",
   "example": {
     "word": "jumped",
     "answer": "j u m p e# d#",
@@ -56,6 +56,46 @@
         {
           "word": "plans",
           "answer": "p l a n s#"
+        },
+        {
+          "word": "taller",
+          "answer": "t a l l e# r#"
+        },
+        {
+          "word": "fastest",
+          "answer": "f a s t e# s# t#"
+        },
+        {
+          "word": "helpful",
+          "answer": "h e l p f# u# l#"
+        },
+        {
+          "word": "sadness",
+          "answer": "s a d n# e# s# s#"
+        },
+        {
+          "word": "kindness",
+          "answer": "k i n d n# e# s# s#"
+        },
+        {
+          "word": "boxes",
+          "answer": "b o x e# s#"
+        },
+        {
+          "word": "wishes",
+          "answer": "w i s h e# s#"
+        },
+        {
+          "word": "hopeless",
+          "answer": "h o p e l# e# s# s#"
+        },
+        {
+          "word": "quickest",
+          "answer": "q u i c k e# s# t#"
+        },
+        {
+          "word": "softly",
+          "answer": "s o f t l# y#"
         }
       ]
     }
