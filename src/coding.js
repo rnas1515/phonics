@@ -161,14 +161,21 @@ export function describeCoding(parsed, word, tools = MARKS, boundaries = new Set
     parts.push(`The ${parsed[vi].ch} is a vowel with a consonant after it and no sneaky e, so it is short. Put a breve on it.`);
   }
   if (has('underline')) {
-    const teams = [];
-    for (let i = 0; i < parsed.length - 1; i++) {
-      if (parsed[i].marks.includes('underline') && parsed[i + 1].marks.includes('underline')) {
-        teams.push(parsed[i].ch + parsed[i + 1].ch);
-        i++;
-      }
+    // Adjacent underlined letters can be separate groups (sh + ee in sheep), so split each run into known groups.
+    const KNOWN = ['eigh', 'igh', 'tch', 'dge'];
+    const groups = [];
+    for (const run of groupsOf(parsed, 'underline')) {
+      if (KNOWN.includes(run)) groups.push(run);
+      else for (let i = 0; i < run.length; i += 2) groups.push(run.slice(i, i + 2));
     }
-    parts.push(`${teams.join(' and ')} ${teams.length > 1 ? 'are teams' : 'is a team'}: two letters, one sound. Underline both letters.`);
+    const sayGroup = (g) =>
+      g.length === 4 ? `${g} is a quadrigraph: four letters, one sound.`
+      : g.length === 3 ? `${g} is a trigraph: three letters, one sound.`
+      : g.length === 2 ? `${g} is a team of two letters, one sound.`
+      : '';
+    const sizes = new Set(groups.map((g) => g.length));
+    const which = sizes.size === 1 ? ({ 2: 'both letters', 3: 'all three letters', 4: 'all four letters' }[[...sizes][0]] || 'the letters') : 'every letter in each group';
+    parts.push(`${groups.map(sayGroup).filter(Boolean).join(' ')} Underline ${which}.`);
   }
   return parts.join(' ') || `Code ${word} the way the rule says.`;
 }

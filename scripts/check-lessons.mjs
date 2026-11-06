@@ -1,7 +1,7 @@
 // `npm test`: validates every lesson file and sanity-checks the coding helpers.
 import { readdirSync, readFileSync } from 'node:fs';
 import { normalizeLesson, deriveCk } from '../src/validate.js';
-import { autoCode, parseCodedFull, gradeCoding, teamFullAlt, CONFLICTS } from '../src/coding.js';
+import { autoCode, parseCodedFull, gradeCoding, teamFullAlt, CONFLICTS, describeCoding } from '../src/coding.js';
 
 let failed = 0;
 const eq = (name, got, want) => {
@@ -51,6 +51,14 @@ eq('missing divider rejected', grade('u n | d e r', [], [], ['divide']), false);
   eq('stacked breve+macron rejected', g.ok, false);
   eq('detail flags extra on u', JSON.stringify(g.detail[0]), JSON.stringify({ i: 1, extra: ['breve'], missing: [] }));
   eq('breve conflicts with macron', CONFLICTS.breve.includes('macron') && CONFLICTS.macron.includes('breve'), true);
+}
+// tips name the whole group, not made-up pairs
+{
+  const tip = (coded, word) => { const f = parseCodedFull(coded); return describeCoding(f.letters, word, ['underline'], f.boundaries); };
+  eq('weigh tip names the quadrigraph', /eigh is a quadrigraph: four letters, one sound\. Underline all four letters\./.test(tip('w e_ i_ g_ h_', 'weigh')), true);
+  eq('night tip names the trigraph', /igh is a trigraph/.test(tip('n i_ g_ h_ t', 'night')), true);
+  eq('sheep tip keeps sh and ee apart', /sh is a team.*ee is a team/.test(tip('s_ h_ e_ e_ p', 'sheep')), true);
+  eq('rain tip: a pair', tip('r a_ i_ n', 'rain'), 'ai is a team of two letters, one sound. Underline both letters.');
 }
 // school notation: arcs, k-back / cedilla, brackets, vowel-team full pattern, prefix box
 eq('arc under both letters of bird', grade('b i~ r~ d', [[1, 'arc'], [2, 'arc']], [], ['arc']), true);
