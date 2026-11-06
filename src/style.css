@@ -293,7 +293,8 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .mem-card.done { border-color: var(--good); background: var(--good-bg); }
 .mem-card.done .mem-face { background: var(--good-bg); }
 .mem-word { font-size: clamp(1.3rem, 5vw, 2rem); font-weight: 700; color: var(--ink); }
-.mem-coded { transform: scale(.36); width: 0; height: 40px; display: grid; place-items: center; }
+.mem-face { position: relative; }
+.mem-coded { position: absolute; left: 50%; top: 50%; width: max-content; transform: translate(-50%, -50%) scale(var(--s, .3)); }
 .mem-coded .word { flex-wrap: nowrap; margin: 0; }
 
 /* mystery word */
@@ -305,6 +306,7 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .btn.key.wrong { background: #eee; border-color: var(--line); color: #888; }
 
 @media (max-width: 560px) {
-  .mem-grid { grid-template-columns: repeat(3, 1fr); }
+  .mem-grid { grid-template-columns: repeat(2, 1fr); }
+  .mem-card { min-height: 92px; }
   .my-keys { grid-template-columns: repeat(6, 1fr); }
 }

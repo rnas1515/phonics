@@ -19,6 +19,7 @@ export function play(host, ctx) {
     return b;
   });
 
+  ctx.later(() => els.forEach((_, k) => fit(k)), 0);
   host.append(
     h('div', { class: 'game-bar' }, h('strong', {}, 'Find the pairs'), moveEl),
     h('p', { class: 'hintline' }, 'Tap two cards. A word matches its coded twin.'),
@@ -27,9 +28,21 @@ export function play(host, ctx) {
   let resolve;
   const done = new Promise((r) => (resolve = r));
 
+  // Shrink a coded word so it fits inside its card (cards are smaller on a phone).
+  function fit(i) {
+    const plain = els[i].querySelector('.mem-word');
+    if (plain) { plain.style.fontSize = Math.min(32, (els[i].clientWidth - 16) / (plain.textContent.length * 0.62)).toFixed(1) + 'px'; return; }
+    const coded = els[i].querySelector('.mem-coded'); if (!coded) return;
+    const word = coded.querySelector('.word');
+    const room = els[i].clientWidth - 20;
+    const natural = word.scrollWidth || 1;
+    coded.style.setProperty('--s', Math.min(0.42, room / natural).toFixed(3));
+  }
+
   function flip(i) {
     if (locked || els[i].classList.contains('up') || els[i].classList.contains('done')) return;
     els[i].classList.add('up');
+    ctx.later(() => fit(i), 0);
     els[i].setAttribute('aria-label', `${cards[i].kind === 'word' ? 'Word' : 'Coded word'} ${cards[i].word}`);
     if (cards[i].kind === 'word') speak(cards[i].word);
     open.push(i);

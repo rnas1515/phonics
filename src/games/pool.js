@@ -20,8 +20,12 @@ export function codePairs(n = 6) {
     for (const l of ls) for (const a of l.activities) {
       if (a.type !== 'code') continue;
       for (const it of a.items) {
-        if (seen.has(it.word) || it.word.length > 7) continue;
-        try { out.push({ word: it.word, parsed: parseCodedFull(it.answer) }); seen.add(it.word); } catch { /* skip */ }
+        if (seen.has(it.word) || it.word.length > 6) continue; // short words fit on a small card
+        try {
+          const parsed = parseCodedFull(it.answer);
+          if (parsed.boundaries.size) continue; // divider lines make the coded card too wide
+          out.push({ word: it.word, parsed }); seen.add(it.word);
+        } catch { /* skip */ }
       }
     }
     return out;
