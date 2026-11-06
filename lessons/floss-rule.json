@@ -1,0 +1,195 @@
+{
+  "id": "floss-rule",
+  "title": "The Floss Rule",
+  "saxonLesson": null,
+  "skill": "floss-rule",
+  "priority": 3,
+  "defaultActive": true,
+  "rule": "In a one-syllable word with one short vowel, double the last letter when it is f, l, s or z: ff, ll, ss, zz. Floss helps you remember. A few words are exceptions, like if, of, bus, yes and us.",
+  "trickText": "Look at the end of the word. One short vowel, then the f, l, s or z sound? Double the last letter. Put a breve on the vowel.",
+  "say": "Today's case: the floss rule. When a short word has one short vowel and ends with the f, l, s or z sound, we double the last letter. Like floss: f l o s s.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Put a breve on the short vowel.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "puff",
+          "answer": "p uv f f"
+        },
+        {
+          "word": "cliff",
+          "answer": "c l iv f f"
+        },
+        {
+          "word": "stuff",
+          "answer": "s t uv f f"
+        },
+        {
+          "word": "huff",
+          "answer": "h uv f f"
+        },
+        {
+          "word": "hill",
+          "answer": "h iv l l"
+        },
+        {
+          "word": "bell",
+          "answer": "b ev l l"
+        },
+        {
+          "word": "doll",
+          "answer": "d ov l l"
+        },
+        {
+          "word": "spill",
+          "answer": "s p iv l l"
+        },
+        {
+          "word": "miss",
+          "answer": "m iv s s"
+        },
+        {
+          "word": "kiss",
+          "answer": "k iv s s"
+        },
+        {
+          "word": "mess",
+          "answer": "m ev s s"
+        },
+        {
+          "word": "moss",
+          "answer": "m ov s s"
+        },
+        {
+          "word": "buzz",
+          "answer": "b uv z z"
+        },
+        {
+          "word": "fizz",
+          "answer": "f iv z z"
+        },
+        {
+          "word": "jazz",
+          "answer": "j av z z"
+        },
+        {
+          "word": "fuzz",
+          "answer": "f uv z z"
+        }
+      ],
+      "tools": [
+        "breve"
+      ]
+    },
+    {
+      "type": "fill",
+      "choices": [
+        "ff",
+        "ll",
+        "ss",
+        "zz"
+      ],
+      "instruction": "Listen to the word. Choose the ending: ff, ll, ss or zz.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "puff",
+          "pattern": "pu__",
+          "answer": "ff",
+          "why": "puff has one short vowel and ends with the f sound, so we double the last letter: ff."
+        },
+        {
+          "word": "cliff",
+          "pattern": "cli__",
+          "answer": "ff",
+          "why": "cliff has one short vowel and ends with the f sound, so we double the last letter: ff."
+        },
+        {
+          "word": "stuff",
+          "pattern": "stu__",
+          "answer": "ff",
+          "why": "stuff has one short vowel and ends with the f sound, so we double the last letter: ff."
+        },
+        {
+          "word": "hill",
+          "pattern": "hi__",
+          "answer": "ll",
+          "why": "hill has one short vowel and ends with the l sound, so we double the last letter: ll."
+        },
+        {
+          "word": "bell",
+          "pattern": "be__",
+          "answer": "ll",
+          "why": "bell has one short vowel and ends with the l sound, so we double the last letter: ll."
+        },
+        {
+          "word": "doll",
+          "pattern": "do__",
+          "answer": "ll",
+          "why": "doll has one short vowel and ends with the l sound, so we double the last letter: ll."
+        },
+        {
+          "word": "spill",
+          "pattern": "spi__",
+          "answer": "ll",
+          "why": "spill has one short vowel and ends with the l sound, so we double the last letter: ll."
+        },
+        {
+          "word": "miss",
+          "pattern": "mi__",
+          "answer": "ss",
+          "why": "miss has one short vowel and ends with the s sound, so we double the last letter: ss."
+        },
+        {
+          "word": "kiss",
+          "pattern": "ki__",
+          "answer": "ss",
+          "why": "kiss has one short vowel and ends with the s sound, so we double the last letter: ss."
+        },
+        {
+          "word": "mess",
+          "pattern": "me__",
+          "answer": "ss",
+          "why": "mess has one short vowel and ends with the s sound, so we double the last letter: ss."
+        },
+        {
+          "word": "dress",
+          "pattern": "dre__",
+          "answer": "ss",
+          "why": "dress has one short vowel and ends with the s sound, so we double the last letter: ss."
+        },
+        {
+          "word": "buzz",
+          "pattern": "bu__",
+          "answer": "zz",
+          "why": "buzz has one short vowel and ends with the z sound, so we double the last letter: zz."
+        },
+        {
+          "word": "jazz",
+          "pattern": "ja__",
+          "answer": "zz",
+          "why": "jazz has one short vowel and ends with the z sound, so we double the last letter: zz."
+        },
+        {
+          "word": "fuzz",
+          "pattern": "fu__",
+          "answer": "zz",
+          "why": "fuzz has one short vowel and ends with the z sound, so we double the last letter: zz."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "puff",
+    "answer": "p uv f f",
+    "say": "Look at puff. One short vowel, u, and it ends with the f sound. So we double the f. I put a breve on the u."
+  }
+}

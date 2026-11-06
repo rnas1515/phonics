@@ -1,0 +1,141 @@
+{
+  "id": "wh-combination",
+  "title": "The wh Combination",
+  "saxonLesson": null,
+  "skill": "wh",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters wh work together at the start of words like whale and when. On the school chart wh gets an arc. Put an arc under both letters.",
+  "trickText": "Find w and h together at the start of a word. Put an arc under both letters. Then listen: wh or just w?",
+  "say": "Today's case: wh. These two letters work together at the start of a word, like in whale and when. We put an arc under them.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Draw an arc under the wh combination.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "whale",
+          "answer": "w~ h~ a l e"
+        },
+        {
+          "word": "when",
+          "answer": "w~ h~ e n"
+        },
+        {
+          "word": "which",
+          "answer": "w~ h~ i c h"
+        },
+        {
+          "word": "whip",
+          "answer": "w~ h~ i p"
+        },
+        {
+          "word": "white",
+          "answer": "w~ h~ i t e"
+        },
+        {
+          "word": "wheel",
+          "answer": "w~ h~ e e l"
+        },
+        {
+          "word": "wheat",
+          "answer": "w~ h~ e a t"
+        },
+        {
+          "word": "while",
+          "answer": "w~ h~ i l e"
+        },
+        {
+          "word": "whisk",
+          "answer": "w~ h~ i s k"
+        }
+      ],
+      "tools": [
+        "arc"
+      ]
+    },
+    {
+      "type": "fill",
+      "choices": [
+        "wh",
+        "w"
+      ],
+      "instruction": "Listen to the word. Choose wh or w.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "whale",
+          "pattern": "__ale",
+          "answer": "wh",
+          "why": "whale starts with wh: whale."
+        },
+        {
+          "word": "wheel",
+          "pattern": "__eel",
+          "answer": "wh",
+          "why": "wheel starts with wh: wheel."
+        },
+        {
+          "word": "when",
+          "pattern": "__en",
+          "answer": "wh",
+          "why": "when starts with wh: when."
+        },
+        {
+          "word": "whip",
+          "pattern": "__ip",
+          "answer": "wh",
+          "why": "whip starts with wh: whip."
+        },
+        {
+          "word": "white",
+          "pattern": "__ite",
+          "answer": "wh",
+          "why": "white starts with wh: white."
+        },
+        {
+          "word": "will",
+          "pattern": "__ill",
+          "answer": "w",
+          "why": "will starts with just w: will."
+        },
+        {
+          "word": "went",
+          "pattern": "__ent",
+          "answer": "w",
+          "why": "went starts with just w: went."
+        },
+        {
+          "word": "wet",
+          "pattern": "__et",
+          "answer": "w",
+          "why": "wet starts with just w: wet."
+        },
+        {
+          "word": "wish",
+          "pattern": "__ish",
+          "answer": "w",
+          "why": "wish starts with just w: wish."
+        },
+        {
+          "word": "web",
+          "pattern": "__eb",
+          "answer": "w",
+          "why": "web starts with just w: web."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "whale",
+    "answer": "w~ h~ a l e",
+    "say": "Look at whale. The w and h work together at the start. I put an arc under both letters."
+  }
+}

@@ -1,7 +1,7 @@
 import { h, download, slug } from './util.js';
 import { speak, rankedVoices, scoreVoice, configureTts } from './tts.js';
 import { pinPad, btn } from './ui.js';
-import { allLessons, problems, accuracy } from './lessons.js';
+import { allLessons, problems, accuracy, weekOf } from './lessons.js';
 import { normalizeLesson, deriveCk } from './validate.js';
 import { autoCode, parseCodedFull } from './coding.js';
 import { renderCoded } from './items.js';
@@ -93,7 +93,8 @@ function lessonsTab(refresh) {
     const cb = h('input', { type: 'checkbox', 'aria-label': `Active: ${l.title}`, checked: store.isActive(l), onChange: (e) => store.setActive(l.id, e.target.checked) });
     const acts = btn('Export', { cls: 'ghost small', onClick: () => download(`${l.id}.json`, JSON.stringify(strip(l), null, 2)) });
     const del = l.source === 'custom' ? btn('Delete', { cls: 'ghost small', onClick: () => { if (confirm(`Delete "${l.title}"?`)) { store.saveCustomLessons(store.getCustomLessons().filter((r) => r.id !== l.id)); refresh(); } } }) : null;
-    return [cb, h('strong', {}, l.title), l.source, l.saxonLesson ?? '–', l.activities.map((a) => a.type).join(', '), h('span', {}, acts, del)];
+    const wk = weekOf(l);
+    return [cb, h('strong', {}, l.title), wk ? new Date(wk.date + 'T12:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '–', l.source, l.saxonLesson ?? '–', l.activities.map((a) => a.type).join(', '), h('span', {}, acts, del)];
   });
   const file = h('input', { type: 'file', accept: '.json,application/json', onChange: async (e) => {
     try {
@@ -103,7 +104,7 @@ function lessonsTab(refresh) {
   } });
   return h('div', {},
     h('p', { class: 'hintline' }, 'Tick the skills that are active this week (from the newsletter). Inactive skills are hidden from Marcelo. Lessons from files in /lessons are built in; lessons added here are saved on this device.'),
-    table(['Active', 'Lesson', 'Source', 'Saxon #', 'Activities', ''], rows),
+    table(['Active', 'Lesson', 'School week', 'Source', 'Saxon #', 'Activities', ''], rows),
     problems.length ? h('div', { class: 'banner' }, h('strong', {}, 'Some lessons have problems:'), problems.map((p) => h('p', {}, `${p.name}: ${p.errors.join('; ')}`))) : null,
     h('h3', {}, 'Add a lesson'),
     addForm(refresh),

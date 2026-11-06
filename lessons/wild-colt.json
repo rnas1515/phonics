@@ -1,0 +1,209 @@
+{
+  "id": "wild-colt",
+  "title": "Wild Colt Words",
+  "saxonLesson": null,
+  "skill": "wild-colt",
+  "priority": 3,
+  "defaultActive": true,
+  "rule": "In words ending in old, ild, ind, olt and ost, the vowel is long and says its name. These are the Wild Colt words: old, wild, find, colt, most. Put a macron on the vowel.",
+  "trickText": "Look at the end of the word. old, ild, ind, olt or ost? Then the vowel says its name. Put a macron on it.",
+  "say": "Today's case: the wild colt words. When a word ends in old, ild, ind, olt, or ost, the vowel says its name. Think of a wild colt that runs away. We put a macron on the vowel.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Put a macron on the vowel.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "old",
+          "answer": "o- l d"
+        },
+        {
+          "word": "cold",
+          "answer": "c o- l d"
+        },
+        {
+          "word": "gold",
+          "answer": "g o- l d"
+        },
+        {
+          "word": "hold",
+          "answer": "h o- l d"
+        },
+        {
+          "word": "told",
+          "answer": "t o- l d"
+        },
+        {
+          "word": "fold",
+          "answer": "f o- l d"
+        },
+        {
+          "word": "wild",
+          "answer": "w i- l d"
+        },
+        {
+          "word": "child",
+          "answer": "c h i- l d"
+        },
+        {
+          "word": "mild",
+          "answer": "m i- l d"
+        },
+        {
+          "word": "find",
+          "answer": "f i- n d"
+        },
+        {
+          "word": "kind",
+          "answer": "k i- n d"
+        },
+        {
+          "word": "mind",
+          "answer": "m i- n d"
+        },
+        {
+          "word": "blind",
+          "answer": "b l i- n d"
+        },
+        {
+          "word": "colt",
+          "answer": "c o- l t"
+        },
+        {
+          "word": "bolt",
+          "answer": "b o- l t"
+        },
+        {
+          "word": "jolt",
+          "answer": "j o- l t"
+        },
+        {
+          "word": "most",
+          "answer": "m o- s t"
+        },
+        {
+          "word": "post",
+          "answer": "p o- s t"
+        },
+        {
+          "word": "host",
+          "answer": "h o- s t"
+        }
+      ],
+      "tools": [
+        "macron"
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Does the word end like a wild colt word? Listen to the vowel.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "wc",
+          "label": "Wild Colt (long vowel)",
+          "why": "It ends in old, ild, ind, olt or ost, so the vowel says its name."
+        },
+        {
+          "id": "not",
+          "label": "Short vowel",
+          "why": "It does not end in a Wild Colt ending, so the vowel is short."
+        }
+      ],
+      "items": [
+        {
+          "word": "cold",
+          "answer": "wc"
+        },
+        {
+          "word": "gold",
+          "answer": "wc"
+        },
+        {
+          "word": "wild",
+          "answer": "wc"
+        },
+        {
+          "word": "child",
+          "answer": "wc"
+        },
+        {
+          "word": "find",
+          "answer": "wc"
+        },
+        {
+          "word": "kind",
+          "answer": "wc"
+        },
+        {
+          "word": "colt",
+          "answer": "wc"
+        },
+        {
+          "word": "bolt",
+          "answer": "wc"
+        },
+        {
+          "word": "most",
+          "answer": "wc"
+        },
+        {
+          "word": "post",
+          "answer": "wc"
+        },
+        {
+          "word": "hot",
+          "answer": "not"
+        },
+        {
+          "word": "hill",
+          "answer": "not"
+        },
+        {
+          "word": "milk",
+          "answer": "not"
+        },
+        {
+          "word": "belt",
+          "answer": "not"
+        },
+        {
+          "word": "mint",
+          "answer": "not"
+        },
+        {
+          "word": "doll",
+          "answer": "not"
+        },
+        {
+          "word": "pond",
+          "answer": "not"
+        },
+        {
+          "word": "sand",
+          "answer": "not"
+        },
+        {
+          "word": "went",
+          "answer": "not"
+        },
+        {
+          "word": "drum",
+          "answer": "not"
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "cold",
+    "answer": "c o- l d",
+    "say": "Look at cold. It ends in o l d, a wild colt ending. So the o says its name. I put a macron on the o."
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "id": "ph-digraph",
+  "title": "The ph Digraph",
+  "saxonLesson": null,
+  "skill": "ph",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters ph are a digraph: two letters, one sound, f. Underline both letters. You have to remember which words use ph, like phone and graph.",
+  "trickText": "Hear the f sound. Is it spelled f, like fish, or ph, like phone? Underline ph when you see it.",
+  "say": "Today's case: ph. These two letters make the f sound, like in phone. We underline both letters. You will learn which words use ph by seeing them.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Underline the ph digraph.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "phone",
+          "answer": "p_ h_ o n e"
+        },
+        {
+          "word": "graph",
+          "answer": "g r a p_ h_"
+        },
+        {
+          "word": "photo",
+          "answer": "p_ h_ o t o"
+        },
+        {
+          "word": "dolphin",
+          "answer": "d o l p_ h_ i n"
+        },
+        {
+          "word": "phonics",
+          "answer": "p_ h_ o n i c s"
+        },
+        {
+          "word": "alphabet",
+          "answer": "a l p_ h_ a b e t"
+        },
+        {
+          "word": "trophy",
+          "answer": "t r o p_ h_ y"
+        },
+        {
+          "word": "elephant",
+          "answer": "e l e p_ h_ a n t"
+        }
+      ],
+      "tools": [
+        "underline"
+      ]
+    },
+    {
+      "type": "fill",
+      "choices": [
+        "f",
+        "ph"
+      ],
+      "instruction": "Listen to the f sound. Choose f or ph.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "phone",
+          "pattern": "__one",
+          "answer": "ph",
+          "why": "phone uses ph for the f sound: phone."
+        },
+        {
+          "word": "photo",
+          "pattern": "__oto",
+          "answer": "ph",
+          "why": "photo uses ph for the f sound: photo."
+        },
+        {
+          "word": "graph",
+          "pattern": "gra__",
+          "answer": "ph",
+          "why": "graph uses ph for the f sound: graph."
+        },
+        {
+          "word": "dolphin",
+          "pattern": "dol__in",
+          "answer": "ph",
+          "why": "dolphin uses ph for the f sound: dolphin."
+        },
+        {
+          "word": "phonics",
+          "pattern": "__onics",
+          "answer": "ph",
+          "why": "phonics uses ph for the f sound: phonics."
+        },
+        {
+          "word": "fish",
+          "pattern": "__ish",
+          "answer": "f",
+          "why": "fish uses f for the f sound: fish."
+        },
+        {
+          "word": "fun",
+          "pattern": "__un",
+          "answer": "f",
+          "why": "fun uses f for the f sound: fun."
+        },
+        {
+          "word": "leaf",
+          "pattern": "lea__",
+          "answer": "f",
+          "why": "leaf uses f for the f sound: leaf."
+        },
+        {
+          "word": "fan",
+          "pattern": "__an",
+          "answer": "f",
+          "why": "fan uses f for the f sound: fan."
+        },
+        {
+          "word": "fast",
+          "pattern": "__ast",
+          "answer": "f",
+          "why": "fast uses f for the f sound: fast."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "phone",
+    "answer": "p_ h_ o n e",
+    "say": "Look at phone. The p and h make one sound, f. They are a digraph, so I underline both letters."
+  }
+}

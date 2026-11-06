@@ -1,0 +1,135 @@
+{
+  "id": "oa-team",
+  "title": "The oa Team",
+  "saxonLesson": null,
+  "skill": "oa-team",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters oa are a vowel team that say long o, like boat. Underline both letters. The school pattern is a macron on the o and a slash through the a, with an underline under both.",
+  "trickText": "Find o and a side by side. They are a team, so underline both letters. Long o: boat, not bot.",
+  "say": "Today's case: the oa team. Two letters, one sound: long o, like in boat. We underline both letters.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Code each word. Underline the oa team.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "alsoAccept": "team-full",
+      "items": [
+        {
+          "word": "boat"
+        },
+        {
+          "word": "coat"
+        },
+        {
+          "word": "road"
+        },
+        {
+          "word": "soap"
+        },
+        {
+          "word": "goat"
+        },
+        {
+          "word": "toast"
+        },
+        {
+          "word": "float"
+        },
+        {
+          "word": "foam"
+        },
+        {
+          "word": "toad"
+        },
+        {
+          "word": "load"
+        },
+        {
+          "word": "throat"
+        },
+        {
+          "word": "goal"
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen. Is the long o spelled with the oa team, or a sneaky e?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "oa",
+          "label": "oa team",
+          "why": "It has the oa team: two letters, long o."
+        },
+        {
+          "id": "oe",
+          "label": "Sneaky e (o_e)",
+          "why": "It has a sneaky e: vowel, consonant, e."
+        }
+      ],
+      "items": [
+        {
+          "word": "boat",
+          "answer": "oa"
+        },
+        {
+          "word": "bone",
+          "answer": "oe"
+        },
+        {
+          "word": "coat",
+          "answer": "oa"
+        },
+        {
+          "word": "cone",
+          "answer": "oe"
+        },
+        {
+          "word": "goat",
+          "answer": "oa"
+        },
+        {
+          "word": "note",
+          "answer": "oe"
+        },
+        {
+          "word": "toad",
+          "answer": "oa"
+        },
+        {
+          "word": "rode",
+          "answer": "oe"
+        },
+        {
+          "word": "soap",
+          "answer": "oa"
+        },
+        {
+          "word": "hope",
+          "answer": "oe"
+        },
+        {
+          "word": "float",
+          "answer": "oa"
+        },
+        {
+          "word": "stone",
+          "answer": "oe"
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "boat",
+    "answer": "b o-_ a/_ t",
+    "say": "Look at boat. The o and a are a team. They say long o. I put a macron on the o, slash the a, and underline both."
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "_note": "The school's weekly phonics schedule, as supplied. Skills are lesson skill ids. Items not yet built: 'o', 'a' (Oct 9, Oct 16: unclear), sight words for other weeks.",
+  "weeks": [
+    {
+      "date": "2026-08-28",
+      "label": "Suffixes (ed, ing, less, s), Floss rule, Wild Colt rules",
+      "skills": [
+        "suffixes",
+        "floss-rule",
+        "wild-colt",
+        "affix-check"
+      ]
+    },
+    {
+      "date": "2026-09-04",
+      "label": "v-e, oo, ee",
+      "skills": [
+        "sneaky-e",
+        "oo-team",
+        "ee-team"
+      ]
+    },
+    {
+      "date": "2026-09-11",
+      "label": "au, aw, Wild Colt, oa",
+      "skills": [
+        "aw-au-ew",
+        "wild-colt",
+        "oa-team"
+      ]
+    },
+    {
+      "date": "2026-09-18",
+      "label": "ey, vc-v, ph, soft g",
+      "skills": [
+        "ue-ie-ey",
+        "vcv",
+        "ph",
+        "soft-c-g"
+      ]
+    },
+    {
+      "date": "2026-09-25",
+      "label": "Doubling rule, ghost letter digraphs, dropping rule, v|cv",
+      "skills": [
+        "doubling-rule",
+        "silent-letters",
+        "dropping-rule",
+        "vcv"
+      ]
+    },
+    {
+      "date": "2026-10-02",
+      "label": "v|cv, tch, final ch, dge, final ge",
+      "skills": [
+        "vcv",
+        "trigraphs",
+        "final-ch",
+        "final-ge"
+      ]
+    },
+    {
+      "date": "2026-10-09",
+      "label": "dge, tch, ie, wh, o",
+      "skills": [
+        "trigraphs",
+        "ue-ie-ey",
+        "wh"
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "label": "a, ei, ew, er, est",
+      "skills": [
+        "ei-team",
+        "aw-au-ew",
+        "er-ir-ur",
+        "suffixes"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "label": "er, est, ful, un, pre, dis",
+      "skills": [
+        "er-ir-ur",
+        "suffixes",
+        "prefixes"
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "label": "Sight words, ble, dle, fle, gle, ple, tle, compound words",
+      "skills": [
+        "stable-syllables",
+        "compound-words"
+      ]
+    }
+  ]
+}

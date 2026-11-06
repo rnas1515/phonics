@@ -1,5 +1,6 @@
 import { normalizeLesson } from './validate.js';
 import curriculum from '../curriculum.json';
+import schedule from '../schedule.json';
 import { getCustomLessons, getProgress, isActive } from './store.js';
 
 // Every JSON file dropped in /lessons is picked up automatically at build time.
@@ -8,8 +9,21 @@ const files = import.meta.glob('../lessons/*.json', { eager: true, import: 'defa
 export const problems = [];
 
 const ORDER = Object.fromEntries(curriculum.skills.map((c) => [c.skill, c.order]));
-/** Teaching order: curriculum.json first, then lesson priority for skills not listed (e.g. custom lessons). */
-export const orderOf = (l) => ORDER[l.skill] ?? 500 + l.priority;
+
+// School schedule: the first week a skill appears sets its place and its date.
+const FIRST_WEEK = {};
+schedule.weeks.forEach((wk, wi) => wk.skills.forEach((sk, k) => { if (!(sk in FIRST_WEEK)) FIRST_WEEK[sk] = { order: 100 + wi * 10 + k, date: wk.date, label: wk.label }; }));
+export const weekOf = (l) => FIRST_WEEK[l.skill] || null;
+
+/**
+ * Teaching order: early skills first (anchored lesson numbers, order below 60), then the school schedule week by week,
+ * then everything else (extra practice), then the checkpoint.
+ */
+export const orderOf = (l) => {
+  if (FIRST_WEEK[l.skill]) return FIRST_WEEK[l.skill].order;
+  const base = ORDER[l.skill] ?? 500 + l.priority;
+  return base >= 60 && base < 900 ? base + 300 : base;
+};
 
 export function allLessons() {
   problems.length = 0;

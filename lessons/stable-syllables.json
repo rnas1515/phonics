@@ -1,6 +1,6 @@
 {
   "id": "stable-syllables",
-  "title": "Endings: ble, gle, tle, dle",
+  "title": "Endings: ble, dle, fle, gle, ple, tle",
   "saxonLesson": null,
   "skill": "stable-syllables",
   "priority": 13,
@@ -56,6 +56,38 @@
         {
           "word": "puddle",
           "answer": "p u d d[ l e/"
+        },
+        {
+          "word": "apple",
+          "answer": "a p p[ l e/"
+        },
+        {
+          "word": "maple",
+          "answer": "m a- p[ l e/"
+        },
+        {
+          "word": "simple",
+          "answer": "s i m p[ l e/"
+        },
+        {
+          "word": "purple",
+          "answer": "p u r p[ l e/"
+        },
+        {
+          "word": "waffle",
+          "answer": "w a f f[ l e/"
+        },
+        {
+          "word": "muffle",
+          "answer": "m u f f[ l e/"
+        },
+        {
+          "word": "rifle",
+          "answer": "r i- f[ l e/"
+        },
+        {
+          "word": "shuffle",
+          "answer": "s h u f f[ l e/"
         }
       ]
     },
@@ -63,9 +95,11 @@
       "type": "fill",
       "choices": [
         "ble",
+        "dle",
+        "fle",
         "gle",
-        "tle",
-        "dle"
+        "ple",
+        "tle"
       ],
       "instruction": "Listen to the word. Choose the ending.",
       "passRule": {
@@ -132,6 +166,54 @@
           "pattern": "pud__",
           "answer": "dle",
           "why": "puddle ends with dle: puddle."
+        },
+        {
+          "word": "apple",
+          "pattern": "ap__",
+          "answer": "ple",
+          "why": "apple ends with ple: apple."
+        },
+        {
+          "word": "maple",
+          "pattern": "ma__",
+          "answer": "ple",
+          "why": "maple ends with ple: maple."
+        },
+        {
+          "word": "simple",
+          "pattern": "sim__",
+          "answer": "ple",
+          "why": "simple ends with ple: simple."
+        },
+        {
+          "word": "purple",
+          "pattern": "pur__",
+          "answer": "ple",
+          "why": "purple ends with ple: purple."
+        },
+        {
+          "word": "waffle",
+          "pattern": "waf__",
+          "answer": "fle",
+          "why": "waffle ends with fle: waffle."
+        },
+        {
+          "word": "muffle",
+          "pattern": "muf__",
+          "answer": "fle",
+          "why": "muffle ends with fle: muffle."
+        },
+        {
+          "word": "rifle",
+          "pattern": "ri__",
+          "answer": "fle",
+          "why": "rifle ends with fle: rifle."
+        },
+        {
+          "word": "shuffle",
+          "pattern": "shuf__",
+          "answer": "fle",
+          "why": "shuffle ends with fle: shuffle."
         }
       ]
     }

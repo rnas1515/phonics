@@ -1,0 +1,197 @@
+{
+  "id": "dropping-rule",
+  "title": "The Dropping Rule",
+  "saxonLesson": null,
+  "skill": "dropping-rule",
+  "priority": 4,
+  "defaultActive": true,
+  "rule": "When a word ends in a silent e and the ending starts with a vowel (ing, er, est, ed), drop the e: bake becomes baking. If the ending starts with a consonant (ly, ful, less, ness), keep the e: safe becomes safely.",
+  "trickText": "Look at the ending. Does it start with a vowel? Drop the silent e. Does it start with a consonant? Keep the e.",
+  "say": "Today's case: the dropping rule. When a word ends in a silent e and the ending starts with a vowel, we drop the e. Bake plus i n g makes baking. But if the ending starts with a consonant, we keep the e, like safely.",
+  "activities": [
+    {
+      "type": "sort",
+      "instruction": "Do you drop the silent e, or keep it?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "drop",
+          "label": "Drop the e",
+          "why": "The ending starts with a vowel, so drop the silent e."
+        },
+        {
+          "id": "keep",
+          "label": "Keep the e",
+          "why": "The ending starts with a consonant, so keep the silent e."
+        }
+      ],
+      "items": [
+        {
+          "word": "bake + ing",
+          "answer": "drop",
+          "why": "bake ends in a silent e, and ing starts with a vowel. So drop the e: baking."
+        },
+        {
+          "word": "make + ing",
+          "answer": "drop",
+          "why": "make ends in a silent e, and ing starts with a vowel. So drop the e: making."
+        },
+        {
+          "word": "hope + ing",
+          "answer": "drop",
+          "why": "hope ends in a silent e, and ing starts with a vowel. So drop the e: hoping."
+        },
+        {
+          "word": "ride + ing",
+          "answer": "drop",
+          "why": "ride ends in a silent e, and ing starts with a vowel. So drop the e: riding."
+        },
+        {
+          "word": "shine + ing",
+          "answer": "drop",
+          "why": "shine ends in a silent e, and ing starts with a vowel. So drop the e: shining."
+        },
+        {
+          "word": "safe + est",
+          "answer": "drop",
+          "why": "safe ends in a silent e, and est starts with a vowel. So drop the e: safest."
+        },
+        {
+          "word": "ride + er",
+          "answer": "drop",
+          "why": "ride ends in a silent e, and er starts with a vowel. So drop the e: rider."
+        },
+        {
+          "word": "close + ing",
+          "answer": "drop",
+          "why": "close ends in a silent e, and ing starts with a vowel. So drop the e: closing."
+        },
+        {
+          "word": "safe + ly",
+          "answer": "keep",
+          "why": "ly starts with a consonant, so keep the silent e: safely."
+        },
+        {
+          "word": "care + less",
+          "answer": "keep",
+          "why": "less starts with a consonant, so keep the silent e: careless."
+        },
+        {
+          "word": "hope + ful",
+          "answer": "keep",
+          "why": "ful starts with a consonant, so keep the silent e: hopeful."
+        },
+        {
+          "word": "late + ly",
+          "answer": "keep",
+          "why": "ly starts with a consonant, so keep the silent e: lately."
+        },
+        {
+          "word": "close + ly",
+          "answer": "keep",
+          "why": "ly starts with a consonant, so keep the silent e: closely."
+        },
+        {
+          "word": "home + less",
+          "answer": "keep",
+          "why": "less starts with a consonant, so keep the silent e: homeless."
+        },
+        {
+          "word": "care + ful",
+          "answer": "keep",
+          "why": "ful starts with a consonant, so keep the silent e: careful."
+        },
+        {
+          "word": "nice + ly",
+          "answer": "keep",
+          "why": "ly starts with a consonant, so keep the silent e: nicely."
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Double, drop, or just add?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "dbl",
+          "label": "Double the last letter",
+          "why": "One short vowel and one ending consonant before a vowel ending."
+        },
+        {
+          "id": "drop",
+          "label": "Drop the e",
+          "why": "A silent e before a vowel ending."
+        },
+        {
+          "id": "add",
+          "label": "Just add the ending",
+          "why": "Nothing changes."
+        }
+      ],
+      "items": [
+        {
+          "word": "hop + ing",
+          "answer": "dbl",
+          "why": "hop has one short vowel and ends in one consonant, and ing starts with a vowel. So double the last letter: hopping."
+        },
+        {
+          "word": "run + ing",
+          "answer": "dbl",
+          "why": "run has one short vowel and ends in one consonant, and ing starts with a vowel. So double the last letter: running."
+        },
+        {
+          "word": "sit + ing",
+          "answer": "dbl",
+          "why": "sit has one short vowel and ends in one consonant, and ing starts with a vowel. So double the last letter: sitting."
+        },
+        {
+          "word": "bake + ing",
+          "answer": "drop",
+          "why": "bake ends in a silent e, and ing starts with a vowel. So drop the e: baking."
+        },
+        {
+          "word": "make + ing",
+          "answer": "drop",
+          "why": "make ends in a silent e, and ing starts with a vowel. So drop the e: making."
+        },
+        {
+          "word": "hope + ing",
+          "answer": "drop",
+          "why": "hope ends in a silent e, and ing starts with a vowel. So drop the e: hoping."
+        },
+        {
+          "word": "jump + ing",
+          "answer": "add",
+          "why": "jump ends in two consonants, so just add the ending: jumping."
+        },
+        {
+          "word": "help + ed",
+          "answer": "add",
+          "why": "help ends in two consonants, so just add the ending: helped."
+        },
+        {
+          "word": "camp + ing",
+          "answer": "add",
+          "why": "camp ends in two consonants, so just add the ending: camping."
+        },
+        {
+          "word": "jump + ing",
+          "answer": "add",
+          "why": "jump ends in two consonants, so just add the ending: jumping."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "bake + ing",
+    "answer": "baking",
+    "say": "Look at bake. It ends in a silent e, and ing starts with a vowel. So we drop the e: baking."
+  }
+}

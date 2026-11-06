@@ -1,0 +1,208 @@
+{
+  "id": "final-ch-tch",
+  "title": "ch or tch at the End",
+  "saxonLesson": null,
+  "skill": "final-ch",
+  "priority": 2,
+  "defaultActive": true,
+  "rule": "At the end of a word, look at the ONE letter right before the ch sound. A short vowel alone: tch, like match. A consonant or a vowel team: ch, like lunch and beach. A few words are exceptions: much, such, rich, which.",
+  "trickText": "Look at the ONE letter right before the ch sound. Short vowel, all alone? Use t c h. Consonant or vowel team? Use just c h.",
+  "say": "Today's case: t c h or c h. Here is the trick, like c k and k. Look at the ONE letter right before the ch sound. If it is a short vowel all alone, use t c h. If it is a consonant or a vowel team, use just c h.",
+  "activities": [
+    {
+      "type": "fill",
+      "oneLetter": true,
+      "choices": [
+        "tch",
+        "ch"
+      ],
+      "kinds": [
+        {
+          "id": "short",
+          "label": "A short vowel, all alone"
+        },
+        {
+          "id": "consonant",
+          "label": "A consonant"
+        },
+        {
+          "id": "team",
+          "label": "Part of a vowel team"
+        }
+      ],
+      "ruleStrip": "Short vowel alone → tch  ·  Consonant or vowel team → ch  (exceptions: much, such, rich, which)",
+      "instruction": "Find the ONE letter before the ch sound. Then choose tch or ch.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "match",
+          "stem": "ma",
+          "answer": "tch",
+          "before": "a",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a short vowel, all alone. So we spell it t c h: match."
+        },
+        {
+          "word": "catch",
+          "stem": "ca",
+          "answer": "tch",
+          "before": "a",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a short vowel, all alone. So we spell it t c h: catch."
+        },
+        {
+          "word": "fetch",
+          "stem": "fe",
+          "answer": "tch",
+          "before": "e",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"e\". It is a short vowel, all alone. So we spell it t c h: fetch."
+        },
+        {
+          "word": "patch",
+          "stem": "pa",
+          "answer": "tch",
+          "before": "a",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a short vowel, all alone. So we spell it t c h: patch."
+        },
+        {
+          "word": "hatch",
+          "stem": "ha",
+          "answer": "tch",
+          "before": "a",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a short vowel, all alone. So we spell it t c h: hatch."
+        },
+        {
+          "word": "ditch",
+          "stem": "di",
+          "answer": "tch",
+          "before": "i",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"i\". It is a short vowel, all alone. So we spell it t c h: ditch."
+        },
+        {
+          "word": "switch",
+          "stem": "swi",
+          "answer": "tch",
+          "before": "i",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"i\". It is a short vowel, all alone. So we spell it t c h: switch."
+        },
+        {
+          "word": "notch",
+          "stem": "no",
+          "answer": "tch",
+          "before": "o",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"o\". It is a short vowel, all alone. So we spell it t c h: notch."
+        },
+        {
+          "word": "stitch",
+          "stem": "sti",
+          "answer": "tch",
+          "before": "i",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"i\". It is a short vowel, all alone. So we spell it t c h: stitch."
+        },
+        {
+          "word": "lunch",
+          "stem": "lun",
+          "answer": "ch",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just c h: lunch."
+        },
+        {
+          "word": "bench",
+          "stem": "ben",
+          "answer": "ch",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just c h: bench."
+        },
+        {
+          "word": "pinch",
+          "stem": "pin",
+          "answer": "ch",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just c h: pinch."
+        },
+        {
+          "word": "ranch",
+          "stem": "ran",
+          "answer": "ch",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just c h: ranch."
+        },
+        {
+          "word": "punch",
+          "stem": "pun",
+          "answer": "ch",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just c h: punch."
+        },
+        {
+          "word": "bunch",
+          "stem": "bun",
+          "answer": "ch",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just c h: bunch."
+        },
+        {
+          "word": "beach",
+          "stem": "bea",
+          "answer": "ch",
+          "before": "a",
+          "beforeKind": "team",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is part of the vowel team \"ea\", not a short vowel alone. So we use just c h: beach."
+        },
+        {
+          "word": "teach",
+          "stem": "tea",
+          "answer": "ch",
+          "before": "a",
+          "beforeKind": "team",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is part of the vowel team \"ea\", not a short vowel alone. So we use just c h: teach."
+        },
+        {
+          "word": "coach",
+          "stem": "coa",
+          "answer": "ch",
+          "before": "a",
+          "beforeKind": "team",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is part of the vowel team \"oa\", not a short vowel alone. So we use just c h: coach."
+        },
+        {
+          "word": "reach",
+          "stem": "rea",
+          "answer": "ch",
+          "before": "a",
+          "beforeKind": "team",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is part of the vowel team \"ea\", not a short vowel alone. So we use just c h: reach."
+        },
+        {
+          "word": "peach",
+          "stem": "pea",
+          "answer": "ch",
+          "before": "a",
+          "beforeKind": "team",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is part of the vowel team \"ea\", not a short vowel alone. So we use just c h: peach."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "match",
+    "answer": "ma + tch",
+    "say": "Look at match. The one letter right before the ch sound is a. It is a short vowel, all alone. So we spell it t c h. Match."
+  }
+}

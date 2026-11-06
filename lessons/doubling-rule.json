@@ -1,0 +1,172 @@
+{
+  "id": "doubling-rule",
+  "title": "The Doubling Rule",
+  "saxonLesson": null,
+  "skill": "doubling-rule",
+  "priority": 4,
+  "defaultActive": true,
+  "rule": "When a short word has one short vowel and ends in one consonant, and the ending starts with a vowel (ing, ed, er, est), double the last letter: hop becomes hopping.",
+  "trickText": "Check three things. One short vowel? Ends in one consonant? Does the ending start with a vowel? Then double the last letter. If not, just add the ending.",
+  "say": "Today's case: the doubling rule. When a short word has one short vowel and ends in one consonant, and the ending starts with a vowel, we double the last letter. Hop plus i n g makes hopping, with two p's.",
+  "activities": [
+    {
+      "type": "sort",
+      "instruction": "Do you double the last letter, or just add the ending?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "dbl",
+          "label": "Double the last letter",
+          "why": "One short vowel, one ending consonant, and a vowel ending: double the last letter."
+        },
+        {
+          "id": "add",
+          "label": "Just add the ending",
+          "why": "No doubling needed: just add the ending."
+        }
+      ],
+      "items": [
+        {
+          "word": "hop + ing",
+          "answer": "dbl",
+          "why": "hop has one short vowel and ends in one consonant, and ing starts with a vowel. So double the last letter: hopping."
+        },
+        {
+          "word": "run + ing",
+          "answer": "dbl",
+          "why": "run has one short vowel and ends in one consonant, and ing starts with a vowel. So double the last letter: running."
+        },
+        {
+          "word": "sit + ing",
+          "answer": "dbl",
+          "why": "sit has one short vowel and ends in one consonant, and ing starts with a vowel. So double the last letter: sitting."
+        },
+        {
+          "word": "big + er",
+          "answer": "dbl",
+          "why": "big has one short vowel and ends in one consonant, and er starts with a vowel. So double the last letter: bigger."
+        },
+        {
+          "word": "clap + ed",
+          "answer": "dbl",
+          "why": "clap has one short vowel and ends in one consonant, and ed starts with a vowel. So double the last letter: clapped."
+        },
+        {
+          "word": "stop + ed",
+          "answer": "dbl",
+          "why": "stop has one short vowel and ends in one consonant, and ed starts with a vowel. So double the last letter: stopped."
+        },
+        {
+          "word": "swim + ing",
+          "answer": "dbl",
+          "why": "swim has one short vowel and ends in one consonant, and ing starts with a vowel. So double the last letter: swimming."
+        },
+        {
+          "word": "hot + est",
+          "answer": "dbl",
+          "why": "hot has one short vowel and ends in one consonant, and est starts with a vowel. So double the last letter: hottest."
+        },
+        {
+          "word": "jump + ing",
+          "answer": "add",
+          "why": "jump ends in two consonants, so just add the ending: jumping."
+        },
+        {
+          "word": "help + ed",
+          "answer": "add",
+          "why": "help ends in two consonants, so just add the ending: helped."
+        },
+        {
+          "word": "camp + ing",
+          "answer": "add",
+          "why": "camp ends in two consonants, so just add the ending: camping."
+        },
+        {
+          "word": "play + ing",
+          "answer": "add",
+          "why": "play ends in a vowel team, so just add the ending: playing."
+        },
+        {
+          "word": "rain + ing",
+          "answer": "add",
+          "why": "rain has a vowel team, so just add the ending: raining."
+        },
+        {
+          "word": "fast + er",
+          "answer": "add",
+          "why": "fast ends in two consonants, so just add the ending: faster."
+        },
+        {
+          "word": "soft + est",
+          "answer": "add",
+          "why": "soft ends in two consonants, so just add the ending: softest."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "hop + ing",
+    "answer": "hopping",
+    "say": "Look at hop. One short vowel, and it ends in one consonant. The ending ing starts with a vowel. So we double the p: hopping."
+  },
+  "discover": {
+    "intro": "Sort these. Does the word double its last letter?",
+    "groups": [
+      {
+        "id": "dbl",
+        "label": "Double the last letter",
+        "why": "The last letter is doubled."
+      },
+      {
+        "id": "add",
+        "label": "Just add the ending",
+        "why": "Nothing is doubled."
+      }
+    ],
+    "items": [
+      {
+        "word": "hop + ing",
+        "answer": "dbl"
+      },
+      {
+        "word": "jump + ing",
+        "answer": "add"
+      },
+      {
+        "word": "run + ing",
+        "answer": "dbl"
+      },
+      {
+        "word": "help + ed",
+        "answer": "add"
+      },
+      {
+        "word": "clap + ed",
+        "answer": "dbl"
+      },
+      {
+        "word": "rain + ing",
+        "answer": "add"
+      }
+    ],
+    "question": "What do the words that double have in common?",
+    "options": [
+      {
+        "label": "One short vowel, then one ending consonant",
+        "correct": true
+      },
+      {
+        "label": "They all end in a vowel",
+        "correct": false
+      },
+      {
+        "label": "They are all long words",
+        "correct": false
+      }
+    ],
+    "reveal": "Yes! One short vowel and one ending consonant, then an ending that starts with a vowel: double the last letter."
+  }
+}

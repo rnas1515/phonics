@@ -135,6 +135,66 @@
       "skill": "affix-check",
       "order": 63,
       "saxonLesson": null
+    },
+    {
+      "skill": "floss-rule",
+      "order": 200,
+      "saxonLesson": null
+    },
+    {
+      "skill": "wild-colt",
+      "order": 201,
+      "saxonLesson": null
+    },
+    {
+      "skill": "oa-team",
+      "order": 202,
+      "saxonLesson": null
+    },
+    {
+      "skill": "ph",
+      "order": 203,
+      "saxonLesson": null
+    },
+    {
+      "skill": "wh",
+      "order": 204,
+      "saxonLesson": null
+    },
+    {
+      "skill": "ei-team",
+      "order": 205,
+      "saxonLesson": null
+    },
+    {
+      "skill": "final-ch",
+      "order": 206,
+      "saxonLesson": null
+    },
+    {
+      "skill": "final-ge",
+      "order": 207,
+      "saxonLesson": null
+    },
+    {
+      "skill": "doubling-rule",
+      "order": 208,
+      "saxonLesson": null
+    },
+    {
+      "skill": "dropping-rule",
+      "order": 209,
+      "saxonLesson": null
+    },
+    {
+      "skill": "vcv",
+      "order": 210,
+      "saxonLesson": null
+    },
+    {
+      "skill": "compound-words",
+      "order": 211,
+      "saxonLesson": null
     }
   ]
 }

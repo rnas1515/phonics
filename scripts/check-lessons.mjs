@@ -119,5 +119,8 @@ for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
 const cur = JSON.parse(readFileSync(new URL('../curriculum.json', import.meta.url), 'utf8'));
 const skills = new Set(readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(new URL(f, dir), 'utf8')).skill));
 for (const c of cur.skills) if (!skills.has(c.skill)) { failed++; console.error(`FAIL curriculum.json: unknown skill "${c.skill}"`); }
+// schedule.json must only name real skills
+const sched = JSON.parse(readFileSync(new URL('../schedule.json', import.meta.url), 'utf8'));
+for (const wk of sched.weeks) for (const sk of wk.skills) if (!skills.has(sk)) { failed++; console.error(`FAIL schedule.json ${wk.date}: unknown skill "${sk}"`); }
 if (failed) { console.error(`\n${failed} problem(s)`); process.exit(1); }
 console.log('\nAll lesson checks passed');

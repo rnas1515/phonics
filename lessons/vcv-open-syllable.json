@@ -1,0 +1,161 @@
+{
+  "id": "vcv",
+  "title": "V|CV: Open Syllables",
+  "saxonLesson": null,
+  "skill": "vcv",
+  "priority": 4,
+  "defaultActive": true,
+  "rule": "When one consonant sits between two vowels (V C V), try dividing after the first vowel: ba|by. The first syllable is open and the vowel says its name. If that does not sound right, try dividing after the consonant: cab|in.",
+  "trickText": "Find the vowels. One consonant between them? Try the line after the first vowel and say it: ba-by. Does it sound like a word? If not, move the line after the consonant: cab-in.",
+  "say": "Today's case: dividing words with one consonant between two vowels. First try dividing after the first vowel, like ba, by. The first vowel is open and says its name. If it does not sound right, try dividing after the consonant, like cab, in.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Tap the space where the line goes: after the first vowel.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "baby",
+          "answer": "b a | b y"
+        },
+        {
+          "word": "paper",
+          "answer": "p a | p e r"
+        },
+        {
+          "word": "tiger",
+          "answer": "t i | g e r"
+        },
+        {
+          "word": "music",
+          "answer": "m u | s i c"
+        },
+        {
+          "word": "robot",
+          "answer": "r o | b o t"
+        },
+        {
+          "word": "open",
+          "answer": "o | p e n"
+        },
+        {
+          "word": "lazy",
+          "answer": "l a | z y"
+        },
+        {
+          "word": "pilot",
+          "answer": "p i | l o t"
+        },
+        {
+          "word": "spider",
+          "answer": "s p i | d e r"
+        },
+        {
+          "word": "hotel",
+          "answer": "h o | t e l"
+        },
+        {
+          "word": "frozen",
+          "answer": "f r o | z e n"
+        },
+        {
+          "word": "silent",
+          "answer": "s i | l e n t"
+        }
+      ],
+      "tools": [
+        "divide"
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen to the first vowel. Is the first syllable open or closed?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "open",
+          "label": "Open: V|CV (ba|by)",
+          "why": "The first syllable ends with a vowel, so the vowel says its name."
+        },
+        {
+          "id": "closed",
+          "label": "Closed: VC|V (cab|in)",
+          "why": "The consonant closes the first syllable, so the vowel is short."
+        }
+      ],
+      "items": [
+        {
+          "word": "baby",
+          "answer": "open",
+          "why": "ba|by: the first syllable ends with a vowel, so it is open and the vowel says its name."
+        },
+        {
+          "word": "paper",
+          "answer": "open",
+          "why": "pa|per: the first syllable ends with a vowel, so it is open and the vowel says its name."
+        },
+        {
+          "word": "tiger",
+          "answer": "open",
+          "why": "ti|ger: the first syllable ends with a vowel, so it is open and the vowel says its name."
+        },
+        {
+          "word": "music",
+          "answer": "open",
+          "why": "mu|sic: the first syllable ends with a vowel, so it is open and the vowel says its name."
+        },
+        {
+          "word": "robot",
+          "answer": "open",
+          "why": "ro|bot: the first syllable ends with a vowel, so it is open and the vowel says its name."
+        },
+        {
+          "word": "spider",
+          "answer": "open",
+          "why": "spi|der: the first syllable ends with a vowel, so it is open and the vowel says its name."
+        },
+        {
+          "word": "cabin",
+          "answer": "closed",
+          "why": "cab|in: the consonant closes the first syllable, so the vowel is short."
+        },
+        {
+          "word": "lemon",
+          "answer": "closed",
+          "why": "lem|on: the consonant closes the first syllable, so the vowel is short."
+        },
+        {
+          "word": "robin",
+          "answer": "closed",
+          "why": "rob|in: the consonant closes the first syllable, so the vowel is short."
+        },
+        {
+          "word": "seven",
+          "answer": "closed",
+          "why": "sev|en: the consonant closes the first syllable, so the vowel is short."
+        },
+        {
+          "word": "river",
+          "answer": "closed",
+          "why": "riv|er: the consonant closes the first syllable, so the vowel is short."
+        },
+        {
+          "word": "visit",
+          "answer": "closed",
+          "why": "vis|it: the consonant closes the first syllable, so the vowel is short."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "baby",
+    "answer": "b a | b y",
+    "say": "Look at baby. One consonant, b, sits between two vowels. I divide after the first vowel: ba, by. The a is open, so it says its name."
+  }
+}

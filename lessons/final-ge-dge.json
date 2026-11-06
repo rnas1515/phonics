@@ -1,0 +1,205 @@
+{
+  "id": "final-ge-dge",
+  "title": "ge or dge at the End",
+  "saxonLesson": null,
+  "skill": "final-ge",
+  "priority": 2,
+  "defaultActive": true,
+  "rule": "At the end of a word, look at the ONE letter right before the j sound. A short vowel alone: dge, like badge. A long vowel or a consonant: ge, like page and large.",
+  "trickText": "Look at the ONE letter right before the j sound. Short vowel, all alone? Use d g e. Long vowel or consonant? Use just g e.",
+  "say": "Today's case: d g e or g e. Look at the ONE letter right before the j sound. If it is a short vowel all alone, use d g e, like badge. If it is a long vowel or a consonant, use just g e, like page and large.",
+  "activities": [
+    {
+      "type": "fill",
+      "oneLetter": true,
+      "choices": [
+        "dge",
+        "ge"
+      ],
+      "kinds": [
+        {
+          "id": "short",
+          "label": "A short vowel, all alone"
+        },
+        {
+          "id": "consonant",
+          "label": "A consonant"
+        },
+        {
+          "id": "team",
+          "label": "Part of a vowel team"
+        },
+        {
+          "id": "long",
+          "label": "A long vowel (sneaky e)",
+          "say": "a long vowel, with a sneaky e"
+        }
+      ],
+      "ruleStrip": "Short vowel alone → dge  ·  Long vowel or consonant → ge",
+      "instruction": "Find the ONE letter before the j sound. Then choose dge or ge.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "badge",
+          "stem": "ba",
+          "answer": "dge",
+          "before": "a",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a short vowel, all alone. So we spell it d g e: badge."
+        },
+        {
+          "word": "edge",
+          "stem": "e",
+          "answer": "dge",
+          "before": "e",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"e\". It is a short vowel, all alone. So we spell it d g e: edge."
+        },
+        {
+          "word": "bridge",
+          "stem": "bri",
+          "answer": "dge",
+          "before": "i",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"i\". It is a short vowel, all alone. So we spell it d g e: bridge."
+        },
+        {
+          "word": "fudge",
+          "stem": "fu",
+          "answer": "dge",
+          "before": "u",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"u\". It is a short vowel, all alone. So we spell it d g e: fudge."
+        },
+        {
+          "word": "judge",
+          "stem": "ju",
+          "answer": "dge",
+          "before": "u",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"u\". It is a short vowel, all alone. So we spell it d g e: judge."
+        },
+        {
+          "word": "ridge",
+          "stem": "ri",
+          "answer": "dge",
+          "before": "i",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"i\". It is a short vowel, all alone. So we spell it d g e: ridge."
+        },
+        {
+          "word": "hedge",
+          "stem": "he",
+          "answer": "dge",
+          "before": "e",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"e\". It is a short vowel, all alone. So we spell it d g e: hedge."
+        },
+        {
+          "word": "lodge",
+          "stem": "lo",
+          "answer": "dge",
+          "before": "o",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"o\". It is a short vowel, all alone. So we spell it d g e: lodge."
+        },
+        {
+          "word": "dodge",
+          "stem": "do",
+          "answer": "dge",
+          "before": "o",
+          "beforeKind": "short",
+          "why": "Look at the ONE letter right before the sound. It is \"o\". It is a short vowel, all alone. So we spell it d g e: dodge."
+        },
+        {
+          "word": "page",
+          "stem": "pa",
+          "answer": "ge",
+          "before": "a",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a long vowel, said with a sneaky e. So we spell it g e: page."
+        },
+        {
+          "word": "cage",
+          "stem": "ca",
+          "answer": "ge",
+          "before": "a",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a long vowel, said with a sneaky e. So we spell it g e: cage."
+        },
+        {
+          "word": "huge",
+          "stem": "hu",
+          "answer": "ge",
+          "before": "u",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the sound. It is \"u\". It is a long vowel, said with a sneaky e. So we spell it g e: huge."
+        },
+        {
+          "word": "age",
+          "stem": "a",
+          "answer": "ge",
+          "before": "a",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a long vowel, said with a sneaky e. So we spell it g e: age."
+        },
+        {
+          "word": "stage",
+          "stem": "sta",
+          "answer": "ge",
+          "before": "a",
+          "beforeKind": "long",
+          "why": "Look at the ONE letter right before the sound. It is \"a\". It is a long vowel, said with a sneaky e. So we spell it g e: stage."
+        },
+        {
+          "word": "large",
+          "stem": "lar",
+          "answer": "ge",
+          "before": "r",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"r\". It is a consonant, not a short vowel. So we use just g e: large."
+        },
+        {
+          "word": "change",
+          "stem": "chan",
+          "answer": "ge",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just g e: change."
+        },
+        {
+          "word": "plunge",
+          "stem": "plun",
+          "answer": "ge",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just g e: plunge."
+        },
+        {
+          "word": "strange",
+          "stem": "stran",
+          "answer": "ge",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just g e: strange."
+        },
+        {
+          "word": "orange",
+          "stem": "oran",
+          "answer": "ge",
+          "before": "n",
+          "beforeKind": "consonant",
+          "why": "Look at the ONE letter right before the sound. It is \"n\". It is a consonant, not a short vowel. So we use just g e: orange."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "badge",
+    "answer": "ba + dge",
+    "say": "Look at badge. The one letter right before the j sound is a. It is a short vowel, all alone. So we spell it d g e. Badge."
+  }
+}

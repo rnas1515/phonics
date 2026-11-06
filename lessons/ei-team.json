@@ -1,0 +1,113 @@
+{
+  "id": "ei-team",
+  "title": "The ei Team",
+  "saxonLesson": null,
+  "skill": "ei-team",
+  "priority": 7,
+  "defaultActive": true,
+  "rule": "The letters ei are a vowel team. They can say long a, like vein, or long e, like ceiling. Underline both letters. Listen for the sound.",
+  "trickText": "Underline both letters of ei. Then listen: long a, like vein? Or long e, like ceiling?",
+  "say": "Today's case: the ei team. Two letters, one sound. Sometimes it says long a, like in vein. Sometimes it says long e, like in ceiling. Listen carefully.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Underline the ei team.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "vein",
+          "answer": "v e_ i_ n"
+        },
+        {
+          "word": "veil",
+          "answer": "v e_ i_ l"
+        },
+        {
+          "word": "rein",
+          "answer": "r e_ i_ n"
+        },
+        {
+          "word": "ceiling",
+          "answer": "c e_ i_ l i n_ g_"
+        },
+        {
+          "word": "receive",
+          "answer": "r e c e_ i_ v e"
+        },
+        {
+          "word": "receipt",
+          "answer": "r e c e_ i_ p t"
+        },
+        {
+          "word": "deceive",
+          "answer": "d e c e_ i_ v e"
+        }
+      ],
+      "tools": [
+        "underline"
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Listen. Does ei say long a, like vein, or long e, like ceiling?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "a",
+          "label": "Long a (vein)",
+          "why": "Here ei says long a."
+        },
+        {
+          "id": "e",
+          "label": "Long e (ceiling)",
+          "why": "Here ei says long e."
+        }
+      ],
+      "items": [
+        {
+          "word": "vein",
+          "answer": "a"
+        },
+        {
+          "word": "veil",
+          "answer": "a"
+        },
+        {
+          "word": "rein",
+          "answer": "a"
+        },
+        {
+          "word": "reindeer",
+          "answer": "a"
+        },
+        {
+          "word": "ceiling",
+          "answer": "e"
+        },
+        {
+          "word": "receive",
+          "answer": "e"
+        },
+        {
+          "word": "receipt",
+          "answer": "e"
+        },
+        {
+          "word": "deceive",
+          "answer": "e"
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "vein",
+    "answer": "v e_ i_ n",
+    "say": "Look at vein. The e and i are a team. They make one sound, long a. So I underline both letters."
+  }
+}

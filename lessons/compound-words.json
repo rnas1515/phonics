@@ -1,0 +1,157 @@
+{
+  "id": "compound-words",
+  "title": "Compound Words",
+  "saxonLesson": null,
+  "skill": "compound-words",
+  "priority": 9,
+  "defaultActive": true,
+  "rule": "A compound word is two smaller words put together, like sun and set make sunset. Divide it between the two words.",
+  "trickText": "Look for two smaller words that are real words on their own. If both parts are words, it is a compound word. Divide between them.",
+  "say": "Today's case: compound words. A compound word is two words joined together, like sun and set make sunset. We divide a compound word between the two words.",
+  "activities": [
+    {
+      "type": "code",
+      "instruction": "Tap the space between the two words to divide the compound word.",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "items": [
+        {
+          "word": "sunset",
+          "answer": "s u n | s e t"
+        },
+        {
+          "word": "cupcake",
+          "answer": "c u p | c a k e"
+        },
+        {
+          "word": "popcorn",
+          "answer": "p o p | c o r n"
+        },
+        {
+          "word": "notebook",
+          "answer": "n o t e | b o o k"
+        },
+        {
+          "word": "bedroom",
+          "answer": "b e d | r o o m"
+        },
+        {
+          "word": "playground",
+          "answer": "p l a y | g r o u n d"
+        },
+        {
+          "word": "rainbow",
+          "answer": "r a i n | b o w"
+        },
+        {
+          "word": "sandbox",
+          "answer": "s a n d | b o x"
+        },
+        {
+          "word": "backpack",
+          "answer": "b a c k | p a c k"
+        },
+        {
+          "word": "anthill",
+          "answer": "a n t | h i l l"
+        },
+        {
+          "word": "bathtub",
+          "answer": "b a t h | t u b"
+        }
+      ],
+      "tools": [
+        "divide"
+      ]
+    },
+    {
+      "type": "sort",
+      "instruction": "Is it a compound word: two real words joined together?",
+      "passRule": {
+        "correct": 4,
+        "of": 6
+      },
+      "categories": [
+        {
+          "id": "yes",
+          "label": "Compound word",
+          "why": "Both parts are real words."
+        },
+        {
+          "id": "no",
+          "label": "Not a compound word",
+          "why": "The parts are not both real words."
+        }
+      ],
+      "items": [
+        {
+          "word": "sunset",
+          "answer": "yes",
+          "why": "sun and set are both words, so sunset is a compound word."
+        },
+        {
+          "word": "popcorn",
+          "answer": "yes",
+          "why": "pop and corn are both words."
+        },
+        {
+          "word": "notebook",
+          "answer": "yes",
+          "why": "note and book are both words."
+        },
+        {
+          "word": "rainbow",
+          "answer": "yes",
+          "why": "rain and bow are both words."
+        },
+        {
+          "word": "backpack",
+          "answer": "yes",
+          "why": "back and pack are both words."
+        },
+        {
+          "word": "cupcake",
+          "answer": "yes",
+          "why": "cup and cake are both words."
+        },
+        {
+          "word": "napkin",
+          "answer": "no",
+          "why": "nap is a word, but kin is not part of the meaning. It is not a compound word."
+        },
+        {
+          "word": "basket",
+          "answer": "no",
+          "why": "bas is not a word, so basket is not a compound word."
+        },
+        {
+          "word": "kitten",
+          "answer": "no",
+          "why": "kit and ten are words, but kitten does not mean kit plus ten. It is not a compound word."
+        },
+        {
+          "word": "rabbit",
+          "answer": "no",
+          "why": "rab and bit are not both words that make rabbit."
+        },
+        {
+          "word": "picnic",
+          "answer": "no",
+          "why": "pic and nic are not both words."
+        },
+        {
+          "word": "insect",
+          "answer": "no",
+          "why": "in and sect do not make the meaning of insect."
+        }
+      ]
+    }
+  ],
+  "example": {
+    "word": "sunset",
+    "answer": "s u n | s e t",
+    "say": "Look at sunset. It is two words, sun and set. I divide between them."
+  }
+}
