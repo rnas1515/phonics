@@ -275,7 +275,9 @@ async function oneLetterItem(host, act, item, ctx) {
   }
 
   // Step 3: choose the ending.
-  setPrompt(ctx.quick ? 'Which ending: c k, or k?' : `So which ending does ${word} need?`, ctx.quick);
+  const spoken = act.choices.map((c) => [...c].join(' ')); // "ck" -> "c k", "ke" -> "k e"
+  const list = spoken.length > 1 ? `${spoken.slice(0, -1).join(', ')}, or ${spoken[spoken.length - 1]}` : spoken[0];
+  setPrompt(ctx.quick ? `Which ending: ${list}?` : `So which ending does ${word} need?`, ctx.quick);
   const cb = act.choices.map((c) => h('button', { class: 'btn cat choice', type: 'button', 'data-id': c }, c));
   const choiceRow = h('div', { class: 'btn-row' }, cb);
   area.append(choiceRow);
