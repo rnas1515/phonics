@@ -36,13 +36,16 @@ export async function shrink(file, max = 1400, quality = 0.72) {
   let bmp;
   try { bmp = await createImageBitmap(file); } catch (e) {
     if (!looksHeic(file)) throw new Error('Could not open that picture. Try a JPEG or PNG.');
-    let jpeg;
-    try {
-      const { default: heic2any } = await import('heic2any'); // loaded only now
-      const out = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.8 });
-      jpeg = Array.isArray(out) ? out[0] : out;
-      bmp = await createImageBitmap(jpeg);
-    } catch { throw new Error('Could not convert that HEIC photo. Export it as a JPEG and try again.'); }
+    // Two converters, newest first: iPhone files come in several variants and one library may not read them all.
+    const tries = [
+      async () => { const { heicTo } = await import('heic-to'); return heicTo({ blob: file, type: 'image/jpeg', quality: 0.8 }); },
+      async () => { const { default: heic2any } = await import('heic2any'); const o = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.8 }); return Array.isArray(o) ? o[0] : o; },
+    ];
+    const why = [];
+    for (const t of tries) {
+      try { bmp = await createImageBitmap(await t()); break; } catch (err) { why.push(String(err?.message || err?.code || err).slice(0, 80)); }
+    }
+    if (!bmp) throw new Error(`Could not convert that HEIC photo (${why.join(' / ')}). Export it as a JPEG and try again.`);
   }
   const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
   const c = document.createElement('canvas');

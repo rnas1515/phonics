@@ -13,6 +13,7 @@
     "vite": "^8.3.5"
   },
   "dependencies": {
+    "heic-to": "^1.6.7",
     "heic2any": "^0.0.4"
   }
 }
