@@ -55,23 +55,32 @@ export function assessmentsTab(refresh) {
 
   // Optional AI reading (needs a cloud account and a parent's consent).
   const aiBox = h('div', { class: 'ai-box' });
-  const aiBtn = btn('✨ Read this photo with AI', { cls: 'ghost', onClick: async () => {
-    if (!photoBlob) return (msg.textContent = 'Choose a photo first.');
-    if (!hasConsent()) {
-      if (!confirm('Parent permission\n\n' + CONSENT_TEXT.map((t) => '• ' + t).join('\n') + '\n\nDo you agree?')) return;
-      giveConsent();
-    }
-    if (!confirm('Send this one photo to be read now?')) return;
-    aiBtn.disabled = true; msg.textContent = 'Reading the photo…';
+  const aiMsg = h('p', { class: 'hintline ai-msg', role: 'status', 'aria-live': 'polite' });
+  const say = (t) => { aiMsg.textContent = t; aiMsg.scrollIntoView?.({ block: 'nearest' }); };
+  const consentPanel = h('div', { class: 'card ai-consent', hidden: true });
+  const runRead = async () => {
+    aiBtn.disabled = true; say('Reading the photo… this can take up to 30 seconds.');
     try {
       const r = await readPhoto(photoBlob);
-      if (!r.words.length) msg.textContent = `No missed words found${r.unclear ? ` (${r.unclear})` : ''}. Type them below.`;
-      else { setRows(r.words); msg.textContent = `AI found ${r.words.length} word(s)${r.unclear ? `; could not read: ${r.unclear}` : ''}. CHECK EACH WORD against the photo, fix any mistakes, then build.`; }
-    } catch (e) { msg.textContent = '⚠ ' + e.message; }
+      if (!r.words.length) say(`No missed words found${r.unclear ? ` (${r.unclear})` : ''}. Type them below.`);
+      else { setRows(r.words); say(`AI found ${r.words.length} word(s)${r.unclear ? `; could not read: ${r.unclear}` : ''}. CHECK EACH WORD against the photo, fix any mistakes, then build.`); }
+    } catch (e) { say('⚠ ' + e.message); }
     aiBtn.disabled = false;
+  };
+  const aiBtn = btn('✨ Read this photo with AI', { cls: 'ghost', onClick: () => {
+    if (!photoBlob) return say('Choose a photo first, then tap this button.');
+    if (hasConsent()) return runRead();
+    consentPanel.hidden = false;
+    consentPanel.scrollIntoView?.({ block: 'nearest' });
   } });
+  consentPanel.append(
+    h('strong', {}, 'Parent permission'),
+    h('ul', {}, CONSENT_TEXT.map((t) => h('li', {}, t))),
+    h('div', { class: 'btn-row' },
+      btn('I agree, read this photo', { cls: 'primary', onClick: () => { giveConsent(); consentPanel.hidden = true; runRead(); } }),
+      btn('Cancel', { cls: 'ghost', onClick: () => { consentPanel.hidden = true; } })));
   aiBox.append(aiAvailable()
-    ? h('div', {}, aiBtn, hasConsent() ? btn('Withdraw permission', { cls: 'ghost small', onClick: () => { withdrawConsent(); msg.textContent = 'Permission withdrawn.'; } }) : null)
+    ? h('div', {}, aiBtn, hasConsent() ? btn('Withdraw permission', { cls: 'ghost small', onClick: () => { withdrawConsent(); say('Permission withdrawn.'); } }) : null, aiMsg, consentPanel)
     : h('p', { class: 'hintline' }, 'To read photos with AI, sign in to a cloud account (Settings tab). Otherwise type the words below.'));
 
   const build = btn('Build practice lesson', { cls: 'primary', onClick: async () => {

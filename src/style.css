@@ -343,3 +343,7 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .word-rows .wr select { flex: 1 1 150px; max-width: 100%; }
 .profile-row .grow { flex: 1 1 160px; min-width: 0; }
 .hintline.sent { text-align: center; font-size: 1.1rem; }
+.ai-box { margin: 8px 0; }
+.ai-msg { font-weight: 700; }
+.ai-consent ul { margin: 8px 0 12px 18px; padding: 0; }
+.ai-consent[hidden] { display: none; }
