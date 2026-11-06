@@ -87,6 +87,14 @@ export function autoCode(word) {
 /** Marks that cannot sit on the same letter: choosing one replaces the other. */
 export const CONFLICTS = { breve: ['macron'], macron: ['breve'], kback: ['cedilla'], cedilla: ['kback'] };
 
+/** Split a run of adjacent underlined letters into the groups it really holds (sheep: "shee" -> sh + ee). */
+export function splitRun(run, mark = 'underline') {
+  if (mark === 'underline' && ['eigh', 'igh', 'tch', 'dge'].includes(run)) return [run];
+  const out = [];
+  for (let i = 0; i < run.length; i += 2) out.push(run.slice(i, i + 2));
+  return out;
+}
+
 /** Runs of adjacent letters that share a mark, e.g. ['ee'] for underline in "seed". */
 function groupsOf(parsed, mark) {
   const out = [];
@@ -162,12 +170,7 @@ export function describeCoding(parsed, word, tools = MARKS, boundaries = new Set
   }
   if (has('underline')) {
     // Adjacent underlined letters can be separate groups (sh + ee in sheep), so split each run into known groups.
-    const KNOWN = ['eigh', 'igh', 'tch', 'dge'];
-    const groups = [];
-    for (const run of groupsOf(parsed, 'underline')) {
-      if (KNOWN.includes(run)) groups.push(run);
-      else for (let i = 0; i < run.length; i += 2) groups.push(run.slice(i, i + 2));
-    }
+    const groups = groupsOf(parsed, 'underline').flatMap((run) => splitRun(run));
     const sayGroup = (g) =>
       g.length === 4 ? `${g} is a quadrigraph: four letters, one sound.`
       : g.length === 3 ? `${g} is a trigraph: three letters, one sound.`

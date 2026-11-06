@@ -1,7 +1,7 @@
 // `npm test`: validates every lesson file and sanity-checks the coding helpers.
 import { readdirSync, readFileSync } from 'node:fs';
 import { normalizeLesson, deriveCk } from '../src/validate.js';
-import { autoCode, parseCodedFull, gradeCoding, teamFullAlt, CONFLICTS, describeCoding } from '../src/coding.js';
+import { autoCode, parseCodedFull, gradeCoding, teamFullAlt, CONFLICTS, describeCoding, splitRun } from '../src/coding.js';
 
 let failed = 0;
 const eq = (name, got, want) => {
@@ -60,6 +60,9 @@ eq('missing divider rejected', grade('u n | d e r', [], [], ['divide']), false);
   eq('sheep tip keeps sh and ee apart', /sh is a team.*ee is a team/.test(tip('s_ h_ e_ e_ p', 'sheep')), true);
   eq('rain tip: a pair', tip('r a_ i_ n', 'rain'), 'ai is a team of two letters, one sound. Underline both letters.');
 }
+eq('splitRun sheep', JSON.stringify(splitRun('shee')), JSON.stringify(['sh', 'ee']));
+eq('splitRun eigh stays whole', JSON.stringify(splitRun('eigh')), JSON.stringify(['eigh']));
+eq('splitRun igh stays whole', JSON.stringify(splitRun('igh')), JSON.stringify(['igh']));
 // school notation: arcs, k-back / cedilla, brackets, vowel-team full pattern, prefix box
 eq('arc under both letters of bird', grade('b i~ r~ d', [[1, 'arc'], [2, 'arc']], [], ['arc']), true);
 eq('arc on one letter only rejected', grade('b i~ r~ d', [[1, 'arc']], [], ['arc']), false);

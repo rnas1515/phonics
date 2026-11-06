@@ -2,7 +2,7 @@
 import { h, pick } from './util.js';
 import { speak, stopSpeaking, letters } from './tts.js';
 import { btn, speakBtn, line } from './ui.js';
-import { parseCodedFull, gradeCoding, MARKS, CONFLICTS } from './coding.js';
+import { parseCodedFull, gradeCoding, MARKS, CONFLICTS, splitRun } from './coding.js';
 
 const PRAISE = ['Nice detective work!', 'Case solved!', 'You got it!', 'Sharp eyes!', 'Exactly right!'];
 
@@ -73,13 +73,26 @@ export function renderCoded(parsed, { onTap, onGap, gaps = false } = {}) {
   });
   const paint = (marks, bounds = new Set(), bad = new Set(), badBounds = new Set()) => {
     const has = (i, m) => marks[i] && [...marks[i]].includes(m);
+    // Neighbouring groups (sh + ee in sheep) get separate underlines; only letters of one group are joined.
+    const joined = { underline: new Set(), arc: new Set() }; // "i" = letter i joins letter i+1
+    for (const m of ['underline', 'arc']) {
+      for (let i = 0; i < tiles.length; i++) {
+        if (!has(i, m)) continue;
+        let j = i;
+        while (j + 1 < tiles.length && has(j + 1, m)) j++;
+        const run = parsed.letters.slice(i, j + 1).map((l) => l.ch).join('');
+        let at = i;
+        for (const g of splitRun(run, m)) { for (let k = 0; k < g.length - 1; k++) joined[m].add(at + k); at += g.length; }
+        i = j;
+      }
+    }
     tiles.forEach((t, i) => {
       const cls = ['tile'];
       for (const m of marks[i] || []) cls.push('m-' + m);
-      if (has(i, 'underline') && has(i + 1, 'underline')) cls.push('ul-next');
-      if (has(i, 'underline') && has(i - 1, 'underline')) cls.push('ul-prev');
-      if (has(i, 'arc') && has(i + 1, 'arc')) cls.push('arc-next');
-      if (has(i, 'arc') && has(i - 1, 'arc')) cls.push('arc-prev');
+      if (joined.underline.has(i)) cls.push('ul-next');
+      if (joined.underline.has(i - 1)) cls.push('ul-prev');
+      if (joined.arc.has(i)) cls.push('arc-next');
+      if (joined.arc.has(i - 1)) cls.push('arc-prev');
       if (has(i, 'box') && has(i + 1, 'box')) cls.push('bx-next');
       if (has(i, 'box') && has(i - 1, 'box')) cls.push('bx-prev');
       if (bad.has(i)) cls.push('bad');
