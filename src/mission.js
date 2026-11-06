@@ -8,6 +8,7 @@ import { parseCodedFull } from './coding.js';
 import { btn } from './ui.js';
 import { checkBadges, award } from './gamify.js';
 import * as store from './store.js';
+import { countLesson } from './rewards.js';
 
 export function missionScreen(root, [id]) {
   const lesson = getLesson(id);
@@ -184,6 +185,9 @@ async function runLesson(root, lesson, alive) {
   if (!alive()) return;
   if (lesson.kind === 'checkpoint') return checkpointResults(root, lesson, outcomes, before);
 
+  // A lesson counts toward the next game when every required activity has been passed (in this or an earlier visit).
+  const passedAll = lesson.activities.every((a, i) => a.optional || store.getProgress().skills[lesson.skill]?.passed[`${lesson.id}:${i}`]);
+  const reward = passedAll ? countLesson(lesson.id) : null;
   const required = outcomes.filter((o) => !o.act.optional);
   const mastered = !!store.getProgress().skills[lesson.skill]?.masteredAt;
   const stars = required.length && required.every((o) => o.passed) ? (required.every((o) => o.correct === o.total) ? 3 : 2) : 1;
@@ -191,11 +195,16 @@ async function runLesson(root, lesson, alive) {
   celebrate();
   const earned = store.getProgress().points - before;
   const summary = mastered ? `Skill mastered! You earned ${earned} points.` : `Nice work today. You earned ${earned} points.`;
-  speak(summary);
+  speak(reward?.earnedToken ? `${summary} And you earned a game!` : summary);
   await ask(root, [
     h('h2', {}, mastered ? '🏆 Mastered!' : 'Mission report'),
     h('div', { class: 'stars', 'aria-label': `${stars} stars` }, '⭐'.repeat(stars) + '☆'.repeat(3 - stars)),
     line(summary),
+    reward?.earnedToken
+      ? h('div', { class: 'card badge-new' }, h('span', { class: 'badge-emoji' }, '🎮'), h('div', {}, h('strong', {}, 'You earned a game!'), h('p', {}, `${reward.tokens} game${reward.tokens === 1 ? '' : 's'} saved. Play when you are ready.`), h('a', { class: 'btn primary', href: '#/games' }, 'Play now')))
+      : reward?.counted
+        ? h('p', { class: 'hintline' }, `🎮 ${reward.progress} of ${reward.per} lessons to your next game`)
+        : null,
     ...fresh.map((b) => h('div', { class: 'card badge-new' }, h('span', { class: 'badge-emoji' }, b.emoji), h('div', {}, h('strong', {}, 'New badge: ' + b.name), h('p', {}, b.how)))),
     h('div', { class: 'btn-row' }, h('a', { class: 'btn ghost', href: '#/review' }, 'Review mix'), h('a', { class: 'btn primary', href: '#/' }, 'Back to HQ')),
   ], []);

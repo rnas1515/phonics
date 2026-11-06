@@ -31,6 +31,9 @@ const DEFAULT_SETTINGS = () => ({
   pin: hashPin('1234'),
   pinIsDefault: true,
   sessionMinutes: 15,
+  lessonsPerGame: 5, // lessons passed for each game token
+  maxTokens: 3, // tokens that can be banked
+  gameMinutes: 5, // length of one game session
   tts: { enabled: true, rate: 0.9, voice: '' },
   active: {}, // lessonId -> boolean (unset = lesson.defaultActive)
 });
@@ -46,6 +49,8 @@ const DEFAULT_PROGRESS = () => ({
   sessions: [],
   checkpoints: [],
   reviews: 0,
+  rewards: { counted: {}, progress: 0, tokens: 0, earned: 0, lost: 0 }, // game tokens: 1 per 5 lessons passed
+  games: { sessions: 0, plays: {}, best: {} },
   placement: {}, // skillId -> {status:'secure'|'shaky'|'gap', score, date}
   points: 0,
   badges: {},

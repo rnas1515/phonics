@@ -101,6 +101,27 @@ for (const [w, c] of [
 eq('word lab: sight word has no coding', analyzeWord('said').empty, true);
 eq('word lab: ve exception noted', analyzeWord('have').irregular, true);
 
+// reward games: 1 token per 5 lessons passed, each lesson counted once, bank of 3
+import { applyCount, applySpend, emptyRewards } from '../src/rewardlogic.js';
+{
+  const r = emptyRewards();
+  for (let i = 1; i <= 4; i++) applyCount(r, 'l' + i);
+  eq('4 lessons: no token yet', r.tokens + '/' + r.progress, '0/4');
+  eq('5th lesson earns a token', applyCount(r, 'l5').earnedToken, true);
+  eq('progress resets after a token', r.tokens + '/' + r.progress, '1/0');
+  eq('same lesson again is ignored', applyCount(r, 'l5').counted, false);
+  eq('ignored repeat does not move progress', r.progress, 0);
+  for (let i = 6; i <= 15; i++) applyCount(r, 'l' + i);
+  eq('15 lessons: 3 tokens', r.tokens, 3);
+  for (let i = 16; i <= 20; i++) applyCount(r, 'l' + i);
+  eq('shelf is capped at 3', r.tokens, 3);
+  eq('overflow reward is noted, not banked', r.lost, 1);
+  eq('spend one', applySpend(r), true);
+  eq('tokens after spend', r.tokens, 2);
+  const e = emptyRewards();
+  eq('cannot spend with none', applySpend(e), false);
+}
+
 // voice ranking: natural voices beat robotic ones
 import { scoreVoice } from '../src/tts.js';
 const V = (name, lang = 'en-US') => ({ name, lang });

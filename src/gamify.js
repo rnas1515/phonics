@@ -12,6 +12,7 @@ export const BADGES = [
   { id: 'perfect', emoji: '💎', name: 'Perfect Set', how: 'Get every word right in a set', test: (P) => !!P.badges.perfect },
   { id: 'streak3', emoji: '🔥', name: '3-Day Streak', how: 'Practice 3 days in a row', test: (P) => P.streak.best >= 3 },
   { id: 'streak7', emoji: '🚀', name: '7-Day Streak', how: 'Practice 7 days in a row', test: (P) => P.streak.best >= 7 },
+  { id: 'game-time', emoji: '🎮', name: 'Game Time', how: 'Earn and play your first game', test: (P) => P.games.sessions >= 1 },
   { id: 'review', emoji: '🔁', name: 'Review Ranger', how: 'Finish 3 review mixes', test: (P) => P.reviews >= 3 },
   { id: 'points100', emoji: '⭐', name: '100 Points', how: 'Earn 100 points', test: (P) => P.points >= 100 },
   { id: 'points500', emoji: '🌟', name: '500 Points', how: 'Earn 500 points', test: (P) => P.points >= 500 },

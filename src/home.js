@@ -4,6 +4,7 @@ import { speak } from './tts.js';
 import { allLessons, suggestNext, isMastered, accuracy } from './lessons.js';
 import { BADGES } from './gamify.js';
 import * as store from './store.js';
+import { rewardStatus } from './rewards.js';
 
 function greeting() {
   const hr = new Date().getHours();
@@ -23,6 +24,18 @@ function status(lesson) {
 function liveStreak(st) {
   const y = today(new Date(Date.now() - 864e5));
   return st.last === today() || st.last === y ? st.count : 0;
+}
+
+function rewardCard() {
+  const r = rewardStatus();
+  const full = r.tokens >= r.max;
+  return h('section', { class: 'card reward' },
+    h('div', { class: 'reward-head' }, h('strong', {}, '🎮 Game time'), r.tokens ? h('span', { class: 'chip done' }, `${r.tokens} saved`) : null),
+    full
+      ? h('p', {}, 'Your game shelf is full! Play a game to make room.')
+      : h('p', {}, `${r.progress} of ${r.per} lessons to your next game`),
+    h('div', { class: 'bar', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': r.per, 'aria-valuenow': r.progress }, h('i', { style: `width:${full ? 100 : Math.round((r.progress / r.per) * 100)}%` })),
+    r.tokens ? h('a', { class: 'btn primary', href: '#/games' }, `Play a game (${r.tokens} saved) ▶`) : null);
 }
 
 export function homeScreen(root) {
@@ -70,6 +83,7 @@ export function homeScreen(root) {
         h('div', { class: 'stat' }, h('b', {}, `🏅 ${earned.length}`), h('span', {}, 'badges')),
         h('div', { class: 'stat wide' }, h('b', {}, `${mins} / ${cap} min`), h('div', { class: 'bar' }, h('i', { style: `width:${Math.min(100, (mins / cap) * 100)}%` })), h('span', {}, 'today'))),
       mission,
+      rewardCard(),
       h('div', { class: 'grid2' },
         h('a', { class: 'btn big', href: '#/review' }, '🔁 Review mix'),
         h('a', { class: 'btn big', href: '#/sight' }, '👁️ Sight words')),
