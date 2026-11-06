@@ -189,7 +189,7 @@ p { margin: .3em 0; }
 .gap::after { content: ''; position: absolute; left: 50%; top: 4px; bottom: 4px; width: 0; transform: translateX(-50%); border-radius: 4px; }
 .gap.on::after { width: 7px; background: var(--brand); }
 .gap.bad::before { background: var(--soft-bg); }
-.tool-glyph.g-box::before { content: 'ed'; position: absolute; inset: 0; text-align: center; font-size: 1.2rem; line-height: 26px; border: 3px solid var(--brand); border-radius: 6px; }
+.tool-glyph.g-box::before { content: ''; position: absolute; left: 6px; right: 6px; top: 2px; bottom: 2px; border: 4px solid var(--brand); border-radius: 6px; }
 .tool-glyph.g-divide::before { content: 'a'; position: absolute; left: 4px; top: 0; font-size: 1.4rem; line-height: 28px; }
 .tool-glyph.g-divide::after { content: 'b'; position: absolute; right: 4px; top: 0; font-size: 1.4rem; line-height: 28px; }
 .tool-glyph.g-divide { background: linear-gradient(var(--brand), var(--brand)) center / 4px 100% no-repeat; }

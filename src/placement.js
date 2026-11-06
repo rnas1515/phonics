@@ -34,7 +34,7 @@ export function checkupScreen(root) {
       const items = pickItems(act, ITEMS_PER_SKILL);
       const r = await playItems(root, items.map((item) => ({ lesson, act, item })), {
         title: `🔍 ${lesson.title}`, quick: true, alive,
-        instruction: `Clue about ${lesson.title}. Do your best.`,
+        instruction: `Clue about ${lesson.title}. ${act.instruction}`,
       });
       if (!r || !alive()) return;
       store.setPlacement(lesson.skill, statusFor(r.correct, r.total), r.correct);
