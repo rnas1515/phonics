@@ -101,6 +101,17 @@ for (const [w, c] of [
 eq('word lab: sight word has no coding', analyzeWord('said').empty, true);
 eq('word lab: ve exception noted', analyzeWord('have').irregular, true);
 
+// speech is split into short pieces, nothing is lost, order is kept
+import { splitSpeech } from '../src/tts.js';
+{
+  const long = "Today's case is the sneaky e. When a word ends with a vowel, a consonant, and an e, the e is silent. It sneaks in and makes the first vowel say its name. Put a macron on the vowel and cross out the e, like in cake, which is a very long sentence with commas, and more words, and still more words to make it longer than one hundred forty characters in total.";
+  const parts = splitSpeech(long);
+  eq('speech pieces are short', parts.every((p) => p.length <= 140), true);
+  eq('speech keeps every word, in order', parts.join(' ').replace(/\s+/g, ' '), long.replace(/\s+/g, ' '));
+  eq('short text is one piece', splitSpeech('Nice work!').length, 1);
+  eq('empty text is nothing', splitSpeech('   ').length, 0);
+}
+
 // reward games: 1 token per 5 lessons passed, each lesson counted once, bank of 3
 import { applyCount, applySpend, emptyRewards } from '../src/rewardlogic.js';
 {

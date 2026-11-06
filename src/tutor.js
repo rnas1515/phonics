@@ -1,5 +1,5 @@
 import { h, download, slug } from './util.js';
-import { speak, rankedVoices, scoreVoice, configureTts } from './tts.js';
+import { speak, rankedVoices, scoreVoice, configureTts, currentVoiceName } from './tts.js';
 import { pinPad, btn } from './ui.js';
 import { allLessons, problems, accuracy, weekOf } from './lessons.js';
 import { normalizeLesson, deriveCk } from './validate.js';
@@ -226,6 +226,7 @@ function settingsTab(refresh) {
     h('label', { class: 'field' }, h('span', {}, 'Soft session cap (minutes)'), cap),
     h('label', { class: 'field' }, h('span', {}, 'Voice speed'), rate),
     h('label', { class: 'field' }, h('span', {}, 'Voice (★ = most natural on this device; try a few with Test voice)'), voice),
+    h('p', { class: 'hintline' }, `Speaking with: ${currentVoiceName()}`),
     btn('🔊 Test voice', { cls: 'ghost', onClick: () => { apply(); speak('Hello detective. Let us solve some words.'); } }),
     h('h3', {}, 'Tutor PIN'), h('div', { class: 'btn-row' }, p1, setPin),
     h('h3', {}, 'Backup / move to another device'),
