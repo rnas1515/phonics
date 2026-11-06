@@ -2,7 +2,7 @@
 import { h, pick } from './util.js';
 import { speak, stopSpeaking, letters } from './tts.js';
 import { btn, speakBtn, line } from './ui.js';
-import { parseCodedFull, gradeCoding, MARKS } from './coding.js';
+import { parseCodedFull, gradeCoding, MARKS, CONFLICTS } from './coding.js';
 
 const PRAISE = ['Nice detective work!', 'Case solved!', 'You got it!', 'Sharp eyes!', 'Exactly right!'];
 
@@ -101,7 +101,8 @@ async function codeItem(host, act, item, ctx) {
         toolRow.classList.add('nudge'); setTimeout(() => toolRow.classList.remove('nudge'), 700);
         return;
       }
-      state[i].has(tool) ? state[i].delete(tool) : state[i].add(tool);
+      if (state[i].has(tool)) state[i].delete(tool);
+      else { for (const c of CONFLICTS[tool] || []) state[i].delete(c); state[i].add(tool); } // a vowel is short OR long, never both
       w.paint(state, bounds);
     },
     onGap: (p) => {
@@ -131,6 +132,18 @@ async function codeItem(host, act, item, ctx) {
   );
   speak(word, { queue: true });
 
+  // Say what kind of problem it is, without giving the answer away: an extra mark, or a missing one.
+  function helpText(g, letters) {
+    if (g.badBounds.length && !g.badLetters.length) return 'Almost! Check where the line goes.';
+    const parts = g.detail.slice(0, 2).map((d) => {
+      const ch = letters[d.i].ch;
+      if (d.extra.length && d.missing.length) return `the ${ch} has a wrong mark`;
+      if (d.extra.length) return `the ${ch} has a mark it should not have`;
+      return `the ${ch} needs a mark`;
+    });
+    return `Almost! Look at the orange letters: ${parts.join(', and ')}. Try again.`;
+  }
+
   let resolve;
   const done = new Promise((r) => (resolve = r));
 
@@ -154,7 +167,7 @@ async function codeItem(host, act, item, ctx) {
       return resolve({ correct: false });
     }
     w.paint(state, bounds, new Set(best.badLetters), new Set(best.badBounds));
-    const text = best.badBounds.length && !best.badLetters.length ? 'Almost! Check where the line goes.' : 'Almost! Look at the orange letters and try again.';
+    const text = helpText(best, exp.letters);
     msg.textContent = text;
     speak(text);
   }

@@ -1,7 +1,7 @@
 // `npm test`: validates every lesson file and sanity-checks the coding helpers.
 import { readdirSync, readFileSync } from 'node:fs';
 import { normalizeLesson, deriveCk } from '../src/validate.js';
-import { autoCode, parseCodedFull, gradeCoding, teamFullAlt } from '../src/coding.js';
+import { autoCode, parseCodedFull, gradeCoding, teamFullAlt, CONFLICTS } from '../src/coding.js';
 
 let failed = 0;
 const eq = (name, got, want) => {
@@ -42,6 +42,16 @@ eq('focused suffix task ignores missing vowel marks', grade('t r uv s t e# d#', 
 eq('under divider at 2 accepted', grade('u n | d e r', [], [2], ['divide']), true);
 eq('under divider at 3 rejected', grade('u n | d e r', [], [3], ['divide']), false);
 eq('missing divider rejected', grade('u n | d e r', [], [], ['divide']), false);
+// a vowel with both a breve and a macron is wrong, and the feedback says which letter has the extra mark
+{
+  const e = parseCodedFull('c u- t e/');
+  const st = e.letters.map(() => new Set());
+  st[1].add('breve'); st[1].add('macron'); st[3].add('strike');
+  const g = gradeCoding(st, new Set(), e.letters, e.boundaries);
+  eq('stacked breve+macron rejected', g.ok, false);
+  eq('detail flags extra on u', JSON.stringify(g.detail[0]), JSON.stringify({ i: 1, extra: ['breve'], missing: [] }));
+  eq('breve conflicts with macron', CONFLICTS.breve.includes('macron') && CONFLICTS.macron.includes('breve'), true);
+}
 // school notation: arcs, k-back / cedilla, brackets, vowel-team full pattern, prefix box
 eq('arc under both letters of bird', grade('b i~ r~ d', [[1, 'arc'], [2, 'arc']], [], ['arc']), true);
 eq('arc on one letter only rejected', grade('b i~ r~ d', [[1, 'arc']], [], ['arc']), false);

@@ -84,6 +84,9 @@ export function autoCode(word) {
   return serialize([...w].map((ch, i) => ({ ch, marks: m[i] })));
 }
 
+/** Marks that cannot sit on the same letter: choosing one replaces the other. */
+export const CONFLICTS = { breve: ['macron'], macron: ['breve'], kback: ['cedilla'], cedilla: ['kback'] };
+
 /** Runs of adjacent letters that share a mark, e.g. ['ee'] for underline in "seed". */
 function groupsOf(parsed, mark) {
   const out = [];
@@ -178,10 +181,17 @@ export function gradeCoding(state, bounds, expected, expectedBounds, tools = MAR
   const markTools = tools.filter((t) => t !== 'divide');
   const key = (marks) => [...marks].filter((m) => markTools.includes(m)).sort().join(',');
   const badLetters = [];
-  expected.forEach((e, i) => { if (key(e.marks) !== key(state[i] || [])) badLetters.push(i); });
+  const detail = []; // per wrong letter: marks that should come off, marks still missing
+  expected.forEach((e, i) => {
+    if (key(e.marks) === key(state[i] || [])) return;
+    badLetters.push(i);
+    const want = new Set(e.marks.filter((m) => markTools.includes(m)));
+    const got = new Set([...(state[i] || [])].filter((m) => markTools.includes(m)));
+    detail.push({ i, extra: [...got].filter((m) => !want.has(m)), missing: [...want].filter((m) => !got.has(m)) });
+  });
   const badBounds = [];
   if (tools.includes('divide')) {
     for (const p of new Set([...bounds, ...expectedBounds])) if (bounds.has(p) !== expectedBounds.has(p)) badBounds.push(p);
   }
-  return { ok: !badLetters.length && !badBounds.length, badLetters, badBounds };
+  return { ok: !badLetters.length && !badBounds.length, badLetters, badBounds, detail };
 }
