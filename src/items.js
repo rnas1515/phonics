@@ -44,7 +44,7 @@ function finish(host, ctx, { good, text, spoken, concept }) {
     ? h('div', { class: 'card trick concept' }, h('strong', {}, '🔎 Remember the idea'), h('div', { class: 'say' }, h('p', {}, idea), speakBtn(idea)))
     : null;
   const next = btn(ctx.last ? 'Finish ▶' : 'Next ▶', { cls: 'primary next' });
-  host.append(fb, card, next);
+  host.append(...[fb, card, next].filter(Boolean)); // append(null) would print the word "null"
   next.focus();
   speak(spoken ?? text);
   if (idea) speak(idea, { queue: true });
