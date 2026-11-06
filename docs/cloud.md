@@ -23,3 +23,18 @@ Every row belongs to the signed-in user; row-level security stops anyone else re
 
 ## Not done yet (next steps)
 - Separate tutor login (a tutor seeing several families), photo upload, AI reading of photos with parent consent, mobile app wrap, and the legal work needed before other families sign up (children's privacy rules such as COPPA).
+
+## AI reading of assessment photos (optional)
+In the tutor view, Assessments tab, after choosing a photo and signing in, **Read this photo with AI** asks Claude which words were marked wrong and fills in the word list. The tutor must check every word before building the lesson.
+
+How it works: the app sends the shrunk photo to the Supabase Edge Function `read-assessment` (`supabase/functions/read-assessment/index.ts`). The function checks the user is signed in, enforces 20 reads per user per day, calls the Anthropic API and returns only a short list of words. The photo is not stored by the function. The Anthropic key lives only as a Supabase secret, never in the app or in GitHub.
+
+### Set up
+1. Run the new part of `supabase/schema.sql` again (it adds the `ai_usage` table; the file is safe to re-run).
+2. Create an API key at console.anthropic.com (set a monthly spend limit there). **Do not paste it in chat or in GitHub.**
+3. Supabase, **Edge Functions**, **Secrets** (or Project Settings, Edge Functions): add `ANTHROPIC_API_KEY` with that key.
+4. Supabase, **Edge Functions**, **Deploy a new function**, **Via Editor**: name it exactly `read-assessment`, paste the contents of `supabase/functions/read-assessment/index.ts`, and Deploy. Leave "Verify JWT" on.
+5. In the app: sign in, add a photo, tap the button, and agree to the parent permission note the first time.
+
+### Privacy
+Parent permission is asked once per device and can be withdrawn; every photo also needs a "Send this one photo?" confirmation. The photo goes to Anthropic over a secure connection. Check Anthropic's current data-use terms before you open this to other families, and see the legal note above.

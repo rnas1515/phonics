@@ -37,3 +37,13 @@ create policy "own lessons" on public.custom_lessons
 -- Signed-out visitors get nothing.
 revoke all on public.children, public.custom_lessons from anon;
 grant select, insert, update, delete on public.children, public.custom_lessons to authenticated;
+
+-- Daily count of AI photo reads per user (written only by the read-assessment function).
+create table if not exists public.ai_usage (
+  owner uuid not null references auth.users (id) on delete cascade,
+  day   date not null,
+  count int  not null default 0,
+  primary key (owner, day)
+);
+alter table public.ai_usage enable row level security; -- no policies: only the server function can touch it
+revoke all on public.ai_usage from anon, authenticated;

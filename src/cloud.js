@@ -60,6 +60,11 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
     adopt(await call('/auth/v1/token?grant_type=refresh_token', { method: 'POST', body: { refresh_token: s.refresh } }));
     return load().access;
   }
+  /** Call a server function as the signed-in user. */
+  async function invoke(name, body) {
+    if (!configured) throw new Error('Cloud is not set up');
+    return call(`/functions/v1/${name}`, { method: 'POST', token: await token(), body });
+  }
   const signedIn = () => configured && !!load().access;
 
   /** Two-way sync: newest change wins, per child and per added lesson. */
@@ -109,7 +114,7 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
     try { return await syncNow(); } catch (e) { save({ ...load(), lastError: e.message }); return null; }
   }
 
-  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync };
+  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync, invoke };
 }
 
 export const cloud = createCloud();

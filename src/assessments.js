@@ -5,6 +5,7 @@ import * as store from './store.js';
 import { allLessons } from './lessons.js';
 import { normalizeLesson } from './validate.js';
 import { buildFixLesson, guessSkill } from './assessment.js';
+import { aiAvailable, hasConsent, giveConsent, withdrawConsent, readPhoto, CONSENT_TEXT } from './airead.js';
 import { savePhoto, getPhoto, deletePhoto, shrink } from './photos.js';
 
 export function assessmentsTab(refresh) {
@@ -39,7 +40,39 @@ export function assessmentsTab(refresh) {
     row.read = () => ({ word: w.value, skill: sk.value, sentence: se.value });
     rows.append(row);
   };
+  const setRows = (ws) => {
+    rows.replaceChildren();
+    ws.forEach((x) => {
+      addRow();
+      const r = rows.lastChild;
+      r.querySelector('input').value = x.word;
+      const g = guessSkill(x.word, lessons);
+      if (g) r.querySelector('select').value = g;
+    });
+    for (let i = ws.length; i < 3; i++) addRow();
+  };
   addRow(); addRow(); addRow();
+
+  // Optional AI reading (needs a cloud account and a parent's consent).
+  const aiBox = h('div', { class: 'ai-box' });
+  const aiBtn = btn('✨ Read this photo with AI', { cls: 'ghost', onClick: async () => {
+    if (!photoBlob) return (msg.textContent = 'Choose a photo first.');
+    if (!hasConsent()) {
+      if (!confirm('Parent permission\n\n' + CONSENT_TEXT.map((t) => '• ' + t).join('\n') + '\n\nDo you agree?')) return;
+      giveConsent();
+    }
+    if (!confirm('Send this one photo to be read now?')) return;
+    aiBtn.disabled = true; msg.textContent = 'Reading the photo…';
+    try {
+      const r = await readPhoto(photoBlob);
+      if (!r.words.length) msg.textContent = `No missed words found${r.unclear ? ` (${r.unclear})` : ''}. Type them below.`;
+      else { setRows(r.words); msg.textContent = `AI found ${r.words.length} word(s)${r.unclear ? `; could not read: ${r.unclear}` : ''}. CHECK EACH WORD against the photo, fix any mistakes, then build.`; }
+    } catch (e) { msg.textContent = '⚠ ' + e.message; }
+    aiBtn.disabled = false;
+  } });
+  aiBox.append(aiAvailable()
+    ? h('div', {}, aiBtn, hasConsent() ? btn('Withdraw permission', { cls: 'ghost small', onClick: () => { withdrawConsent(); msg.textContent = 'Permission withdrawn.'; } }) : null)
+    : h('p', { class: 'hintline' }, 'To read photos with AI, sign in to a cloud account (Settings tab). Otherwise type the words below.'));
 
   const build = btn('Build practice lesson', { cls: 'primary', onClick: async () => {
     const words = [...rows.children].map((r) => r.read()).filter((x) => x.word.trim());
@@ -76,6 +109,7 @@ export function assessmentsTab(refresh) {
       h('label', { class: 'field' }, h('span', {}, 'Date'), date),
       h('label', { class: 'field' }, h('span', {}, 'Photo of the assessment'), file),
       preview,
+      aiBox,
       h('h3', {}, 'Words he missed'),
       h('p', { class: 'hintline' }, 'Pick the skill if you know it. "Not sure" looks the word up in the lessons.'),
       rows,
