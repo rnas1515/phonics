@@ -10,6 +10,7 @@ import { checkupScreen } from './placement.js';
 import { labScreen } from './wordlab.js';
 import { gamesScreen } from './games/index.js';
 import { whoScreen, hasPicked, avatarEl } from './profiles.js';
+import { watchForUpdates } from './updates.js';
 
 configureTts(store.getSettings().tts);
 
@@ -57,6 +58,4 @@ window.addEventListener('hashchange', render);
 if (store.getProfiles().length > 1 && !hasPicked() && !['#/who', '#/tutor'].includes(location.hash)) history.replaceState(null, '', '#/who');
 render();
 
-if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
-}
+watchForUpdates();

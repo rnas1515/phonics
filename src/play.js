@@ -49,7 +49,7 @@ export async function playItems(root, entries, opts = {}) {
     const res = await runItem(host, act, item, { index: i, total: entries.length, last: i === entries.length - 1, guided: opts.guided, quick: opts.quick, lesson });
     if (!alive()) return null;
     d.mark(i, res.correct);
-    results.push({ word: item.word, correct: res.correct });
+    results.push({ word: item.word, skill: lesson.skill, correct: res.correct });
     if (!opts.guided && !opts.practice) {
       store.recordItem({ skill: lesson.skill, word: item.word, correct: res.correct, dim: dimOf(act) });
       if (res.correct) correct++;

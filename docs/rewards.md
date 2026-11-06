@@ -11,3 +11,8 @@
   `progress.games` (sessions, plays, best scores) and the "Game Time" badge.
 - **Settings** (in `src/store.js`, no tutor UI yet): `lessonsPerGame` (5), `maxTokens` (3), `gameMinutes` (5).
 - **Logic:** `src/rewardlogic.js` (pure, unit-tested in `npm test`), `src/rewards.js` (storage).
+
+## Spaced review, tips and updates
+- **Spaced review** (`src/spaced.js`): a skill he practiced to mastery returns after 3, then 7, then 14 days. Skills placed only by the check-up are left out. The home screen shows "Today's review" when something is due; it opens `#/review/due`. A round with about two thirds right moves a skill up the ladder; fewer sends it back to 3 days.
+- **Targeted tips** (`src/tips.js`): coding hints add one specific idea (blends get no mark, a silent e gets a slash, short vs long vowel).
+- **Updates** (`src/updates.js`, `sw.template.js`): the page loads network-first, so a reload gets a new version; an open app shows "A new version is ready" with an Update button.

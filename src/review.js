@@ -4,6 +4,7 @@ import { ask, line, celebrate, show } from './ui.js';
 import { allLessons, reviewPool, sightWords } from './lessons.js';
 import { playItems } from './play.js';
 import { checkBadges } from './gamify.js';
+import { dueSkills } from './spaced.js';
 import * as store from './store.js';
 
 const dedupe = (entries) => {
@@ -12,20 +13,25 @@ const dedupe = (entries) => {
 };
 
 /** Quick-fire mix: his trouble words first, then random items from skills he has worked on. */
-export function buildReview(n = 10) {
+export function buildReview(n = 10, onlyDue = false) {
   const active = allLessons().filter(store.isActive);
-  const pool = reviewPool(active);
+  let pool = reviewPool(active);
+  const due = new Set(dueSkills(store.getProgress().skills));
+  if (onlyDue && due.size) pool = pool.filter((e) => due.has(e.lesson.skill));
   const trouble = new Set(store.troubleWords().map((t) => t.word));
-  const hard = shuffle(pool.filter((e) => trouble.has(e.item.word))).slice(0, 4);
-  const rest = shuffle(pool.filter((e) => !hard.includes(e)));
+  const dueFirst = onlyDue ? [] : shuffle(pool.filter((e) => due.has(e.lesson.skill))).slice(0, 4);
+  const hard = shuffle(pool.filter((e) => trouble.has(e.item.word) && !dueFirst.includes(e))).slice(0, 4);
+  const rest = shuffle(pool.filter((e) => !hard.includes(e) && !dueFirst.includes(e)));
+  if (dueFirst.length) return shuffle(dedupe([...dueFirst, ...hard, ...rest]).slice(0, n));
   return shuffle(dedupe([...hard, ...rest]).slice(0, n));
 }
 
-export function reviewScreen(root) {
+export function reviewScreen(root, params = []) {
+  const onlyDue = params[0] === 'due';
   let live = true;
   const alive = () => live;
   (async () => {
-    const entries = buildReview();
+    const entries = buildReview(10, onlyDue);
     if (!entries.length) {
       return show(root, h('div', { class: 'panel' }, h('h2', {}, 'Nothing to review yet'), line('Finish a mission first, then come back for a review mix.'), h('a', { class: 'btn primary', href: '#/' }, 'Back to HQ')));
     }
@@ -33,7 +39,7 @@ export function reviewScreen(root) {
     const r = await playItems(root, entries, { title: '🔁 Review mix', quick: true, alive, instruction: 'Quick-fire review! Do your best on each one.' });
     if (!r || !alive()) return;
     store.getProgress().reviews++;
-    store.saveProgress();
+    store.recordReviewRound(r.results);
     const fresh = checkBadges();
     celebrate();
     const msg = `You got ${r.correct} out of ${r.total}. You earned ${store.getProgress().points - before} points.`;
@@ -45,7 +51,7 @@ export function reviewScreen(root) {
       line(msg),
       missed.length ? h('p', { class: 'hintline' }, 'To look at again: ' + missed.join(', ')) : null,
       ...fresh.map((b) => h('div', { class: 'card badge-new' }, h('span', { class: 'badge-emoji' }, b.emoji), h('div', {}, h('strong', {}, 'New badge: ' + b.name), h('p', {}, b.how)))),
-      h('div', { class: 'btn-row' }, h('a', { class: 'btn ghost', href: '#/review' }, 'Another mix'), h('a', { class: 'btn primary', href: '#/' }, 'Back to HQ')),
+      h('div', { class: 'btn-row' }, h('a', { class: 'btn ghost', href: onlyDue ? '#/' : '#/review' }, onlyDue ? 'Done' : 'Another mix'), h('a', { class: 'btn primary', href: '#/' }, 'Back to HQ')),
     ], []);
   })().catch(console.error);
   return () => { live = false; stopSpeaking(); };

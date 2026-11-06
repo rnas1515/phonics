@@ -3,6 +3,7 @@ import { avatarEl } from './profiles.js';
 import { speak } from './tts.js';
 import { allLessons, suggestNext, isMastered, accuracy } from './lessons.js';
 import { BADGES } from './gamify.js';
+import { dueSkills } from './spaced.js';
 import * as store from './store.js';
 import { rewardStatus } from './rewards.js';
 
@@ -24,6 +25,16 @@ function status(lesson) {
 function liveStreak(st) {
   const y = today(new Date(Date.now() - 864e5));
   return st.last === today() || st.last === y ? st.count : 0;
+}
+
+function reviewCard() {
+  const due = dueSkills(store.getProgress().skills);
+  if (!due.length) return null;
+  const names = due.map((id) => allLessons().find((l) => l.skill === id)?.title).filter(Boolean).slice(0, 3);
+  return h('section', { class: 'card review-due' },
+    h('div', { class: 'reward-head' }, h('strong', {}, "🔁 Today's review"), h('span', { class: 'chip prog' }, `${due.length} due`)),
+    h('p', {}, names.length ? `Time to check: ${names.join(', ')}${due.length > names.length ? ' and more' : ''}.` : 'Some skills are ready for a quick check.'),
+    h('a', { class: 'btn primary', href: '#/review/due' }, 'Start review ▶'));
 }
 
 function rewardCard() {
@@ -83,6 +94,7 @@ export function homeScreen(root) {
         h('div', { class: 'stat' }, h('b', {}, `🏅 ${earned.length}`), h('span', {}, 'badges')),
         h('div', { class: 'stat wide' }, h('b', {}, `${mins} / ${cap} min`), h('div', { class: 'bar' }, h('i', { style: `width:${Math.min(100, (mins / cap) * 100)}%` })), h('span', {}, 'today'))),
       mission,
+      reviewCard(),
       rewardCard(),
       h('div', { class: 'grid2' },
         h('a', { class: 'btn big', href: '#/review' }, '🔁 Review mix'),

@@ -206,3 +206,40 @@ const sched = JSON.parse(readFileSync(new URL('../schedule.json', import.meta.ur
 for (const wk of sched.weeks) for (const sk of wk.skills) if (!skills.has(sk)) { failed++; console.error(`FAIL schedule.json ${wk.date}: unknown skill "${sk}"`); }
 if (failed) { console.error(`\n${failed} problem(s)`); process.exit(1); }
 console.log('\nAll lesson checks passed');
+
+// ---- mistake tips ----
+{
+  const { mistakeTip } = await import('../src/tips.js');
+  const t1 = mistakeTip('trip', [{ i: 0, extra: ['underline'], missing: [] }, { i: 1, extra: ['underline'], missing: [] }]);
+  if (!/blend/.test(t1)) throw new Error('blend tip missing: ' + t1);
+  const t2 = mistakeTip('make', [{ i: 3, extra: [], missing: ['strike'] }]);
+  if (!/end/.test(t2)) throw new Error('silent e tip missing: ' + t2);
+  const t3 = mistakeTip('me', [{ i: 1, extra: ['breve'], missing: ['macron'] }]);
+  if (!/name/.test(t3)) throw new Error('long vowel tip missing: ' + t3);
+  if (mistakeTip('ship', [{ i: 0, extra: [], missing: ['underline'] }]) !== '') throw new Error('should be no tip');
+  console.log('mistake tips ok');
+}
+
+// ---- spaced review ----
+{
+  const { dueSkills, nextReview, dueAt, LADDER } = await import('../src/spaced.js');
+  const D = 864e5, now = Date.now();
+  const iso = (ago) => new Date(now - ago * D).toISOString();
+  const skills = {
+    a: { masteredAt: iso(5) },                 // due: 2 days overdue
+    b: { masteredAt: iso(1) },                 // not yet
+    c: { masteredAt: iso(30), placed: true },  // from check-up only: left out
+    d: { masteredAt: iso(30), review: { step: 1, due: iso(1) } }, // overdue
+    e: { masteredAt: null },
+  };
+  const due = dueSkills(skills, now);
+  if (due.join() !== 'a,d') throw new Error('due order wrong: ' + due.join());
+  if (dueAt(skills.c) !== null) throw new Error('placed skill should not be in the cycle');
+  const up = nextReview({ review: { step: 0 } }, 5, 6, now);
+  if (up.step !== 1 || Math.round((Date.parse(up.due) - now) / D) !== LADDER[1]) throw new Error('should move to 7 days');
+  const top = nextReview({ review: { step: 2 } }, 6, 6, now);
+  if (top.step !== 2 || Math.round((Date.parse(top.due) - now) / D) !== LADDER[2]) throw new Error('should stay at 14 days');
+  const down = nextReview({ review: { step: 2 } }, 2, 6, now);
+  if (down.step !== 0 || Math.round((Date.parse(down.due) - now) / D) !== LADDER[0]) throw new Error('should restart at 3 days');
+  console.log('spaced review ok');
+}

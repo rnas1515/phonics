@@ -1,4 +1,5 @@
 // Renderers: one practice item at a time. Each resolves { correct } (true only when right on the first try).
+import { mistakeTip } from './tips.js';
 import { h, pick } from './util.js';
 import { speak, stopSpeaking, letters } from './tts.js';
 import { btn, speakBtn, line } from './ui.js';
@@ -174,7 +175,8 @@ async function codeItem(host, act, item, ctx) {
     if (extra.length) parts.push(`take the mark off the ${list(extra)}`);
     if (wrong.length) parts.push(`change the mark on the ${list(wrong)}`);
     if (missing.length) parts.push(`the ${list(missing)} still ${missing.length > 1 ? 'need' : 'needs'} a mark`);
-    return `Almost! Look at the orange letters: ${parts.join('; ')}. Try again.`;
+    const tip = mistakeTip(word, g.detail);
+    return `Almost! Look at the orange letters: ${parts.join('; ')}.${tip ? ' ' + tip : ''} Try again.`;
   }
 
   let resolve;
@@ -191,13 +193,14 @@ async function codeItem(host, act, item, ctx) {
       return resolve({ correct: ok });
     }
     mistakes++; attempts++;
+    const tipNow = mistakeTip(word, best.detail);
     if (attempts >= 2) {
       locked = true; check.disabled = clear.disabled = true;
       exp.letters.forEach((e, i) => (state[i] = new Set(e.marks.filter((m) => scopeMarks.includes(m)))));
       bounds.clear(); if (tools.includes('divide')) exp.boundaries.forEach((p) => bounds.add(p));
       w.paint(state, bounds);
       msg.textContent = 'Here is the answer. Read why, then go on.';
-      await finish(host, ctx, { good: false, concept: true, text: `Here is the answer. ${item.why}`, spoken: 'Not quite. ' + item.why });
+      await finish(host, ctx, { good: false, concept: true, text: `Here is the answer. ${tipNow ? tipNow + ' ' : ''}${item.why}`, spoken: 'Not quite. ' + (tipNow ? tipNow + ' ' : '') + item.why });
       return resolve({ correct: false });
     }
     w.paint(state, bounds, new Set(best.badLetters), new Set(best.badBounds));

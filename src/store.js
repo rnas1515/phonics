@@ -1,4 +1,5 @@
 // Local-only persistence (localStorage). Nothing leaves the device.
+import { nextReview } from './spaced.js';
 import { today } from './util.js';
 
 const K = { settings: 'wd.settings.v1', custom: 'wd.customLessons.v1', profiles: 'wd.profiles.v1' };
@@ -206,6 +207,17 @@ export function recordItem({ skill, word, correct, dim = 'concept' }) {
   if (correct) progress.points += 10;
   saveProgress();
   return correct ? 10 : 0;
+}
+
+/** Record how a review round went for each skill in it; moves the skill's next review date. */
+export function recordReviewRound(results) {
+  const by = {};
+  for (const r of results) if (r.skill) { const x = (by[r.skill] ??= { c: 0, t: 0 }); x.t++; if (r.correct) x.c++; }
+  for (const [skill, x] of Object.entries(by)) {
+    const k = progress.skills[skill];
+    if (k && k.masteredAt && !k.placed) k.review = nextReview(k, x.c, x.t);
+  }
+  saveProgress();
 }
 
 /** Mark one activity as passed; the skill is mastered when every required activity has been. */
