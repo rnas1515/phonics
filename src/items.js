@@ -135,13 +135,16 @@ async function codeItem(host, act, item, ctx) {
   // Say what kind of problem it is, without giving the answer away: an extra mark, or a missing one.
   function helpText(g, letters) {
     if (g.badBounds.length && !g.badLetters.length) return 'Almost! Check where the line goes.';
-    const parts = g.detail.slice(0, 2).map((d) => {
-      const ch = letters[d.i].ch;
-      if (d.extra.length && d.missing.length) return `the ${ch} has a wrong mark`;
-      if (d.extra.length) return `the ${ch} has a mark it should not have`;
-      return `the ${ch} needs a mark`;
-    });
-    return `Almost! Look at the orange letters: ${parts.join(', and ')}. Try again.`;
+    const list = (xs) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs[0]);
+    const named = (pred) => g.detail.filter(pred).map((d) => letters[d.i].ch);
+    const extra = named((d) => d.extra.length && !d.missing.length);
+    const missing = named((d) => d.missing.length && !d.extra.length);
+    const wrong = named((d) => d.extra.length && d.missing.length);
+    const parts = [];
+    if (extra.length) parts.push(`take the mark off the ${list(extra)}`);
+    if (wrong.length) parts.push(`change the mark on the ${list(wrong)}`);
+    if (missing.length) parts.push(`the ${list(missing)} still ${missing.length > 1 ? 'need' : 'needs'} a mark`);
+    return `Almost! Look at the orange letters: ${parts.join('; ')}. Try again.`;
   }
 
   let resolve;
@@ -163,6 +166,7 @@ async function codeItem(host, act, item, ctx) {
       exp.letters.forEach((e, i) => (state[i] = new Set(e.marks.filter((m) => markTools.includes(m)))));
       bounds.clear(); if (tools.includes('divide')) exp.boundaries.forEach((p) => bounds.add(p));
       w.paint(state, bounds);
+      msg.textContent = 'Here is the answer. Read why, then go on.';
       await finish(host, ctx, { good: false, text: `Here is the answer. ${item.why}`, spoken: 'Not quite. ' + item.why });
       return resolve({ correct: false });
     }
