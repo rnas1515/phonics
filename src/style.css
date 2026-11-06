@@ -349,3 +349,5 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .ai-consent[hidden] { display: none; }
 [hidden] { display: none !important; }
 .photo-msg { font-weight: 700; }
+/* iPhone/iPad: quick taps on keys and links must never turn into a double-tap zoom */
+a, button, .btn, input, select { touch-action: manipulation; }
