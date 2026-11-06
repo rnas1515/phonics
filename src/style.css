@@ -347,3 +347,5 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .ai-msg { font-weight: 700; }
 .ai-consent ul { margin: 8px 0 12px 18px; padding: 0; }
 .ai-consent[hidden] { display: none; }
+[hidden] { display: none !important; }
+.photo-msg { font-weight: 700; }

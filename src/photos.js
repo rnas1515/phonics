@@ -29,9 +29,21 @@ export const deletePhotosFor = (profileId) =>
   }).catch(() => {});
 export const deleteAllPhotos = () => { try { indexedDB.deleteDatabase(DB); } catch { /* ignore */ } };
 
-/** Shrink a picked image to a small JPEG so it is cheap to keep. */
+const looksHeic = (f) => /heic|heif/i.test(f.type) || /\.(heic|heif)$/i.test(f.name || '');
+
+/** Shrink a picked image to a small JPEG so it is cheap to keep. HEIC (iPhone) is converted if the browser cannot open it. */
 export async function shrink(file, max = 1400, quality = 0.72) {
-  const bmp = await createImageBitmap(file);
+  let bmp;
+  try { bmp = await createImageBitmap(file); } catch (e) {
+    if (!looksHeic(file)) throw new Error('Could not open that picture. Try a JPEG or PNG.');
+    let jpeg;
+    try {
+      const { default: heic2any } = await import('heic2any'); // loaded only now
+      const out = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.8 });
+      jpeg = Array.isArray(out) ? out[0] : out;
+      bmp = await createImageBitmap(jpeg);
+    } catch { throw new Error('Could not convert that HEIC photo. Export it as a JPEG and try again.'); }
+  }
   const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
   const c = document.createElement('canvas');
   c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);

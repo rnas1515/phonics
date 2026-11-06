@@ -18,16 +18,19 @@ export function assessmentsTab(refresh) {
   const title = h('input', { type: 'text', value: 'Assessment', maxlength: 40, 'aria-label': 'Assessment name' });
   const date = h('input', { type: 'date', value: today(), 'aria-label': 'Assessment date' });
   const preview = h('img', { class: 'assess-photo', alt: 'Assessment photo', hidden: true });
-  const file = h('input', { type: 'file', accept: 'image/*', 'aria-label': 'Choose a photo of the assessment' });
+  const photoMsg = h('p', { class: 'hintline photo-msg', role: 'status', 'aria-live': 'polite' });
+  const file = h('input', { type: 'file', accept: 'image/*,.heic,.heif', 'aria-label': 'Choose a photo of the assessment' });
   file.addEventListener('change', async () => {
     const f = file.files?.[0];
     if (!f) return;
+    photoBlob = null; preview.hidden = true;
+    photoMsg.textContent = 'Preparing the photo…';
     try {
       photoBlob = await shrink(f);
       preview.src = URL.createObjectURL(photoBlob);
       preview.hidden = false;
-      msg.textContent = 'Photo added. Look at it, then type the words he missed.';
-    } catch { msg.textContent = 'Could not read that picture. Try another photo.'; }
+      photoMsg.textContent = 'Photo added. Look at it, then type the words he missed.';
+    } catch (e) { photoMsg.textContent = '⚠ ' + (e.message || 'Could not read that picture. Try another photo.'); }
   });
 
   const rows = h('div', { class: 'word-rows' });
@@ -117,7 +120,7 @@ export function assessmentsTab(refresh) {
       h('label', { class: 'field' }, h('span', {}, 'Name'), title),
       h('label', { class: 'field' }, h('span', {}, 'Date'), date),
       h('label', { class: 'field' }, h('span', {}, 'Photo of the assessment'), file),
-      preview,
+      photoMsg, preview,
       aiBox,
       h('h3', {}, 'Words he missed'),
       h('p', { class: 'hintline' }, 'Pick the skill if you know it. "Not sure" looks the word up in the lessons.'),

@@ -8,7 +8,8 @@ function offlineCache() {
     name: 'wd-offline-cache',
     apply: 'build',
     generateBundle(_, bundle) {
-      const files = ['./', ...Object.keys(bundle).map((f) => './' + f), './manifest.webmanifest', './icon.svg'];
+      // The HEIC converter is large and rarely needed: it is fetched (and then kept) only when a HEIC photo is used.
+      const files = ['./', ...Object.keys(bundle).filter((f) => !/heic/i.test(f) && !/heic/i.test(bundle[f].name || '')).map((f) => './' + f), './manifest.webmanifest', './icon.svg'];
       const version = createHash('sha1').update(files.join() + Object.values(bundle).map((b) => b.code || b.source || '').join('')).digest('hex').slice(0, 10);
       const src = readFileSync(new URL('./sw.template.js', import.meta.url), 'utf8')
         .replace('__VERSION__', version)
