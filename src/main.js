@@ -7,10 +7,11 @@ import { missionScreen } from './mission.js';
 import { reviewScreen, sightScreen } from './review.js';
 import { tutorScreen } from './tutor.js';
 import { checkupScreen } from './placement.js';
+import { labScreen } from './wordlab.js';
 
 configureTts(store.getSettings().tts);
 
-const routes = { '': homeScreen, mission: missionScreen, review: reviewScreen, sight: sightScreen, checkup: checkupScreen, tutor: tutorScreen };
+const routes = { '': homeScreen, mission: missionScreen, review: reviewScreen, sight: sightScreen, checkup: checkupScreen, lab: labScreen, tutor: tutorScreen };
 
 const app = h('main', { id: 'app', tabindex: '-1' });
 const points = h('span', { class: 'pill' });

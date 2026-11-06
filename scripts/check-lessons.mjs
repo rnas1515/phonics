@@ -79,6 +79,17 @@ for (const f of readdirSync(new URL('../lessons/', import.meta.url)).filter((f) 
   }
 }
 
+// Word Lab: suggested coding follows the school's examples; unsure cases become notes, not marks
+import { analyzeWord } from '../src/analyze.js';
+for (const [w, c] of [
+  ['cake', 'c` a- k e/'], ['cat', 'c` av t'], ['black', 'b l av c_ k_'], ['sleep', 's l e-_ e/_ p'], ['table', 't a- b[ l e/'],
+  ['little', 'l iv t t[ l e/'], ['candle', 'c` av n d[ l e/'], ['cent', 'c, ev n t'], ['star', 's t a~ r~'], ['boy', 'b o~ y~'],
+  ['knit', 'k/_ n_ iv t'], ['night', 'n i_ g_ h_ t'], ['napkin', 'n av p | k iv n'], ['under', 'uv n | d e~ r~'], ['coin', 'c` o~ i~ n'],
+  ['dish', 'd iv s_ h_'], ['go', 'g o-'], ['quick', 'q~ u~ iv c_ k_'], ['jumped', 'j uv m p e d'], ['baby', 'b a b y'], ['face', 'f a- c, e/'],
+]) eq('word lab ' + w, analyzeWord(w).coded, c);
+eq('word lab: sight word has no coding', analyzeWord('said').empty, true);
+eq('word lab: ve exception noted', analyzeWord('have').irregular, true);
+
 // voice ranking: natural voices beat robotic ones
 import { scoreVoice } from '../src/tts.js';
 const V = (name, lang = 'en-US') => ({ name, lang });

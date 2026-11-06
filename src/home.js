@@ -72,6 +72,7 @@ export function homeScreen(root) {
       h('div', { class: 'grid2' },
         h('a', { class: 'btn big', href: '#/review' }, '🔁 Review mix'),
         h('a', { class: 'btn big', href: '#/sight' }, '👁️ Sight words')),
+      h('a', { class: 'btn big wide-btn', href: '#/lab' }, '🔬 Word Lab: type a word, get coding help'),
       h('h3', {}, 'All cases'),
       h('div', { class: 'cases' }, lessons.map((l) => {
         const st = status(l);

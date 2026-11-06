@@ -238,3 +238,18 @@ input[type='checkbox'] { width: 28px; height: 28px; }
 .tutor select { min-height: 44px; font: inherit; }
 .tutor input[type='checkbox'] { width: 32px; height: 32px; }
 .btn.small { min-height: 44px; }
+
+/* Word Lab */
+.lab-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+.lab-input { flex: 1 1 220px; font: inherit; font-size: 1.6rem; font-weight: 700; padding: 10px 16px; border: 3px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--ink); min-height: 60px; }
+.lab-steps { padding-left: 1.4em; }
+.lab-steps li { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; margin: 8px 0; }
+.lab-steps li span { flex: 1; padding-top: 6px; }
+.card.note { background: #fff3c4; border-color: var(--accent); }
+.card.note ul { margin: 6px 0 0; padding-left: 1.2em; }
+.for-tutors { margin: 12px 0; color: var(--muted); font-size: .9rem; }
+.for-tutors code { display: inline-block; margin-top: 6px; padding: 4px 10px; background: #fff; border: 2px solid var(--line); border-radius: 8px; }
+.wide-btn { width: 100%; margin-top: var(--gap); }
+.lab-steps { list-style: none; counter-reset: step; padding-left: 0; }
+.lab-steps li { counter-increment: step; }
+.lab-steps li::before { content: counter(step); flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; display: grid; place-items: center; margin-top: 4px; }
