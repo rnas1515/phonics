@@ -6,6 +6,7 @@ import { allLessons } from './lessons.js';
 import { normalizeLesson } from './validate.js';
 import { buildFixLesson, guessSkill } from './assessment.js';
 import { aiAvailable, hasConsent, giveConsent, withdrawConsent, readPhoto, CONSENT_TEXT } from './airead.js';
+import { cloud } from './cloud.js';
 import { savePhoto, getPhoto, deletePhoto, shrink } from './photos.js';
 
 export function assessmentsTab(refresh) {
@@ -110,6 +111,7 @@ export function assessmentsTab(refresh) {
       btn('Delete', { cls: 'ghost small danger', onClick: async () => {
         if (!confirm(`Delete this assessment record${a.photo ? ' and its photo' : ''}? The practice lesson stays unless you delete it in the Lessons tab.`)) return;
         if (a.photo) await deletePhoto(a.photo);
+        if (a.cloudPhoto) await cloud.deleteFile(a.cloudPhoto).catch(() => {});
         store.removeAssessment(a.id); refresh();
       } }));
   });

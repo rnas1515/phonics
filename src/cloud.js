@@ -70,6 +70,18 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
     if (!configured) throw new Error('Cloud is not set up');
     return call(path, { ...opts, token: await token() });
   }
+  // Private file storage for assessment photos (only used when the family turns photo sync on).
+  const BUCKET = 'assessment-photos';
+  async function fileCall(method, path, init = {}) {
+    if (!configured) throw new Error('Cloud is not set up');
+    const t = await token();
+    const res = await doFetch(`${base}/storage/v1/object/${path}`, { method, ...init, headers: { apikey: key, Authorization: `Bearer ${t}`, ...(init.headers || {}) } });
+    if (!res.ok) { const e = new Error(`Photo storage problem (${res.status})`); e.status = res.status; throw e; }
+    return res;
+  }
+  const putFile = (path, blob) => fileCall('POST', `${BUCKET}/${path}`, { body: blob, headers: { 'x-upsert': 'true', 'Content-Type': blob.type || 'image/jpeg' } });
+  const getFile = async (path) => (await fileCall('GET', `authenticated/${BUCKET}/${path}`)).blob();
+  const deleteFile = (path) => fileCall('DELETE', `${BUCKET}/${path}`);
   const signedIn = () => configured && !!load().access;
 
   /** Two-way sync: newest change wins, per child and per added lesson. */
@@ -118,12 +130,18 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
 
   /** Never throws: records the problem so the tutor screen can show it. */
   async function trySync() {
-    try { return await syncNow(); } catch (e) { save({ ...load(), lastError: e.message }); return null; }
+    try {
+      const r = await syncNow();
+      try { await hooks.afterSync?.(); } catch (e) { save({ ...load(), lastError: e.message }); }
+      return r;
+    } catch (e) { save({ ...load(), lastError: e.message }); return null; }
   }
 
-  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync, invoke, api };
+  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync, invoke, api, putFile, getFile, deleteFile };
 }
 
+/** Optional extra work after a successful sync (photo sync registers itself here). */
+export const hooks = { afterSync: null };
 export const cloud = createCloud();
 
 /** Sync at start, when the app comes back to the screen, and shortly after changes. */

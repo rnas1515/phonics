@@ -44,3 +44,9 @@ Parent permission is asked once per device and can be withdrawn; every photo als
 - Tutor: signs in to their own account (same email, confirmed) and gets a **Shared with me** tab with each child's points, badges, streak, mastered skills, accuracy, trouble words and last sync. It cannot change anything (checked in the database: a tutor's update affects 0 rows).
 - Database: the `shares` table plus read-only policies on `children` (see `supabase/schema.sql`). Keep **Confirm email** on in Supabase Auth, because access is matched on the email in the login token.
 - Sync only ever touches the account's own rows, so a tutor's device never imports another family's children.
+
+## Photo sync (optional, off by default)
+- Tutor view, Settings, Cloud account, **Assessment photos in the cloud**: **Turn on…** shows a parent permission note. Once on, assessment photos are uploaded to the private `assessment-photos` bucket under the user's own folder, and appear on the family's other devices at the next sync.
+- Tutors you share progress with **cannot** see photos (storage access is owner-only).
+- **Turn off** stops uploading. **Delete my photos from the cloud** removes every stored copy (copies on devices stay). Deleting an assessment record also deletes its cloud photo.
+- The photo record in the child's progress remembers the cloud path (`cloudPhoto`), so a device that lacks the photo downloads it.

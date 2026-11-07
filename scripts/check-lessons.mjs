@@ -454,3 +454,31 @@ console.log('\nAll lesson checks passed');
   eq('api returns rows', rows[0].name, 'Marcelo');
   eq('api sends the token', calls.at(-1).o.headers.Authorization, 'Bearer t');
 }
+
+// ---- photo sync ----
+{
+  const mem = new Map(); globalThis.localStorage = { getItem: (k) => (mem.has(k) ? mem.get(k) : null), setItem: (k, v) => mem.set(k, String(v)), removeItem: (k) => mem.delete(k), get length() { return mem.size; }, key: (i) => [...mem.keys()][i] };
+  const ps = await import('../src/photosync.js');
+  const assessments = [{ id: 'a1', photo: 'p1/a1' }, { id: 'a2', photo: 'p1/a2', cloudPhoto: 'u9/p1/a2.jpg' }, { id: 'a3' }];
+  const s = { getProfiles: () => [{ id: 'p1' }], exportChild: () => ({ progress: { assessments } }), updateAssessment: (_c, id, patch) => Object.assign(assessments.find((a) => a.id === id), patch) };
+  const stored = new Map([['p1/a1', 'BLOB1']]); // a1 is on this device, a2 only in the cloud
+  const sent = [], got = [];
+  const c = { signedIn: () => true, state: () => ({ uid: 'u9' }), putFile: async (p, b) => sent.push([p, b]), getFile: async (p) => { got.push(p); return 'BLOB2'; }, deleteFile: async () => {} };
+  const deps = { getPhoto: async (k) => stored.get(k) || null, savePhoto: async (k, b) => stored.set(k, b), c, s };
+  eq('photo sync is off by default', ps.photoSyncOn(), false);
+  const off = await ps.syncPhotos(deps);
+  eq('nothing is uploaded while off', sent.length + off.up + off.down, 0);
+  ps.setPhotoSync(true);
+  const r = await ps.syncPhotos(deps);
+  eq('one photo sent', r.up, 1);
+  eq('sent to the user folder', sent[0][0], 'u9/p1/a1.jpg');
+  eq('record remembers the cloud copy', assessments[0].cloudPhoto, 'u9/p1/a1.jpg');
+  eq('one photo received', r.down, 1);
+  eq('received photo is stored locally', stored.get('p1/a2'), 'BLOB2');
+  const again = await ps.syncPhotos(deps);
+  eq('second run does nothing', again.up + again.down, 0);
+  const n = await ps.deleteCloudPhotos({ c, s });
+  eq('deleted both cloud copies', n, 2);
+  eq('flags cleared', assessments.some((a) => a.cloudPhoto), false);
+  ps.setPhotoSync(false);
+}

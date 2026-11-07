@@ -75,3 +75,22 @@ create policy "tutor reads shared children" on public.children
 
 revoke all on public.shares from anon;
 grant select, insert, update, delete on public.shares to authenticated;
+
+-- Private bucket for assessment photos (only used when the family turns on photo sync).
+-- Each user can only reach files under a folder named with their own user id.
+insert into storage.buckets (id, name, public)
+values ('assessment-photos', 'assessment-photos', false)
+on conflict (id) do nothing;
+
+drop policy if exists "own photos select" on storage.objects;
+create policy "own photos select" on storage.objects for select to authenticated
+  using (bucket_id = 'assessment-photos' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "own photos insert" on storage.objects;
+create policy "own photos insert" on storage.objects for insert to authenticated
+  with check (bucket_id = 'assessment-photos' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "own photos update" on storage.objects;
+create policy "own photos update" on storage.objects for update to authenticated
+  using (bucket_id = 'assessment-photos' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "own photos delete" on storage.objects;
+create policy "own photos delete" on storage.objects for delete to authenticated
+  using (bucket_id = 'assessment-photos' and (storage.foldername(name))[1] = auth.uid()::text);

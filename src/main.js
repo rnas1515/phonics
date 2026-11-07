@@ -13,6 +13,7 @@ import { whoScreen, hasPicked, avatarEl } from './profiles.js';
 import { startVoicePack } from './voicepack.js';
 import { watchForUpdates } from './updates.js';
 import { startAutoSync } from './cloud.js';
+import './photosync.js';
 
 configureTts(store.getSettings().tts);
 startVoicePack();

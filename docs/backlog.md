@@ -10,7 +10,7 @@ Things we agreed to do later, roughly in the order to pick them up. Update this 
 
 ## After that
 2. ~~**Tutor login**~~ Done: read-only sharing by email and a Shared with me tab (see `docs/cloud.md`). Possible later: tutor can add notes, or edit lessons.
-3. **Photo sync** to the cloud (photos stay on the device today).
+3. ~~**Photo sync**~~ Done: opt-in private cloud storage (see `docs/cloud.md`).
 4. **Mobile app wrap** for iOS and Android (Capacitor), keeping the web code.
 5. **Before other families sign up:** privacy policy, parental consent, deletion on request, and legal review of children's privacy rules (COPPA and similar).
 

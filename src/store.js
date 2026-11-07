@@ -300,6 +300,13 @@ export function recordReviewRound(results) {
 /** Assessments recorded for the child shown now. */
 export const getAssessments = () => (progress.assessments ??= []);
 export function addAssessment(a) { getAssessments().unshift(a); saveProgress(); }
+/** Change fields on one assessment record of any child (used by photo sync). */
+export function updateAssessment(childId, id, patch) {
+  const apply = (p) => { const a = (p.assessments ??= []).find((x) => x.id === id); if (a) Object.assign(a, patch); return !!a; };
+  if (childId === currentId) { if (apply(progress)) saveProgress(); return; }
+  const p = { ...DEFAULT_PROGRESS(), ...read(progressKey(childId), {}) };
+  if (apply(p)) { write(progressKey(childId), p); touch('children', childId); }
+}
 export function removeAssessment(id) { progress.assessments = getAssessments().filter((a) => a.id !== id); saveProgress(); }
 
 /** Mark one activity as passed; the skill is mastered when every required activity has been. */
