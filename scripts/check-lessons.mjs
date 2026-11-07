@@ -401,3 +401,17 @@ console.log('\nAll lesson checks passed');
   eq('reset restores 1234', st.checkPin('1234'), true);
   eq('reset marks default', st.getSettings().pinIsDefault, true);
 }
+
+// ---- recorded voice keys ----
+{
+  const { sentencesOf, sentenceKey } = await import('../src/voicehash.js');
+  eq('sentences split', sentencesOf('Nice detective work! chimp.').join('|'), 'Nice detective work!|chimp.');
+  eq('word and sentence share a key', sentenceKey('chimp.'), sentenceKey('chimp'));
+  eq('different words differ', sentenceKey('chimp') === sentenceKey('chomp'), false);
+  eq('spacing does not matter', sentenceKey('Not   quite.'), sentenceKey('Not quite.'));
+  const { collect } = await import('./voice-corpus.mjs');
+  const lines = collect();
+  eq('corpus has lines', lines.length > 1000, true);
+  eq('corpus keys are unique', new Set(lines.map((l) => l.key)).size, lines.length);
+  eq('praise is recorded once, not once per word', lines.filter((l) => /^Nice detective work/.test(l.text)).length, 1);
+}

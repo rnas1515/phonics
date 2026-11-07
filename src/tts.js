@@ -1,3 +1,4 @@
+import { playPack, stopPack, whenIdle } from './voicepack.js';
 // Text-to-speech via the browser's Web Speech API (speechSynthesis). No speech recognition.
 export const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
@@ -90,6 +91,7 @@ let gen = 0; // bumps whenever speech is interrupted, so lines waiting for the v
 
 export function stopSpeaking() {
   gen++;
+  stopPack();
   try { if (ttsSupported) speechSynthesis.cancel(); } catch { /* speech is optional */ }
 }
 
@@ -99,8 +101,18 @@ export function stopSpeaking() {
  * It never throws: a speech problem must not stop a lesson.
  */
 export function speak(text, opts = {}) {
-  if (!ttsSupported || !cfg.enabled || !text) return Promise.resolve();
+  if (!cfg.enabled || !text) return Promise.resolve();
+  if (!opts.queue) stopPack();
   const mine = opts.queue ? gen : ++gen;
+  // A recorded line wins; if there is none (or the browser refuses to play it) the device voice speaks as before.
+  return playPack(text, { rate: opts.rate ?? cfg.rate, queue: opts.queue, wanted: () => mine === gen }).then((played) => {
+    if (played || mine !== gen || !ttsSupported) return undefined;
+    return whenIdle().then(() => (mine === gen ? speakWithDevice(text, opts, mine) : undefined));
+  });
+}
+
+function speakWithDevice(text, opts, mine) {
+  if (!ttsSupported) return Promise.resolve();
   return voicesReady().then(() => new Promise((resolve) => {
     if (mine !== gen) return resolve(); // interrupted while waiting for the voice list
     try {

@@ -10,10 +10,12 @@ import { checkupScreen } from './placement.js';
 import { labScreen } from './wordlab.js';
 import { gamesScreen } from './games/index.js';
 import { whoScreen, hasPicked, avatarEl } from './profiles.js';
+import { startVoicePack } from './voicepack.js';
 import { watchForUpdates } from './updates.js';
 import { startAutoSync } from './cloud.js';
 
 configureTts(store.getSettings().tts);
+startVoicePack();
 
 const routes = { '': homeScreen, mission: missionScreen, review: reviewScreen, sight: sightScreen, checkup: checkupScreen, lab: labScreen, games: gamesScreen, who: whoScreen, tutor: tutorScreen };
 

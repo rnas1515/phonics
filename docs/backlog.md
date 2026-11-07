@@ -5,7 +5,7 @@ Things we agreed to do later, roughly in the order to pick them up. Update this 
 ## Next up
 1. **Natural voice (pre-recorded audio).** The iPad gives web pages only basic voices, so the device voice stays robotic.
    Plan: generate audio once for lesson lines and practice words with a neural voice service (OpenAI is the cheapest good option), ship the files in the app (works offline, same on every device). Typed words such as assessment words would still use the device voice, unless a later step generates them on demand.
-   Needs: a voice-service API key (entered through the secure form, never in chat) and approval to let the session reach that service.
+   **Status: built, waiting only for the audio to be generated** (see `docs/voice.md`; about $1). Needs: a voice-service API key (entered through the secure form, never in chat) and approval to let the session reach that service.
    Free things to try first: send the "Speaking with: …" line from tutor Settings; Enhanced and Premium voices under Settings, Accessibility, Read & Speak, Voices.
 
 ## After that
