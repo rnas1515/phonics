@@ -107,5 +107,5 @@ export function homeScreen(root) {
           h('strong', {}, l.title), h('span', { class: 'chip ' + st.cls }, st.text));
       })),
       h('h3', {}, 'Badges'), shelf,
-      h('footer', { class: 'foot' }, h('a', { href: '#/tutor' }, '🔒 Tutor'))));
+      h('footer', { class: 'foot' }, h('a', { href: '#/tutor' }, '🔒 Tutor'), ' · ', h('a', { href: '#/privacy' }, 'Privacy'))));
 }

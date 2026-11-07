@@ -482,3 +482,20 @@ console.log('\nAll lesson checks passed');
   eq('flags cleared', assessments.some((a) => a.cloudPhoto), false);
   ps.setPhotoSync(false);
 }
+
+// ---- account deletion (client side) ----
+{
+  const { createCloud } = await import('../src/cloud.js');
+  const mem = new Map(); globalThis.localStorage = { getItem: (k) => (mem.has(k) ? mem.get(k) : null), setItem: (k, v) => mem.set(k, String(v)), removeItem: (k) => mem.delete(k), get length() { return mem.size; }, key: (i) => [...mem.keys()][i] };
+  let sent;
+  const cl = createCloud({ url: 'https://x.test', key: 'KEY', store: {}, fetch: async (u, o) => {
+    const ok = (d) => ({ ok: true, status: 200, text: async () => JSON.stringify(d) });
+    if (u.includes('/auth/')) return ok({ access_token: 't', refresh_token: 'r', expires_in: 3600, user: { id: 'u', email: 'a@b.c' } });
+    sent = { u, body: JSON.parse(o.body) }; return ok({ ok: true });
+  } });
+  await cl.signIn('a@b.c', 'pw');
+  eq('signed in before deletion', cl.signedIn(), true);
+  await cl.deleteAccount();
+  eq('deletion calls the function with a confirmation', sent.u + ' ' + sent.body.confirm, 'https://x.test/functions/v1/delete-account DELETE');
+  eq('signed out after deletion', cl.signedIn(), false);
+}

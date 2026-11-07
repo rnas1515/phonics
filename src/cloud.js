@@ -82,6 +82,11 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
   const putFile = (path, blob) => fileCall('POST', `${BUCKET}/${path}`, { body: blob, headers: { 'x-upsert': 'true', 'Content-Type': blob.type || 'image/jpeg' } });
   const getFile = async (path) => (await fileCall('GET', `authenticated/${BUCKET}/${path}`)).blob();
   const deleteFile = (path) => fileCall('DELETE', `${BUCKET}/${path}`);
+  /** Delete the account and everything stored for it in the cloud (this device's data stays). */
+  async function deleteAccount() {
+    await invoke('delete-account', { confirm: 'DELETE' });
+    try { localStorage.removeItem(SESSION_KEY); } catch { /* ignore */ }
+  }
   const signedIn = () => configured && !!load().access;
 
   /** Two-way sync: newest change wins, per child and per added lesson. */
@@ -137,7 +142,7 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
     } catch (e) { save({ ...load(), lastError: e.message }); return null; }
   }
 
-  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync, invoke, api, putFile, getFile, deleteFile };
+  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync, invoke, api, putFile, getFile, deleteFile, deleteAccount };
 }
 
 /** Optional extra work after a successful sync (photo sync registers itself here). */

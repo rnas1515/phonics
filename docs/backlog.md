@@ -11,8 +11,8 @@ Things we agreed to do later, roughly in the order to pick them up. Update this 
 ## After that
 2. ~~**Tutor login**~~ Done: read-only sharing by email and a Shared with me tab (see `docs/cloud.md`). Possible later: tutor can add notes, or edit lessons.
 3. ~~**Photo sync**~~ Done: opt-in private cloud storage (see `docs/cloud.md`).
-4. **Mobile app wrap** for iOS and Android (Capacitor), keeping the web code.
-5. **Before other families sign up:** privacy policy, parental consent, deletion on request, and legal review of children's privacy rules (COPPA and similar).
+4. **Mobile app wrap** for iOS and Android (Capacitor). Prepared: config and steps in `docs/mobile.md`; native projects must be built on a Mac with Xcode (iOS) or Android Studio. Change the `appId` first.
+5. **Before other families sign up:** drafted in `docs/privacy-policy-draft.md` and `docs/compliance-checklist.md`; in-app privacy page and account deletion are built. Still needs a lawyer, a parental-consent method, and processor agreements.
 
 ## Waiting on Rabih
 - Confirm the 1st-grade lesson tags (see `docs/open-questions.md`) and the other open coding questions listed there.

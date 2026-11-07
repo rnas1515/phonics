@@ -22,6 +22,7 @@ export function cloudSection(refresh) {
         btn('Sign out', { cls: 'ghost', onClick: async () => { await cloud.signOut(); refresh(); } })),
       h('p', { class: 'hintline' }, 'Signing out keeps everything on this device. Photos are never uploaded.'), msg,
       photoSection(refresh),
+      accountDeletion(refresh),
       shareSection(refresh));
   }
   const email = h('input', { type: 'email', placeholder: 'Email', autocomplete: 'email', 'aria-label': 'Email' });
@@ -59,4 +60,19 @@ function photoSection(refresh) {
         try { const n = await deleteCloudPhotos(); msg.textContent = `Deleted ${n} photo(s) from the cloud.`; } catch (e) { msg.textContent = '⚠ ' + e.message; }
       } })),
     panel, msg);
+}
+
+function accountDeletion(refresh) {
+  const msg = h('p', { class: 'hintline', role: 'status', 'aria-live': 'polite' });
+  const word = h('input', { type: 'text', placeholder: 'Type DELETE to confirm', 'aria-label': 'Type DELETE to confirm', autocomplete: 'off' });
+  const box = h('div', { class: 'form', hidden: true }, word,
+    btn('Permanently delete my account', { cls: 'ghost danger', onClick: async () => {
+      if (word.value.trim() !== 'DELETE') return (msg.textContent = 'Type DELETE (in capitals) to confirm.');
+      msg.textContent = 'Deleting…';
+      try { await cloud.deleteAccount(); msg.textContent = 'Your account and cloud data are deleted. Data on this device is unchanged.'; setTimeout(refresh, 2500); }
+      catch (e) { msg.textContent = '⚠ ' + (e.message || 'Could not delete the account.'); }
+    } }));
+  return h('div', {}, h('h3', {}, 'Delete my account'),
+    h('p', { class: 'hintline' }, 'Removes your account, every child\'s synced progress, added lessons, sharing and stored photos from the cloud. This cannot be undone. Progress saved on this device is not deleted.'),
+    btn('Delete my account…', { cls: 'ghost danger', onClick: () => { box.hidden = !box.hidden; } }), box, msg);
 }

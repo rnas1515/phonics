@@ -1,0 +1,6 @@
+{
+  "appId": "com.example.worddetective",
+  "appName": "Word Detective",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
