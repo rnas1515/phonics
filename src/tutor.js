@@ -1,4 +1,5 @@
 import { cloud } from './cloud.js';
+import { sharedTab } from './sharingui.js';
 import { cloudSection } from './cloudui.js';
 import { assessmentsTab } from './assessments.js';
 import { GRADES, DEFAULT_GRADE, validGrade } from './grades.js';
@@ -39,6 +40,7 @@ export function tutorScreen(root) {
     return;
   }
   const tabs = {
+    ...(cloud.signedIn() ? { 'Shared with me': () => sharedTab() } : {}),
     Progress: progressTab, 'Trouble words': troubleTab, Sessions: sessionsTab, Lessons: lessonsTab, Assessments: assessmentsTab, Children: childrenTab, Settings: settingsTab,
   };
   const body = h('div', { class: 'tab-body' });

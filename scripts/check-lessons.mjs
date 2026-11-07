@@ -312,8 +312,10 @@ console.log('\nAll lesson checks passed');
     if (!/^Bearer tok-/.test(o.headers.Authorization || '')) return reply({ message: 'no auth' }, 401);
     const tbl = u.pathname.endsWith('/children') ? server.children : server.lessons;
     const idf = tbl === server.children ? 'local_id' : 'id';
-    if (o.method === 'POST') { for (const r of body) tbl.set(r[idf], { ...tbl.get(r[idf]), ...r }); return reply(null, 201); }
-    return reply([...tbl.values()]);
+    if (o.method === 'POST') { for (const r of body) tbl.set(r[idf], { ...tbl.get(r[idf]), ...r, owner: 'u1' }); return reply(null, 201); }
+    const want = u.searchParams.get('owner'); // "eq.u1"
+    const rows = [...tbl.values(), ...(tbl === server.children ? [{ owner: 'other-family', local_id: 'p1', name: 'Someone Else', grade: 2, progress: { points: 999 }, active: {}, deleted: false, updated_at: '2030-01-01T00:00:00+00:00' }] : [])];
+    return reply(want ? rows.filter((r) => 'eq.' + (r.owner ?? 'u1') === want) : rows);
   };
   const { createCloud } = await import('../src/cloud.js');
   const devices = {};
@@ -336,6 +338,7 @@ console.log('\nAll lesson checks passed');
   const r1 = await A.cloud.syncNow();
   eq('cloud: first sync uploads', r1.pushed >= 3, true);
   eq('server holds Marcelo points', server.children.get('p1').progress.points, 120);
+  eq('a shared child from another family is never synced as ours', A.store.getProgress().points, 120);
   eq('server holds the lesson', server.lessons.has('fix-1'), true);
 
   const B = on('B');
@@ -414,4 +417,40 @@ console.log('\nAll lesson checks passed');
   eq('corpus has lines', lines.length > 1000, true);
   eq('corpus keys are unique', new Set(lines.map((l) => l.key)).size, lines.length);
   eq('praise is recorded once, not once per word', lines.filter((l) => /^Nice detective work/.test(l.text)).length, 1);
+}
+
+// ---- sharing with a tutor ----
+{
+  const sh = await import('../src/sharing.js');
+  const s = sh.summarizeProgress({
+    points: 120, badges: { a: 1, b: 1 }, streak: { count: 3 },
+    skills: { x: { attempts: 10, correct: 8, masteredAt: '2026-11-01' }, y: { attempts: 5, correct: 2 }, z: { attempts: 0 } },
+    words: { chimp: { wrong: 3, attempts: 4 }, book: { wrong: 1, attempts: 1, seeded: true }, cake: { wrong: 0, attempts: 2 } },
+    sessions: [{ date: '2026-11-02' }, { date: '2026-11-05' }], assessments: [{}],
+  });
+  eq('summary points', s.points, 120);
+  eq('summary badges', s.badges, 2);
+  eq('summary mastered/practiced', `${s.mastered}/${s.practiced}`, '1/2');
+  eq('summary accuracy', s.accuracy, 67);
+  eq('summary last session', s.lastSession, '2026-11-05');
+  eq('summary trouble words skip seeded and correct ones', s.trouble.map((w) => w.word).join(), 'chimp');
+  eq('summary of nothing', sh.summarizeProgress().accuracy, null);
+  eq('email check ok', sh.validEmail('rabih@example.com'), true);
+  eq('email check bad', sh.validEmail('rabih@'), false);
+
+  const { createCloud } = await import('../src/cloud.js');
+  const mem = new Map(); globalThis.localStorage = { getItem: (k) => (mem.has(k) ? mem.get(k) : null), setItem: (k, v) => mem.set(k, String(v)), removeItem: (k) => mem.delete(k), get length() { return mem.size; }, key: (i) => [...mem.keys()][i] };
+  const calls = [];
+  const fake = async (u, o) => {
+    calls.push({ u, o });
+    const ok = (d) => ({ ok: true, status: 200, text: async () => JSON.stringify(d) });
+    if (u.includes('/auth/')) return ok({ access_token: 't', refresh_token: 'r', expires_in: 3600, user: { id: 'me', email: 'rabih@example.com' } });
+    return ok(u.includes('/children') ? [{ owner: 'other', local_id: 'p1', name: 'Marcelo', grade: 2, updated_at: '2026-11-06T10:00:00Z', progress: { points: 5 }, deleted: false }] : []);
+  };
+  const cl = createCloud({ url: 'https://x.test', key: 'KEY', fetch: fake, store: {} });
+  await cl.signIn('rabih@example.com', 'pw');
+  // the sharing module uses the real cloud instance, so check the API shape through this one directly
+  const rows = await cl.api('/rest/v1/children?select=owner&owner=neq.me');
+  eq('api returns rows', rows[0].name, 'Marcelo');
+  eq('api sends the token', calls.at(-1).o.headers.Authorization, 'Bearer t');
 }

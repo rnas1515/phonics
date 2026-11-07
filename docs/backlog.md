@@ -9,7 +9,7 @@ Things we agreed to do later, roughly in the order to pick them up. Update this 
    Free things to try first: send the "Speaking with: …" line from tutor Settings; Enhanced and Premium voices under Settings, Accessibility, Read & Speak, Voices.
 
 ## After that
-2. **Tutor login** so Rabih has his own account and sees progress for the children shared with him.
+2. ~~**Tutor login**~~ Done: read-only sharing by email and a Shared with me tab (see `docs/cloud.md`). Possible later: tutor can add notes, or edit lessons.
 3. **Photo sync** to the cloud (photos stay on the device today).
 4. **Mobile app wrap** for iOS and Android (Capacitor), keeping the web code.
 5. **Before other families sign up:** privacy policy, parental consent, deletion on request, and legal review of children's privacy rules (COPPA and similar).

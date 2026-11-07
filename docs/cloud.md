@@ -38,3 +38,9 @@ How it works: the app sends the shrunk photo to the Supabase Edge Function `read
 
 ### Privacy
 Parent permission is asked once per device and can be withdrawn; every photo also needs a "Send this one photo?" confirmation. The photo goes to Anthropic over a secure connection. Check Anthropic's current data-use terms before you open this to other families, and see the legal note above.
+
+## Sharing with a tutor (read-only)
+- Owner: tutor view, Settings, Cloud account, **Share progress with a tutor**: add the tutor's email. **Stop sharing** removes access.
+- Tutor: signs in to their own account (same email, confirmed) and gets a **Shared with me** tab with each child's points, badges, streak, mastered skills, accuracy, trouble words and last sync. It cannot change anything (checked in the database: a tutor's update affects 0 rows).
+- Database: the `shares` table plus read-only policies on `children` (see `supabase/schema.sql`). Keep **Confirm email** on in Supabase Auth, because access is matched on the email in the login token.
+- Sync only ever touches the account's own rows, so a tutor's device never imports another family's children.

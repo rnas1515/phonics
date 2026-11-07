@@ -65,6 +65,11 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
     if (!configured) throw new Error('Cloud is not set up');
     return call(`/functions/v1/${name}`, { method: 'POST', token: await token(), body });
   }
+  /** Authenticated call to the data API (used by sharing). */
+  async function api(path, opts = {}) {
+    if (!configured) throw new Error('Cloud is not set up');
+    return call(path, { ...opts, token: await token() });
+  }
   const signedIn = () => configured && !!load().access;
 
   /** Two-way sync: newest change wins, per child and per added lesson. */
@@ -75,9 +80,11 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
     const meta = store.getSyncMeta();
     const counts = { pulled: 0, pushed: 0 };
 
+    // Only this account's own rows: children shared BY other families are visible to a tutor but are never synced as theirs.
+    const uid = load().uid || (await call('/auth/v1/user', { token: t })).id;
     const [rc, rl] = await Promise.all([
-      call('/rest/v1/children?select=local_id,name,avatar,grade,progress,active,updated_at,deleted', { token: t }),
-      call('/rest/v1/custom_lessons?select=id,data,updated_at,deleted', { token: t }),
+      call(`/rest/v1/children?select=local_id,name,avatar,grade,progress,active,updated_at,deleted&owner=eq.${uid}`, { token: t }),
+      call(`/rest/v1/custom_lessons?select=id,data,updated_at,deleted&owner=eq.${uid}`, { token: t }),
     ]);
 
     // children
@@ -114,7 +121,7 @@ export function createCloud({ url = env.VITE_SUPABASE_URL, key = env.VITE_SUPABA
     try { return await syncNow(); } catch (e) { save({ ...load(), lastError: e.message }); return null; }
   }
 
-  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync, invoke };
+  return { configured, signedIn, state, signUp, signIn, signOut, syncNow, trySync, invoke, api };
 }
 
 export const cloud = createCloud();

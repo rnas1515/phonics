@@ -47,3 +47,31 @@ create table if not exists public.ai_usage (
 );
 alter table public.ai_usage enable row level security; -- no policies: only the server function can touch it
 revoke all on public.ai_usage from anon, authenticated;
+
+-- Sharing: the owner lets a tutor (by email) READ their children's progress. Tutors can never change it.
+create table if not exists public.shares (
+  owner       uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  tutor_email text not null,
+  created_at  timestamptz not null default now(),
+  primary key (owner, tutor_email)
+);
+alter table public.shares enable row level security;
+
+drop policy if exists "owner manages shares" on public.shares;
+create policy "owner manages shares" on public.shares
+  for all to authenticated using (owner = auth.uid()) with check (owner = auth.uid());
+
+drop policy if exists "tutor sees own shares" on public.shares;
+create policy "tutor sees own shares" on public.shares
+  for select to authenticated using (lower(tutor_email) = lower(auth.jwt() ->> 'email'));
+
+-- Tutors read shared children (needs confirmed emails: keep "Confirm email" on in Supabase Auth settings).
+drop policy if exists "tutor reads shared children" on public.children;
+create policy "tutor reads shared children" on public.children
+  for select to authenticated using (
+    exists (select 1 from public.shares s
+            where s.owner = children.owner and lower(s.tutor_email) = lower(auth.jwt() ->> 'email'))
+  );
+
+revoke all on public.shares from anon;
+grant select, insert, update, delete on public.shares to authenticated;

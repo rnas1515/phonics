@@ -2,6 +2,7 @@
 import { h } from './util.js';
 import { btn } from './ui.js';
 import { cloud } from './cloud.js';
+import { shareSection } from './sharingui.js';
 
 export function cloudSection(refresh) {
   if (!cloud.configured) {
@@ -18,7 +19,8 @@ export function cloudSection(refresh) {
       h('div', { class: 'btn-row' },
         btn('Sync now', { cls: 'primary', onClick: async () => { msg.textContent = 'Syncing…'; const r = await cloud.trySync(); msg.textContent = r ? `Synced: ${r.pulled} received, ${r.pushed} sent.` : 'Could not sync. Check the connection and try again.'; setTimeout(refresh, 1200); } }),
         btn('Sign out', { cls: 'ghost', onClick: async () => { await cloud.signOut(); refresh(); } })),
-      h('p', { class: 'hintline' }, 'Signing out keeps everything on this device. Photos are never uploaded.'), msg);
+      h('p', { class: 'hintline' }, 'Signing out keeps everything on this device. Photos are never uploaded.'), msg,
+      shareSection(refresh));
   }
   const email = h('input', { type: 'email', placeholder: 'Email', autocomplete: 'email', 'aria-label': 'Email' });
   const pw = h('input', { type: 'password', placeholder: 'Password (8+ characters)', autocomplete: 'current-password', 'aria-label': 'Password' });
